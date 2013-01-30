@@ -1,0 +1,21 @@
+1. Login request ------------------------------------------------
+
+http://server_url:3000/user_session
+
+Parameters: 
+
+authenticity_token: "sadsadsa"
+user_session[password]: admin
+user_session[username]: admin
+
+2. License request ------------------------------------------------
+
+
+Creating license - http://server_url:3000/licenses/create
+Updating existing license - http://server_url:3000/licenses/license_id/update
+
+Parameters:
+
+authenticity_token: "sadsadsa"
+license[license_code]:
+license[license_type]: 2
