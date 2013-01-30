@@ -13,29 +13,10 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.login);
 	}
 
-	public void onClick(View v) {
-		// Switching to SkybotTabLayoutActivity screen
-		Intent skybottablayoutIntent = new Intent(getApplicationContext(),
-				SkybotTabLayoutActivity.class);
+	public void onClick(View v) {		
+		
+		Intent skybottablayoutIntent = new Intent(getApplicationContext(),SkybotTabLayoutActivity.class);		
 		startActivity(skybottablayoutIntent);
-
-		/**
-		 * REGISTRATION
-		 * 
-		 */
-
-		/*
-		 * TextView registerScreen = (TextView)
-		 * findViewById(R.id.link_to_register);
-		 */
-
-		// Listening to register new account link
-		/*
-		 * registerScreen.setOnClickListener(new View.OnClickListener() {
-		 * 
-		 * public void onClick(View v) { // Switching to Register screen Intent
-		 * i = new Intent(getApplicationContext(), RegisterActivity.class);
-		 * startActivity(i); } });
-		 */
+		
 	}
 }
