@@ -6,22 +6,35 @@
 
     <uses-sdk android:minSdkVersion="8" />
 
+    <!-- SkybotTab Layout Activity -->
     <application
+        android:backupAgent="false"
         android:icon="@drawable/icon"
-        android:label="@string/app_name" 
-        android:backupAgent="false"> 
+        android:label="@string/app_name" >
         <activity
             android:name=".SkybotTabLayoutActivity"
             android:label="@string/app_name" >
+
+            <!--
+                 <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+
+        <!-- Login Activity -->
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="Login to your Account" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- Menus Activity -->
-
 
         <!-- Songs Activity -->
         <activity android:name="com.skybot.activities.DashboardActivity" />
@@ -37,10 +50,17 @@
 
         <!-- Dashboard Activity -->
         <activity android:name="com.skybot.activities.ReportActivity" />
-        
-          <!-- Settings Activity -->
-        <activity android:name="com.skybot.activities.SettingsActivity" /> 
-        
+
+        <!-- Settings Activity -->
+        <activity android:name="com.skybot.activities.SettingsActivity" />
+
+        <!-- Entry for RegisterActivity.class -->
+        <activity
+            android:name=".RegisterActivity"
+            android:label="Register New Account" >
+        </activity>
+    </application>
+    <application>
     </application>
 
 </manifest>
