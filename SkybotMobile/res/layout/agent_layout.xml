@@ -32,13 +32,13 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/thumbnail"
         android:layout_toRightOf="@+id/thumbnail"
-        android:text="JOB Name "
+        android:text="Job Name"
         android:textColor="#040404"
         android:textSize="15dip"
         android:textStyle="bold"
         android:typeface="sans" />
 
-    <!-- Name -->
+    <!-- Description -->
 
     <TextView
         android:id="@+id/description"
@@ -50,17 +50,17 @@
         android:text="Description"
         android:textColor="#343434"
         android:textSize="10dip" />
-     
-     <!-- Agent/Group -->
-    
+
+    <!-- Agent -->
+
     <TextView
-        android:id="@+id/agentandgroup"
+        android:id="@+id/agent"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:layout_marginTop="2dip"
+        android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"
-        android:text="Agent/Group"
+        android:text="Agent"
         android:textColor="#343434"
         android:textSize="10dip" />
 
