@@ -4,10 +4,14 @@ package com.skybot.connection.connection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -15,6 +19,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
 
 import android.graphics.Bitmap;
@@ -44,6 +49,7 @@ public class HttpConnection implements Runnable {
 	private int method;
 	private Handler handler;
 	private String data;
+	private List<NameValuePair> nameValuePairs;
 
 	private HttpClient httpClient;
 
@@ -55,31 +61,32 @@ public class HttpConnection implements Runnable {
 		handler = _handler;
 	}
 
-	public void create(int method, String url, String data) {
+	public void create(int method, String url, String data, final List<NameValuePair> nameValuePairs) {
 		this.method = method;
 		this.url = url;
 		this.data = data;
+		this.nameValuePairs = nameValuePairs;
 		ConnectionManager.getInstance().push(this);
 	}
 
 	public void get(String url) {
-		create(GET, url, null);
+		create(GET, url, null, null);
 	}
 
-	public void post(String url, String data) {
-		create(POST, url, data);
+	public void post(String url, final List<NameValuePair> nameValuePairs) {
+		create(POST, url, data, nameValuePairs);
 	}
 
 	public void put(String url, String data) {
-		create(PUT, url, data);
+		create(PUT, url, data, null);
 	}
 
 	public void delete(String url) {
-		create(DELETE, url, null);
+		create(DELETE, url, null, null);
 	}
 
 	public void bitmap(String url) {
-		create(BITMAP, url, null);
+		create(BITMAP, url, null, null);
 	}
 
 	@Override
@@ -96,15 +103,16 @@ public class HttpConnection implements Runnable {
 				response = httpClient.execute(new HttpGet(url));
 				break;
 			case POST:
-				HttpPost httpPost = new HttpPost(url);				
-				httpPost.setEntity(new StringEntity(data));
+				HttpPost httpPost = new HttpPost(url);				 
+			     httpPost.setEntity(new UrlEncodedFormEntity(this.nameValuePairs));				
+				//httpPost.setEntity(new StringEntity(data, "UTF-8"));
 				response = httpClient.execute(httpPost);
 				break;
 			case PUT:
 				HttpPut httpPut = new HttpPut(url);
 				httpPut.setEntity(new StringEntity(data));
 				response = httpClient.execute(httpPut);
-				break;
+				break; 
 			case DELETE:
 				response = httpClient.execute(new HttpDelete(url));
 				break;
@@ -125,7 +133,7 @@ public class HttpConnection implements Runnable {
 	private void processEntity(HttpEntity entity) throws IllegalStateException,
 			IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(entity
-				.getContent(), "UTF-8"), 8);
+				.getContent(), "ISO-8859-1"), 8);
 		String line, result = "";
 		while ((line = br.readLine()) != null)
 			result += line;
