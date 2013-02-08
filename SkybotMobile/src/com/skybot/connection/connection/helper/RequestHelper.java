@@ -1,9 +1,13 @@
 package com.skybot.connection.connection.helper;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,7 +21,7 @@ import com.skybot.util.Constants;
 public class RequestHelper {
 
 	/**
-	 * Main Request Creator
+	 * Main GET Request Creator
 	 * 
 	 * @param map
 	 * @return
@@ -50,6 +54,69 @@ public class RequestHelper {
 		}
 
 		return builder.toString();
+	}
+	
+	/**
+	 * Main GET Request Creator
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public String constructPostRequestString(final Map<String, String> map) {
+		final StringBuilder builder = new StringBuilder();				
+
+		if (map != null && !map.isEmpty()) {
+			//builder.append(Constants.PARAMETER_SEPARATOR);
+			final Iterator<String> iter = map.keySet().iterator();
+			int counter = 0;
+			while (iter.hasNext()) {
+				final String currentKey = iter.next();
+				final String currentValue = map.get(currentKey);
+
+				//builder.append(URLEncoder.encode(currentKey));
+				builder.append(currentKey);
+				builder.append(Constants.EQUAL);
+				//if (currentValue != null)// && !currentKey.equals(Constants.AUTH_TOKEN)
+				//	builder.append(URLEncoder.encode(currentValue));
+				//else if(currentValue != null)
+					builder.append(currentValue); 
+
+				if (counter != map.size() - 1) {
+					builder.append(Constants.PARAMETER_SEPARATOR);
+				}
+
+				counter++;
+			}
+		}
+
+		return builder.toString();
+	}
+	
+	/**
+	 * 
+	 * @param keyValueMap
+	 * @return
+	 */
+	public List<NameValuePair> createPostDataWithKeyValuePair(
+			final Map<String, String> keyValueMap) {
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
+		Iterator<String> iter = keyValueMap.keySet().iterator();
+
+		while (iter.hasNext()) {
+
+			final String currentKey = iter.next();
+
+			if (currentKey != null) {
+				final String currentValue = keyValueMap.get(currentKey);
+
+				nameValuePairs.add(new BasicNameValuePair(currentKey,
+						currentValue));
+			}
+		}
+
+		return nameValuePairs;
+
 	}
 
 }
