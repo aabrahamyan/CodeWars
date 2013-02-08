@@ -20,14 +20,14 @@ public class JobsAdapter extends BaseAdapter {
 	private Activity activity;
 	private ArrayList<HashMap<String, String>> data;
 	private static LayoutInflater inflater = null;
-	public ImageLoaderAdapter imageLoader;
+	//public ImageLoaderAdapter imageLoader;
 
 	public JobsAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
 		activity = a;
 		data = d;
 		inflater = (LayoutInflater) activity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		imageLoader = new ImageLoaderAdapter(activity.getApplicationContext());
+		//imageLoader = new ImageLoaderAdapter(activity.getApplicationContext());
 	}
 
 	public int getCount() {
@@ -61,10 +61,10 @@ public class JobsAdapter extends BaseAdapter {
 		description.setText(jobs
 				.get(CustomizedListViewActivity.KEY_DESCRIPTION));
 		// agent.setText(jobs.get(CustomizedListViewActivity.KEY_AGENT));
-		imageLoader
+	/*	imageLoader
 				.DisplayImage(
 						jobs.get(CustomizedListViewActivity.KEY_THUMB_URL),
-						thumb_image);
+						thumb_image);*/
 		return vi;
 	}
 }
