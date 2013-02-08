@@ -1,9 +1,13 @@
 package com.skybot.connection.connection.helper;
 
-
-
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 /**
  * 
@@ -18,7 +22,7 @@ public class RequestCreator {
 	 * @param objects
 	 * @return
 	 */
-	public Map createAppropriateMapRequest(Object... objects) {
+	public Map<String, String> createAppropriateMapRequest(Object... objects) {
 
 		final Map<String, String> map = new HashMap<String, String>();
 
@@ -34,5 +38,7 @@ public class RequestCreator {
 
 		return map;
 	}
+
+	
 
 }
