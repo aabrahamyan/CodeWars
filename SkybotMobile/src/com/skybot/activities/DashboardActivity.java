@@ -1,5 +1,6 @@
 package com.skybot.activities;
 
+import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.ScrollItemsFragmentAdapter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -12,7 +13,7 @@ import android.support.v4.view.ViewPager;
  * @author gor, armenabrahamyan
  * 
  */
-public class DashboardActivity extends FragmentActivity {
+public class DashboardActivity extends FragmentActivity implements ActionDelegate{
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,6 +31,18 @@ public class DashboardActivity extends FragmentActivity {
 		/** Setting the pagerAdapter to the pager object */
 		pager.setAdapter(pagerAdapter);
 
+	}
+
+	@Override
+	public void didFinishRequestProcessing() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void didFailRequestProcessing() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/*

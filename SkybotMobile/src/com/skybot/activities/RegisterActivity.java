@@ -1,11 +1,13 @@
 package com.skybot.activities;
 
+import com.skybot.activities.delegate.ActionDelegate;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends Activity implements ActionDelegate {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,5 +24,17 @@ public class RegisterActivity extends Activity {
 				finish();
 			}
 		});
+	}
+
+	@Override
+	public void didFinishRequestProcessing() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void didFailRequestProcessing() {
+		// TODO Auto-generated method stub
+		
 	}
 }
