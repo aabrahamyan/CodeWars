@@ -29,7 +29,7 @@ public class BaseNetworkManager {
 	 * @param classString
 	 * @param serviceName
 	 */
-	public void constructConnectionAndHit(final String successMessage,
+	public void constructConnectionAndHitPOST(final String successMessage,
 			final String startingMessage, final List<NameValuePair> paramsList,
 			final Object managerObject, final String classString,
 			final String serviceName) {
@@ -69,6 +69,7 @@ public class BaseNetworkManager {
 		final String httpRequestUrl = builder.toString();
 
 		connection.post(httpRequestUrl, paramsList);
+		
 
 	}
 

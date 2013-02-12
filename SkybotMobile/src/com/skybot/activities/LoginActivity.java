@@ -49,7 +49,7 @@ public class LoginActivity extends Activity implements ActionDelegate {
 			Map<String, String> params = creator.createAppropriateMapRequest(
 
 			Constants.AUTH_TOKEN, authToken, Constants.USERNAME, username,
-					Constants.PASSWORD, password, Constants.COMMIT, "Log In");
+					Constants.PASSWORD, password, Constants.COMMIT, "Log In"); 
 
 			// ----------------------- Construct POST DATA
 			// ---------------------------//
@@ -57,7 +57,7 @@ public class LoginActivity extends Activity implements ActionDelegate {
 			final List<NameValuePair> paramsList = reqHelper
 					.createPostDataWithKeyValuePair(params);
 
-			baseNetworkManager.constructConnectionAndHit("Login Successful",
+			baseNetworkManager.constructConnectionAndHitPOST("Login Successful",
 					"Login Request Started", paramsList, this,
 					Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
 
