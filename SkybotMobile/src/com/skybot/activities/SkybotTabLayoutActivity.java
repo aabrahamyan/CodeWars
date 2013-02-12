@@ -1,5 +1,6 @@
 package com.skybot.activities;
 
+import com.skybot.activities.delegate.ActionDelegate;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -17,11 +18,15 @@ import android.widget.TabHost.TabSpec;
  * @author gor, armenabrahamyan
  * 
  */
-public class SkybotTabLayoutActivity extends TabActivity {
+public class SkybotTabLayoutActivity extends TabActivity implements ActionDelegate{
 	/** Tab Layout. */
+	/**
+	 * TODO: USING TABACTIVITY IS DEPRECATED INSTEAD WE NEED TO CREATE TABS WITH
+	 * FRAGMENTS - A.A.
+	 */
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
@@ -80,8 +85,8 @@ public class SkybotTabLayoutActivity extends TabActivity {
 
 	}
 
-	
-//---------------------------------- Menu Callbacks -------------------------------//	
+	// ---------------------------------- Menu Callbacks
+	// -------------------------------//
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater menuInflater = getMenuInflater();
@@ -107,6 +112,18 @@ public class SkybotTabLayoutActivity extends TabActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public void didFinishRequestProcessing() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void didFailRequestProcessing() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

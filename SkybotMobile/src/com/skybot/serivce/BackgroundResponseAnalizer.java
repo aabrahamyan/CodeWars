@@ -30,7 +30,7 @@ public class BackgroundResponseAnalizer extends Thread {
 	@Override
 	public void run() {
 		super.run();
-
+		
 		BaseResponseAnalyzer.analyze(serviceName, params, responseData);
 	}
 

@@ -1,21 +1,24 @@
 package com.skybot.activities;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.http.NameValuePair;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
 import com.skybot.util.Base64Coder;
 import com.skybot.util.Constants;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 	@Override

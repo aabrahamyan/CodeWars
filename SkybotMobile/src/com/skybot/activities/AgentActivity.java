@@ -1,5 +1,7 @@
 package com.skybot.activities;
 
+import com.skybot.activities.delegate.ActionDelegate;
+
 import android.app.Activity;
 
 
@@ -19,7 +21,7 @@ import android.widget.ImageView;
  * 
  */
 
-public class AgentActivity extends Activity {
+public class AgentActivity extends Activity implements ActionDelegate{
 
 	public void onClick(View v) {
 		Intent jobsdetailsIntent = new Intent(this, JobsDetailsActivity.class);
@@ -30,5 +32,17 @@ public class AgentActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.agent_layout);
+	}
+
+	@Override
+	public void didFinishRequestProcessing() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void didFailRequestProcessing() {
+		// TODO Auto-generated method stub
+		
 	}
 }

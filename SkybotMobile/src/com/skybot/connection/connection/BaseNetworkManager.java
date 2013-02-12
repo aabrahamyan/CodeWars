@@ -78,10 +78,8 @@ public class BaseNetworkManager {
 	private void chainOfResponsibilities(String responseHtml,
 			final String classString, Object managerObject, String requestType) {
 
-		if (responseHtml != null) {
-
-			// TODO: Implement HTTP response handling implement error case
-			// handling logic instead of the following hotfixes
+		if (responseHtml != null) {			
+			
 		}
 
 	}

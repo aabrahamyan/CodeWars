@@ -25,7 +25,7 @@ public class BaseResponseAnalyzer {
 
 	
 	private void chainOfParsersResponsibilities() {
-
+		
 	}
 
 }

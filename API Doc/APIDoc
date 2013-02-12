@@ -1,39 +1,37 @@
 1. Login request ------------------------------------------------
-
-
-
 http://server_url:3000/user_session
 
-
-
 Parameters: 
-
-authenticity_token: "sadsadsa"
-
-
-	    user_session[password]: admin
-            
-user_session[username]: admin
-
-
-
+	authenticity_token: "sadsadsa"
+    user_session[password]: admin            
+	user_session[username]: admin
+	
 2. License request ------------------------------------------------
 
-
-
-
-Creating license - http://server_url:3000/licenses/create
-
-
-Updating existing license - http://server_url:3000/licenses/license_id/update
-
-
+	Creating license - http://server_url:3000/licenses/create
+	Updating existing license - http://server_url:3000/licenses/license_id/update
 
 Parameters:
  
-authenticity_token: "sadsadsa"
-       
-            
-license[license_code]: {Randomly created BASE64 string}
-            
-license[license_type]: 2
+	authenticity_token: "sadsadsa"                  
+	license[license_code]: {Randomly created BASE64 string}            
+	license[license_type]: 2
+	
+3. Job History request --------------------------------------------
+
+http://localhost:3000/job_histories.json
+
+Parameters:
+
+_dc: "1360324654153" - Date in milliseconds
+results: "300" - Number of Job Huistory Rows
+sort : "id" - Sort By id, name, description etc...
+dir : "DESC" - Sort Type, Ascending/Descending
+tag : "" - It is empty now, need for custom tags defined in Skybot
+tag_match_any : false - Need to match existing tags ? (true/false)
+dateFilter[0][field] : server_initiated_time_utc - Date Time Type and Zone
+dateFilter[0][data][comparison] : eq - Comparison types (eq = equal, gt = greater than, lt = less than)
+dateFilter[0][data][type] : dateTime - can be "date", "dateTime" etc...
+dateFilter[0][data][value] : 2013-02-08T00:00:00 - Date to filter By (Usualy current date)
+start : 0 - Pagination Start
+limit : 300 - Last page value
