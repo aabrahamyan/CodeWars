@@ -7,6 +7,7 @@ import java.util.Random;
 
 import org.apache.http.NameValuePair;
 
+import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
@@ -20,7 +21,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements ActionDelegate {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,10 +32,6 @@ public class LoginActivity extends Activity {
 	EditText password;
 
 	public void loginAction(View v) {
-
-		// Intent skybottablayoutIntent = new
-		// Intent(getApplicationContext(),SkybotTabLayoutActivity.class);
-		// startActivity(skybottablayoutIntent);
 
 		// ------------------- Setting up login request here
 		// ------------------//
@@ -68,6 +65,21 @@ public class LoginActivity extends Activity {
 			Toast.makeText(LoginActivity.this, "Invalid Login",
 					Toast.LENGTH_LONG).show();
 		}
+
+	}
+
+	@Override
+	public void didFinishRequestProcessing() {
+		Intent skybottablayoutIntent = new Intent(getApplicationContext(),
+			SkybotTabLayoutActivity.class);
+		
+		startActivity(skybottablayoutIntent);
+
+	}
+
+	@Override
+	public void didFailRequestProcessing() {
+		// TODO Auto-generated method stub
 
 	}
 }
