@@ -1,18 +1,9 @@
 package com.skybot.activities;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import org.apache.http.NameValuePair;
-
-import com.skybot.activities.delegate.ActionDelegate;
-import com.skybot.connection.connection.BaseNetworkManager;
-import com.skybot.connection.connection.helper.RequestCreator;
-import com.skybot.connection.connection.helper.RequestHelper;
-import com.skybot.util.Base64Coder;
-import com.skybot.util.Constants;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,24 +12,46 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.skybot.activities.delegate.ActionDelegate;
+import com.skybot.connection.connection.BaseNetworkManager;
+import com.skybot.connection.connection.helper.RequestCreator;
+import com.skybot.connection.connection.helper.RequestHelper;
+import com.skybot.util.Base64Coder;
+import com.skybot.util.Constants;
+import com.skybot.util.Util;
+
 public class LoginActivity extends Activity implements ActionDelegate {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
+		init();
 	}
 
 	EditText username;
 	EditText password;
+
+	/***** Share Preferences */
+
+	private void init() {
+
+		username = (EditText) this.findViewById(R.id.txtUname);
+		password = (EditText) this.findViewById(R.id.txtPwd);
+
+		readPerson();
+	}
+
+	private void readPerson() {
+		username.setText(Util.readString(this, Util.LOGIN, null));
+		password.setText(Util.readString(this, Util.PASSWORD, null));
+
+	}
 
 	public void loginAction(View v) {
 
 		// ------------------- Setting up login request here
 		// ------------------//
 		final String authToken = Base64Coder.encodeRandomBase64(); // "td7b4DquQScIPx9jqs0WSy07YX+AvCjRu/WzdyaCyi0=";
-
-		username = (EditText) this.findViewById(R.id.txtUname);
-		password = (EditText) this.findViewById(R.id.txtPwd);
 
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
@@ -49,7 +62,7 @@ public class LoginActivity extends Activity implements ActionDelegate {
 			Map<String, String> params = creator.createAppropriateMapRequest(
 
 			Constants.AUTH_TOKEN, authToken, Constants.USERNAME, username,
-					Constants.PASSWORD, password, Constants.COMMIT, "Log In"); 
+					Constants.PASSWORD, password, Constants.COMMIT, "Log In");
 
 			// ----------------------- Construct POST DATA
 			// ---------------------------//
@@ -57,9 +70,9 @@ public class LoginActivity extends Activity implements ActionDelegate {
 			final List<NameValuePair> paramsList = reqHelper
 					.createPostDataWithKeyValuePair(params);
 
-			baseNetworkManager.constructConnectionAndHitPOST("Login Successful",
-					"Login Request Started", paramsList, this,
-					Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
+			baseNetworkManager.constructConnectionAndHitPOST(
+					"Login Successful", "Login Request Started", paramsList,
+					this, Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
 
 		} else {
 			Toast.makeText(LoginActivity.this, "Invalid Login",
@@ -70,9 +83,19 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 	@Override
 	public void didFinishRequestProcessing() {
+
+		/***** Share Preferences Save */
+		String nameText = username.getText().toString();
+		String surnameText = password.getText().toString();
+
+		if (nameText != null)
+			Util.writeString(this, Util.LOGIN, nameText);
+		if (surnameText != null)
+			Util.writeString(this, Util.PASSWORD, surnameText);
+
 		Intent skybottablayoutIntent = new Intent(getApplicationContext(),
-			SkybotTabLayoutActivity.class);
-		
+				SkybotTabLayoutActivity.class);
+
 		startActivity(skybottablayoutIntent);
 
 	}
