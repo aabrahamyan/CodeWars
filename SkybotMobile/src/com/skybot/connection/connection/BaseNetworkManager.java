@@ -20,7 +20,7 @@ public class BaseNetworkManager {
 	}
 
 	/**
-	 * Main HTTP Service requests method
+	 * Main HTTP Service requests POST method
 	 * 
 	 * @param successMessage
 	 * @param startingMessage
@@ -69,6 +69,52 @@ public class BaseNetworkManager {
 		final String httpRequestUrl = builder.toString();
 
 		connection.post(httpRequestUrl, paramsList);
+		
+
+	}
+	
+	/**
+	 * Main HTTP Service requests GET method
+	 * 
+	 * @param successMessage
+	 * @param startingMessage
+	 * @param paramsList
+	 * @param managerObject
+	 * @param classString
+	 * @param serviceName
+	 */
+	public void constructConnectionAndHitGET(final String successMessage,
+			final String startingMessage, String urlAndParamsList,
+			final Object managerObject, final String classString,
+			final String serviceName) {
+
+		final Handler handler = new Handler() {
+
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+
+				switch (msg.what) {
+				case HttpConnection.DID_START:
+					Log.d("Request", startingMessage);
+					break;
+				case HttpConnection.DID_SUCCEED:
+					Log.d("Response Recieved", msg.obj.toString());
+					chainOfResponsibilities(msg.obj.toString(), classString,
+							managerObject, serviceName);
+					break;
+				case HttpConnection.DID_ERROR:
+					Exception ex = (Exception) msg.obj;
+					Log.d("Exception occured while hitting response",
+							ex.getMessage());
+					break;
+				}
+			}
+		};
+
+		final HttpConnection connection = new HttpConnection(handler);				
+
+		connection.get(urlAndParamsList, null);  
 		
 
 	}

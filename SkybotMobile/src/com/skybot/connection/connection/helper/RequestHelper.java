@@ -1,5 +1,6 @@
 package com.skybot.connection.connection.helper;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,9 +32,11 @@ public class RequestHelper {
 		final StringBuilder builder = new StringBuilder();
 
 		builder.append(serverUrl);
-
+		builder.append(Constants.RIGHT_SLASH);
+		builder.append(Constants.JOB_SERVICE_URL);	
+		
 		if (map != null && !map.isEmpty()) {
-			builder.append(Constants.PARAMETER_SEPARATOR);
+			builder.append(Constants.FIRST_PARAM_SEPARATOR);
 			final Iterator<String> iter = map.keySet().iterator();
 			int counter = 0;
 			while (iter.hasNext()) {
@@ -43,7 +46,11 @@ public class RequestHelper {
 				builder.append(currentKey);
 				builder.append(Constants.EQUAL);
 				if (currentValue != null)
-					builder.append(URLEncoder.encode(currentValue));
+					try {
+						builder.append(URLEncoder.encode(currentValue, "UTF-8"));
+					} catch (UnsupportedEncodingException e) { 
+						e.printStackTrace();
+					}
 
 				if (counter != map.size() - 1) {
 					builder.append(Constants.PARAMETER_SEPARATOR);
@@ -51,7 +58,7 @@ public class RequestHelper {
 
 				counter++;
 			}
-		}
+		}		
 
 		return builder.toString();
 	}
