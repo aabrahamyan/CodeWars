@@ -1,5 +1,12 @@
 package com.skybot.activities;
 
+<<<<<<< HEAD
+=======
+import java.net.URLEncoder;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+>>>>>>> 62a50fec9fcbb0393737413458e0fe949977df11
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +66,7 @@ public class LoginActivity extends Activity implements ActionDelegate {
 		if ((username.getText().toString()).equals(password.getText()
 				.toString())) {
 
-			Map<String, String> params = creator.createAppropriateMapRequest(
+			/*Map<String, String> params = creator.createAppropriateMapRequest(
 
 			Constants.AUTH_TOKEN, authToken, Constants.USERNAME, username,
 					Constants.PASSWORD, password, Constants.COMMIT, "Log In");
@@ -68,11 +75,33 @@ public class LoginActivity extends Activity implements ActionDelegate {
 			// ---------------------------//
 			final RequestHelper reqHelper = new RequestHelper();
 			final List<NameValuePair> paramsList = reqHelper
-					.createPostDataWithKeyValuePair(params);
+					.createPostDataWithKeyValuePair(params);		
 
+<<<<<<< HEAD
 			baseNetworkManager.constructConnectionAndHitPOST(
 					"Login Successful", "Login Request Started", paramsList,
 					this, Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
+=======
+			baseNetworkManager.constructConnectionAndHitPOST("Login Successful",
+					"Login Request Started", paramsList, this,
+					Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);*/
+			
+			// ----------------------- Construct GET DATA
+						// ---------------------------//			
+			String system_Time = Long.toString(System.currentTimeMillis());
+			
+			Map<String, String> job_params = creator.createAppropriateMapRequest(
+			Constants.DATE, system_Time, Constants.RESULTS, "300",
+							Constants.SORT, "name", Constants.DIRECTION, "ASC", Constants.TAG, "",
+							Constants.TAG_MATCH_ANY, "false", Constants.START, "0", Constants.LIMIT, "300"); 
+			
+			final RequestHelper reqHelper = new RequestHelper();
+			String urlStringWithParams = reqHelper.constructGetRequestString(job_params, Constants.SERVER_URL);		
+			
+			baseNetworkManager.constructConnectionAndHitGET("Login Successful",
+					"Login Request Started", urlStringWithParams, this,
+					Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
+>>>>>>> 62a50fec9fcbb0393737413458e0fe949977df11
 
 		} else {
 			Toast.makeText(LoginActivity.this, "Invalid Login",

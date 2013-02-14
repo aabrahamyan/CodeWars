@@ -4,6 +4,7 @@ package com.skybot.connection.connection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -69,8 +71,8 @@ public class HttpConnection implements Runnable {
 		ConnectionManager.getInstance().push(this);
 	}
 
-	public void get(String url) {
-		create(GET, url, null, null);
+	public void get(String url, String data) {
+		create(GET, url, data, null);
 	}
 
 	public void post(String url, final List<NameValuePair> nameValuePairs) {
@@ -95,12 +97,18 @@ public class HttpConnection implements Runnable {
 		
 		httpClient = new DefaultHttpClient();
 		
+		
 		HttpConnectionParams.setSoTimeout(httpClient.getParams(), 25000);
+		
 		try {
 			HttpResponse response = null;
 			switch (method) { 
 			case GET:
-				response = httpClient.execute(new HttpGet(url));
+				HttpGet httpGet = new HttpGet(url);
+//				HttpParams parms = httpGet.getParams();
+//				httpGet.setHeader("Content-Type", "application/json");
+//				httpGet.setHeader("Accept", "text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8");
+				response = httpClient.execute(httpGet);
 				break;
 			case POST:
 				HttpPost httpPost = new HttpPost(url);				 
@@ -133,7 +141,7 @@ public class HttpConnection implements Runnable {
 	private void processEntity(HttpEntity entity) throws IllegalStateException,
 			IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(entity
-				.getContent(), "ISO-8859-1"), 8);
+				.getContent(), "UTF-8"), 8);
 		String line, result = "";
 		while ((line = br.readLine()) != null)
 			result += line;
