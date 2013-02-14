@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-
-    
-    
-    <TextView android:text="Test"
-  			android:padding="10dip"
-  			android:textSize="10dip"
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  
+ 
+  <TextView android:text="There must be job details "
+  			android:padding="5dip"
+  			android:textSize="8dip"
   			android:layout_width="fill_parent"
   			android:layout_height="wrap_content"/>
-    
-    
     
 </LinearLayout>

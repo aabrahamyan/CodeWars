@@ -4,26 +4,27 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="8" />             
-    
-	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-sdk android:minSdkVersion="8" />
+
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- SkybotTab Layout Activity -->
     <application
         android:backupAgent="false"
         android:icon="@drawable/icon"
         android:label="@string/app_name" >
-        <activity 
-            android:name=".LoginActivity"  
-            android:label="@string/app_name" > <!-- SkybotTabLayoutActivity --> 
-         <intent-filter>
+        <activity
+            android:name=".SkybotTabLayoutActivity"
+            android:label="@string/app_name" >
+ <!-- SkybotTabLayoutActivity -->
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    
 
         <!-- Songs Activity -->
         <activity android:name="com.skybot.activities.DashboardActivity" />
@@ -42,9 +43,8 @@
 
         <!-- Settings Activity -->
         <activity android:name="com.skybot.activities.SettingsActivity" />
-        
-        
-          <!-- Jobs Details Activity -->
+
+        <!-- Jobs Details Activity -->
         <activity android:name="com.skybot.activities.JobsDetailsActivity" />
 
         <!-- Entry for RegisterActivity.class -->
@@ -53,6 +53,5 @@
             android:label="Register New Account" >
         </activity>
     </application>
-  
 
 </manifest>
