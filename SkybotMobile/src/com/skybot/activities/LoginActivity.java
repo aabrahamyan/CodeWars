@@ -62,10 +62,10 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 			baseNetworkManager.constructConnectionAndHitPOST("Login Successful",
 					"Login Request Started", paramsList, this,
-					Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);*/
+					Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);*/			
 			
-			// ----------------------- Construct GET DATA
-						// ---------------------------//			
+			// ----------------------- Construct GET DATA --------------------//
+			// ------------------------- Jobs request		
 			String system_Time = Long.toString(System.currentTimeMillis());
 			
 			Map<String, String> job_params = creator.createAppropriateMapRequest(
@@ -77,7 +77,16 @@ public class LoginActivity extends Activity implements ActionDelegate {
 			String urlStringWithParams = reqHelper.constructGetRequestString(job_params, Constants.SERVER_URL);		
 			
 			baseNetworkManager.constructConnectionAndHitGET("Login Successful",
-					"Login Request Started", urlStringWithParams, this,
+					"Jobs Request Started", urlStringWithParams, this,
+					Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
+			
+			//------------------------ Job Details request
+			Map<String, String> job_details = creator.createAppropriateMapRequest(
+					Constants.DATE, system_Time, Constants.LIST, "all" ); 
+			String urlWithParams = reqHelper.constructGetRequestString(job_details, Constants.SERVER_URL);		
+			
+			baseNetworkManager.constructConnectionAndHitGET("Login Successful",
+					"Job Details Request Started", urlWithParams, this,
 					Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
 
 		} else {
