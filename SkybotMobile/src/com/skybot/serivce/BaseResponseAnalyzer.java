@@ -1,6 +1,6 @@
 package com.skybot.serivce;
 
-import java.util.Map;
+import com.skybot.util.Constants;
 
 /**
  * Synchronized instance which evaluates response data and passes to the
@@ -19,13 +19,10 @@ public class BaseResponseAnalyzer {
 	 * @param responseData
 	 */
 	public static synchronized void analyze(final String serviceName,
-			Map<String, String> params, final String responseData) {
+			final String urlWithParams, final String responseData) {
 
+		if (serviceName.equals(Constants.LOGIN_SERVICE)) {
+			
+		}
 	}
-
-	
-	private void chainOfParsersResponsibilities() {
-		
-	}
-
 }

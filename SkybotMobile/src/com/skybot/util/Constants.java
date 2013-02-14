@@ -3,7 +3,7 @@ package com.skybot.util;
 public class Constants {
 
 	//---------------------------- General HTTP Request Information ----------------//
-	public static String SERVER_URL = "http://192.168.0.5:8008"; //"http://192.168.0.152:3000";
+	public static String SERVER_URL = "http://192.168.0.5:8008/skybot-scheduler"; //"http://192.168.0.152:3000";
 	public static String API_KEY = "";	
 	public static final String EQUAL = "=";
 	public static final String FIRST_PARAM_SEPARATOR = "?";
