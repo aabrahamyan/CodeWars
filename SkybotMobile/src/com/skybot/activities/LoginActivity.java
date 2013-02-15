@@ -1,6 +1,5 @@
 package com.skybot.activities;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -68,17 +67,12 @@ public class LoginActivity extends Activity implements ActionDelegate {
 			// ---------------------------//
 			final RequestHelper reqHelper = new RequestHelper();
 			final List<NameValuePair> paramsList = reqHelper
-					.createPostDataWithKeyValuePair(params);		
-
+					.createPostDataWithKeyValuePair(params);
 
 			baseNetworkManager.constructConnectionAndHitPOST(
 					"Login Successful", "Login Request Started", paramsList,
 					this, Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
 
-			baseNetworkManager.constructConnectionAndHitPOST("Login Successful",
-					"Login Request Started", paramsList, this,
-
-					Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);		
 			
 			// ----------------------- Construct GET DATA --------------------//
 		
@@ -111,8 +105,10 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 
 		} else {
-		/*	Toast.makeText(LoginActivity.this, "Invalid Login",
-					Toast.LENGTH_LONG).show();*/
+			/*
+			 * Toast.makeText(LoginActivity.this, "Invalid Login",
+			 * Toast.LENGTH_LONG).show();
+			 */
 		}
 
 	}
