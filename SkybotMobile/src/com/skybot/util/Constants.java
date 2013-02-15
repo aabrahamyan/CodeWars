@@ -3,7 +3,7 @@ package com.skybot.util;
 public class Constants {
 
 	//---------------------------- General HTTP Request Information ----------------//
-	public static String SERVER_URL = "http://192.168.0.5:8008"; //"http://192.168.0.152:3000";
+	public static String SERVER_URL = "http://192.168.0.5:8008/skybot-scheduler"; //"http://192.168.0.152:3000";
 	public static String API_KEY = "";	
 	public static final String EQUAL = "=";
 	public static final String FIRST_PARAM_SEPARATOR = "?";
@@ -26,6 +26,9 @@ public class Constants {
 	public static final String TAG_MATCH_ANY = "tag_match_any";
 	public static final String START = "start";
 	public static final String LIMIT = "limit";
+	
+	public static final String LIST = "list";
+	public static final String JOB_DETAILS_URL = "skybot-scheduler/jobs/1000/edit.json";
 	
 	//---------------------------- Views ----------------------------------//
 	public static final String LOGIN_VIEW = "LoginView";

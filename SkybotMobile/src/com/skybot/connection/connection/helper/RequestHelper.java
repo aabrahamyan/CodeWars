@@ -33,7 +33,7 @@ public class RequestHelper {
 
 		builder.append(serverUrl);
 		builder.append(Constants.RIGHT_SLASH);
-		builder.append(Constants.JOB_SERVICE_URL);	
+		builder.append(Constants.JOB_DETAILS_URL);	
 		
 		if (map != null && !map.isEmpty()) {
 			builder.append(Constants.FIRST_PARAM_SEPARATOR);

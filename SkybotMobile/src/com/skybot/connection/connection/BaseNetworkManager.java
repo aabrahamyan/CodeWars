@@ -2,6 +2,8 @@ package com.skybot.connection.connection;
 
 import java.util.List;
 import org.apache.http.NameValuePair;
+
+import com.skybot.serivce.BackgroundResponseAnalizer;
 import com.skybot.util.Constants;
 import android.os.Handler;
 import android.os.Message;
@@ -47,7 +49,7 @@ public class BaseNetworkManager {
 				case HttpConnection.DID_SUCCEED:
 					Log.d("Response Recieved", msg.obj.toString());
 					chainOfResponsibilities(msg.obj.toString(), classString,
-							managerObject, serviceName);
+							managerObject, serviceName, paramsList, null);
 					break;
 				case HttpConnection.DID_ERROR:
 					Exception ex = (Exception) msg.obj;
@@ -69,10 +71,9 @@ public class BaseNetworkManager {
 		final String httpRequestUrl = builder.toString();
 
 		connection.post(httpRequestUrl, paramsList);
-		
 
 	}
-	
+
 	/**
 	 * Main HTTP Service requests GET method
 	 * 
@@ -84,7 +85,7 @@ public class BaseNetworkManager {
 	 * @param serviceName
 	 */
 	public void constructConnectionAndHitGET(final String successMessage,
-			final String startingMessage, String urlAndParamsList,
+			final String startingMessage, final String urlAndParamsList,
 			final Object managerObject, final String classString,
 			final String serviceName) {
 
@@ -93,7 +94,7 @@ public class BaseNetworkManager {
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
-
+				
 				switch (msg.what) {
 				case HttpConnection.DID_START:
 					Log.d("Request", startingMessage);
@@ -101,7 +102,7 @@ public class BaseNetworkManager {
 				case HttpConnection.DID_SUCCEED:
 					Log.d("Response Recieved", msg.obj.toString());
 					chainOfResponsibilities(msg.obj.toString(), classString,
-							managerObject, serviceName);
+							managerObject, serviceName, null, urlAndParamsList);
 					break;
 				case HttpConnection.DID_ERROR:
 					Exception ex = (Exception) msg.obj;
@@ -110,12 +111,12 @@ public class BaseNetworkManager {
 					break;
 				}
 			}
+						
 		};
 
-		final HttpConnection connection = new HttpConnection(handler);				
+		final HttpConnection connection = new HttpConnection(handler);
 
-		connection.get(urlAndParamsList, null);  
-		
+		connection.get(urlAndParamsList, null);
 
 	}
 
@@ -123,10 +124,15 @@ public class BaseNetworkManager {
 	 * @param responseHtml
 	 */
 	private void chainOfResponsibilities(String responseHtml,
-			final String classString, Object managerObject, String requestType) {
+			final String classString, final Object managerObject,
+			final String requestType, final List<NameValuePair> paramsList,
+			final String urlAndParamsList) {
 
-		if (responseHtml != null) {			
-			
+		if (responseHtml != null) {
+			BackgroundResponseAnalizer backgroundRespAnalyzer = new BackgroundResponseAnalizer(
+					requestType, responseHtml, urlAndParamsList, paramsList);
+
+			backgroundRespAnalyzer.start();
 		}
 
 	}

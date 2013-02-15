@@ -1,17 +1,22 @@
 package com.skybot.serivce;
 
+import java.util.List;
 import java.util.Map;
+
+import org.apache.http.NameValuePair;
 
 /**
  * Executes new thread for parsing response data
+ * 
  * @author aabraham
- *
+ * 
  */
 public class BackgroundResponseAnalizer extends Thread {
 
 	private String serviceName;
 	private String responseData;
-	private Map<String, String> params;
+	private List<NameValuePair> paramsList;
+	private String urlWithParams;
 
 	/**
 	 * 
@@ -20,18 +25,19 @@ public class BackgroundResponseAnalizer extends Thread {
 	 * @param params
 	 */
 	public BackgroundResponseAnalizer(final String serviceName,
-			final String responseData, final Map<String, String> params) {
+			final String responseData, final String urlWithParams, final List<NameValuePair> paramsList) {
 
 		this.serviceName = serviceName;
 		this.responseData = responseData;
-		this.params = params;
+		this.paramsList = paramsList;
+		this.urlWithParams = urlWithParams;
 	}
 
 	@Override
 	public void run() {
 		super.run();
-		
-		BaseResponseAnalyzer.analyze(serviceName, params, responseData);
+
+		BaseResponseAnalyzer.analyze(serviceName, urlWithParams, responseData);
 	}
 
 }
