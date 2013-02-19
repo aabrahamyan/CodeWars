@@ -27,6 +27,9 @@ public class Constants {
 	public static final String START = "start";
 	public static final String LIMIT = "limit";
 	
+	public static final String LIST = "list";
+	public static final String JOB_DETAILS_URL = "skybot-scheduler/jobs/1000/edit.json";
+	
 	//---------------------------- Views ----------------------------------//
 	public static final String LOGIN_VIEW = "LoginView";
 }
