@@ -76,11 +76,7 @@ public class LoginActivity extends Activity implements ActionDelegate {
 			
 			// ----------------------- Construct GET DATA --------------------//
 		
-			String system_Time = Long.toString(System.currentTimeMillis());
-				
-			
-			// ----------------------- Construct GET DATA
-						// ---------------------------//	
+			String system_Time = Long.toString(System.currentTimeMillis());		
 			
 			Map<String, String> job_params = creator.createAppropriateMapRequest(
 			Constants.DATE, system_Time, Constants.RESULTS, "300",

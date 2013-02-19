@@ -73,5 +73,27 @@
         android:onClick="onClick"
         android:layout_centerVertical="true"
         android:src="@drawable/arrow" />
+    
+     <ImageButton
+        android:id="@+id/btn1"
+     	android:layout_height="40dp"
+     	android:layout_width="40dp"
+     	android:layout_marginLeft="80dp"     	
+     	android:src="@drawable/run"
+     	android:contentDescription="RUN"    	 />
+      <ImageButton
+        android:id="@+id/btn2"
+     	android:layout_height="40dp"
+     	android:layout_width="40dp"
+     	android:layout_marginLeft="130dp"
+     	android:src="@drawable/hold"  
+     	android:contentDescription="HOLD"  	 />        
+      <ImageButton
+        android:id="@+id/btn3"
+     	android:layout_height="40dp"
+     	android:layout_width="40dp"
+     	android:layout_marginLeft="180dp"
+     	android:src="@drawable/release"
+     	android:contentDescription="RELEASE"    	 />  
 
 </RelativeLayout>
