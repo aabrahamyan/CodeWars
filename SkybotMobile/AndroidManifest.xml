@@ -52,6 +52,8 @@
             android:name=".RegisterActivity"
             android:label="Register New Account" >
         </activity>
+        <!-- Chart Engine Activity -->
+        <activity android:name="org.achartengine.GraphicalActivity"/> 
     </application>
 
 </manifest>

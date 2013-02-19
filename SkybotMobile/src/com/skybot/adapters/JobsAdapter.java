@@ -50,7 +50,7 @@ public class JobsAdapter extends BaseAdapter {
 
 		TextView title = (TextView) vi.findViewById(R.id.title); // title
 		TextView description = (TextView) vi.findViewById(R.id.description); // description
-		 TextView agent = (TextView) vi.findViewById(R.id.agent); // agent
+		TextView agent = (TextView) vi.findViewById(R.id.agent); // agent
 	//	ImageView thumb_image = (ImageView) vi.findViewById(R.id.list_image); // thumb
 																				// image
 
@@ -62,7 +62,13 @@ public class JobsAdapter extends BaseAdapter {
 		// description.setText(jobs
 		// .get(CustomizedListViewActivity.KEY_DESCRIPTION));
 		// agent.setText(jobs.get(CustomizedListViewActivity.KEY_AGENT));
-
+			vi.findViewById(R.id.title).setVisibility(View.VISIBLE);
+			vi.findViewById(R.id.description).setVisibility(View.VISIBLE);
+			vi.findViewById(R.id.agent).setVisibility(View.VISIBLE);	
+			vi.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);
+			vi.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
+			vi.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);	
+		
 		return vi;
 	}
 }

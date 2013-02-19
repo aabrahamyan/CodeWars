@@ -1,12 +1,19 @@
 package com.skybot.activities;
 
 
+import org.achartengine.GraphicalView;
+
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
+import com.skybot.charts.CheckPageCoordinates;
 
 /**
  * Dediacted for scrolling Chart viewes from one to another
@@ -17,7 +24,11 @@ import android.widget.TextView;
 public class ScrollItemsFragment extends Fragment {
 
 	int mCurrentPage;
-
+	GraphicalView mChartView;
+	CheckPageCoordinates cpCoord= new CheckPageCoordinates();
+	FragmentActivity context;
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,11 +46,36 @@ public class ScrollItemsFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.scrolling_fragment_layout,
 				container, false);
-		TextView tv = (TextView) v.findViewById(R.id.tv);
-		tv.setText("You are viewing the page #" + mCurrentPage + "\n\n"
-				+ "Swipe Horizontally left / right");
-		return tv;
+		
+		LinearLayout ll = (LinearLayout) v.findViewById(R.id.chartLayout);
+		context = getActivity();
+		mChartView = (GraphicalView) cpCoord.getChart(context, mCurrentPage);
+		ll.addView(mChartView, new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+		
+		
+		return ll;
 
 	}
-
+	
+	@Override
+	public void onResume(){ 
+		super.onResume();
+		LinearLayout ll = (LinearLayout) getActivity().findViewById(R.id.chartLayout);
+		context = getActivity();
+		
+		if(mChartView == null) {
+			
+			mChartView = (GraphicalView) cpCoord.getChart(context,mCurrentPage);
+			ll.addView(mChartView, new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+			Log.i("ChartView null", "Creating view");
+		}
+		else {
+			mChartView.repaint();
+			Log.i("else", "repaint()");
+		}
+		Log.i("notification", "onResume()");
+	}
+	
+	
+	
 }
