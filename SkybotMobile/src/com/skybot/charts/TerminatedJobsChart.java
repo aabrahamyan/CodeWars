@@ -59,12 +59,13 @@ public class TerminatedJobsChart {
 	    mRenderer.setBarSpacing(0.3); // Distance between bar groups
 	    mRenderer.setShowGrid(true);
 	    mRenderer.setChartTitle("Terminated Jobs");
-	    mRenderer.setLabelsTextSize(20);
+	    mRenderer.setLabelsTextSize(20); 
+	    mRenderer.setYLabelsPadding(-20);
 	    /**X axis settings**/
 	    
 	    mRenderer.setXAxisMax(7);
 	    mRenderer.setXAxisMin(0);
-	    mRenderer.setChartTitleTextSize(30);
+	    mRenderer.setChartTitleTextSize(35);
 	    mRenderer.setXLabelsColor(Color.BLACK);
 	    			
 	    
@@ -81,7 +82,6 @@ public class TerminatedJobsChart {
 	    
 	    mRenderer.addYTextLabel(0.5, "0.5");
 	    mRenderer.addYTextLabel(1, "1");
-	    mRenderer.setYLabelsAlign(Align.RIGHT);
 	    mRenderer.setYLabels(0);
 	    mRenderer.setYLabelsColor(0, Color.BLACK);
 	    mRenderer.setYAxisMax(1);
@@ -89,6 +89,7 @@ public class TerminatedJobsChart {
 	    mRenderer.setShowGridX(true);//Shows gridlines for Y axis
 	    mRenderer.setGridColor(Color.GRAY);
 	    
+	    mRenderer.setYLabelsPadding(-20);
 	    
 	    /** Multiple BarcHart customization **/
 	    //Cancelled
