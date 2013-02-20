@@ -17,7 +17,7 @@ public class Constants {
 	public static final String PASSWORD = "user_session[password]";
 	public static final String COMMIT = "commit";
 	
-	public static final String JOB_SERVICE_URL = "skybot-scheduler/jobs.json";
+	public static final String JOB_SERVICE_URL = "jobs.json";
 	public static final String DATE = "_dc";
 	public static final String RESULTS = "results";
 	public static final String SORT = "sort";
@@ -25,10 +25,16 @@ public class Constants {
 	public static final String TAG = "tag";
 	public static final String TAG_MATCH_ANY = "tag_match_any";
 	public static final String START = "start";
-	public static final String LIMIT = "limit";
-	
+	public static final String LIMIT = "limit";	
 	public static final String LIST = "list";
-	public static final String JOB_DETAILS_URL = "skybot-scheduler/jobs/1000/edit.json";
+	
+	public static final String JOB_DETAILS_URL = "jobs/1000/edit.json";
+	public static final String RUN_JOB_URL= "commands.json";	
+	
+	//---------------------------- Run Job Params --------------------------//	
+	public static final String CS_ID = "command_set_id";
+	public static final String CS_TYPE = "command_set_type";
+	public static final String JOB_ID = "job_id";	
 	
 	//---------------------------- Views ----------------------------------//
 	public static final String LOGIN_VIEW = "LoginView";

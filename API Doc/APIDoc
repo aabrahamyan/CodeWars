@@ -60,3 +60,47 @@ Parameters:
 _dc: "1360324654153" - Date in milliseconds
 list: "all"
 
+6. Run Job request ----------------------------------------
+
+http://192.168.0.5:8008/skybot-scheduler/commands.json
+
+Parameters:
+
+command_set_id:1000
+command_set_type:1
+job_id:1000
+_dc:1361346914193
+results:300
+sort:id
+dir:ASC
+start:0
+limit:300
+
+7. Hold Job request ----------------------------------------
+
+http://192.168.0.5:8008/skybot-scheduler/jobs.json
+
+Parameters:
+
+_dc:1361346989717
+sort:name
+dir:ASC
+tag:
+tag_match_any:false
+start:0
+limit:300
+
+8. Release Job request -------------------------------------
+
+http://192.168.0.5:8008/skybot-scheduler/jobs.json
+
+Parameters:
+
+_dc:1361347074496
+sort:name
+dir:ASC
+tag:
+tag_match_any:false
+start:0
+limit:300
+

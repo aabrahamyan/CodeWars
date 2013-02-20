@@ -28,12 +28,12 @@ public class RequestHelper {
 	 * @return
 	 */
 	public String constructGetRequestString(final Map<String, String> map,
-			final String serverUrl) {
+			final String serverUrl, final String serviceUrl) {
 		final StringBuilder builder = new StringBuilder();
 
 		builder.append(serverUrl);
 		builder.append(Constants.RIGHT_SLASH);
-		builder.append(Constants.JOB_DETAILS_URL);	
+		builder.append(serviceUrl);	
 		
 		if (map != null && !map.isEmpty()) {
 			builder.append(Constants.FIRST_PARAM_SEPARATOR);
@@ -59,7 +59,7 @@ public class RequestHelper {
 				counter++;
 			}
 		}		
-
+		System.out.println(builder.toString());
 		return builder.toString();
 	}
 	
