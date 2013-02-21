@@ -9,6 +9,7 @@ public class CheckPageCoordinates {
 	TerminatedJobsChart termChart = new TerminatedJobsChart();
 	CompletedJobsChart compChart = new CompletedJobsChart();
 	SubmittedJobsChart subChart = new SubmittedJobsChart();
+	StartedJobsChart startChart = new StartedJobsChart();
 	
 	GraphicalView ChartView;
 	public View getChart(Context context,int mCurrentPage) {
@@ -22,8 +23,11 @@ public class CheckPageCoordinates {
 			ChartView = termChart.getChart(context);
 		}
 		
-		else {
+		else if(mCurrentPage == 3) {
 			ChartView = subChart.getChart(context);
+		}
+		else {
+			ChartView = startChart.getChart(context);
 		}
 		return ChartView;
 	}

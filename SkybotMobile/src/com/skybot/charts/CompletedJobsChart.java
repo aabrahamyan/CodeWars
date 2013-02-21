@@ -43,17 +43,22 @@ public class CompletedJobsChart {
 		mRenderer.setApplyBackgroundColor(true);
 		mRenderer.setBackgroundColor(Color.WHITE);
 		mRenderer.setMarginsColor(Color.WHITE);
+		
 	    mRenderer.setPanEnabled(false, false);
 	    mRenderer.setZoomEnabled(false,false); //Zoom disable
+	    
 	    mRenderer.setBarSpacing(0.3); // Distance between bar groups
 	    mRenderer.setShowGrid(true);
-	    mRenderer.setInScroll(true);
+	   
+	    
 	    mRenderer.setChartTitle("Completed Jobs");
 	    mRenderer.setChartTitleTextSize(35);
-		mRenderer.addSeriesRenderer(renderer);
+		
 		mRenderer.setBarSpacing(0.5);
 		mRenderer.setLabelsTextSize(20);
-		
+		mRenderer.setInScroll(true);
+		 
+		mRenderer.addSeriesRenderer(renderer);
 		/**Distance between y axis and labels**/
 		
 		//mRenderer.setYLabelsAlign(Align.LEFT);

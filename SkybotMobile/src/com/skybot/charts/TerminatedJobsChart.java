@@ -15,6 +15,8 @@ import android.graphics.Paint.Align;
 public class TerminatedJobsChart {
 	
 	public GraphicalView getChart(Object context) {
+		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); 
+		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		
 		/** Y coordinates Array for each BarChart**/
 		double[] y = { 0.6,0.8,0.1,0.9,0.7,0.7 };
@@ -40,46 +42,46 @@ public class TerminatedJobsChart {
 		}
 		
 		/** Adding Series to dataset**/
-		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+		
 		dataset.addSeries(series.toXYSeries());
 		dataset.addSeries(series2.toXYSeries());
 		dataset.addSeries(series3.toXYSeries());
-		/** --dataset--**/
 		
-		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); 
 		
-		/** Settings for whole layout **/
 		
-		mRenderer.setAxesColor(Color.BLACK);
-		mRenderer.setApplyBackgroundColor(true);
-		mRenderer.setBackgroundColor(Color.WHITE);
-		mRenderer.setMarginsColor(Color.WHITE);
-	    mRenderer.setPanEnabled(false, false);
-	    mRenderer.setZoomEnabled(false,false); //Zoom disable
-	    mRenderer.setBarSpacing(0.3); // Distance between bar groups
-	    mRenderer.setShowGrid(true);
-	    mRenderer.setChartTitle("Terminated Jobs");
-	    mRenderer.setLabelsTextSize(20); 
-	    mRenderer.setYLabelsPadding(-20);
-	    /**X axis settings**/
-	    
-	    mRenderer.setXAxisMax(7);
-	    mRenderer.setXAxisMin(0);
-	    mRenderer.setChartTitleTextSize(35);
-	    mRenderer.setXLabelsColor(Color.BLACK);
-	    			
-	    
-	    /** Adding text labels for x axis coordinates**/
-	   
+		/** Adding text labels for x axis coordinates**/
 	    for(int i=0;i<y.length;i++) {
 	    	
 	    	mRenderer.addXTextLabel(i+1,"2" + "-" +i );
 	    	
 	    }
-	    
 	    mRenderer.setXLabels(0);//Removing x axis values, only text labels are visible
-	    /**Y axis settings **/
+		
+		/** Settings for whole layout **/
+		
+		mRenderer.setAxesColor(Color.BLACK);
+		mRenderer.setApplyBackgroundColor(true);
+		
+		mRenderer.setBackgroundColor(Color.WHITE);
+		mRenderer.setMarginsColor(Color.WHITE);
+		
+	    mRenderer.setPanEnabled(false, false);
+	    mRenderer.setZoomEnabled(false,false); //Zoom disable
 	    
+	    mRenderer.setBarSpacing(0.3); // Distance between bar groups
+	    mRenderer.setShowGrid(true);
+	    
+	    mRenderer.setChartTitle("Terminated Jobs");
+	    mRenderer.setLabelsTextSize(20); 
+	    mRenderer.setYLabelsPadding(-20);
+	    
+	    /**X axis settings**/
+	    mRenderer.setXAxisMax(7);
+	    mRenderer.setXAxisMin(0);
+	    mRenderer.setChartTitleTextSize(35);
+	    mRenderer.setXLabelsColor(Color.BLACK);
+	    			
+	    /**Y axis settings **/
 	    mRenderer.addYTextLabel(0.5, "0.5");
 	    mRenderer.addYTextLabel(1, "1");
 	    mRenderer.setYLabels(0);
