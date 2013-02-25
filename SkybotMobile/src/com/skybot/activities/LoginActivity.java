@@ -60,8 +60,8 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 			Map<String, String> params = creator.createAppropriateMapRequest(
 
-			Constants.AUTH_TOKEN, authToken, Constants.USERNAME, username,
-					Constants.PASSWORD, password, Constants.COMMIT, "Log In");
+			Constants.AUTH_TOKEN, authToken, Constants.USERNAME, Constants.ADMIN,
+					Constants.PASSWORD, Constants.ADMIN, Constants.COMMIT, "Log In");
 
 			// ----------------------- Construct POST DATA
 			// ---------------------------//
@@ -73,10 +73,8 @@ public class LoginActivity extends Activity implements ActionDelegate {
 					"Login Successful", "Login Request Started", paramsList,
 
 					this, Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
-
-			// final RequestHelper reqHelper = new RequestHelper();
-
-		}
+		} 
+	
 
 		else {
 

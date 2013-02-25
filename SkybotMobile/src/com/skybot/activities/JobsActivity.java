@@ -96,16 +96,17 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 	@Override
 	public void getSwipeItem(boolean isRight, int position) {
-		View rowView = listView.getChildAt(position);
-		if (isRight) {
-			directionRight = true;
-			rowView.startAnimation(getDeleteAnimation(0, rowView.getWidth(),
-					position));
-		} else {
-			directionRight = false;
-			rowView.startAnimation(getDeleteAnimation(rowView.getWidth(), 0,
-					position));
+
+		View rowView = listView.getChildAt(position);		
+		if(isRight) {	
+			directionRight = true;			
+		rowView.startAnimation(getDeleteAnimation(0,  rowView.getWidth(), position));			
 		}
+		else { 	
+			directionRight = false;		
+		rowView.startAnimation(getDeleteAnimation(rowView.getWidth(), 0, position));	}
+
+		
 	}
 
 	@Override

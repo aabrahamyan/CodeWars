@@ -16,6 +16,7 @@ public class Constants {
 	public static final String USERNAME = "user_session[username]";
 	public static final String PASSWORD = "user_session[password]";
 	public static final String COMMIT = "commit";
+	public static final String ADMIN = "admin";
 	
 	public static final String JOB_SERVICE_URL = "jobs.json";
 	public static final String DATE = "_dc";

@@ -15,33 +15,44 @@
         android:backupAgent="false"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-      
-         >
+        android:allowBackup="true" >
+                
+        <!-- Login Activity -->
         <activity
+
             android:name="com.skybot.activities.LoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" >              
+
 
             <!-- SkybotTabLayoutActivity -->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>            
+      
+
         </activity>
 
+        <!-- SkybotTabLayoutActivity -->
+         
+        <activity android:name="com.skybot.activities.SkybotTabLayoutActivity" />
+        
         <!-- Songs Activity -->
+
         <activity android:name="com.skybot.activities.DashboardActivity" />
 
-        <!-- Videos Activity -->
+        <!-- Jobs History Activity -->
         <activity android:name="com.skybot.activities.JobsHistoryActivity" />
 
-        <!-- Photos Activity -->
+        <!-- Jobs Activity -->
         <activity android:name="com.skybot.activities.JobsActivity" />
 
-        <!-- Bookmark Activity -->
+        <!-- Agent Activity -->
         <activity android:name="com.skybot.activities.AgentActivity" />
 
-        <!-- Dashboard Activity -->
+        <!-- Report Activity -->
         <activity android:name="com.skybot.activities.ReportActivity" />
 
         <!-- Settings Activity -->

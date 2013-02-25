@@ -62,7 +62,8 @@ public class HttpConnection implements Runnable {
 	private static final int PUT = 2;
 	private static final int DELETE = 3;
 	private static final int BITMAP = 4;
-
+	
+	private String cookieString = null;
 	private String url;
 	private int method;
 	private Handler handler;
@@ -114,6 +115,9 @@ public class HttpConnection implements Runnable {
 		
 		httpClient = new DefaultHttpClient();
 		CookieStore cookieStore = new BasicCookieStore();
+		CookieStorage myCookieStorage = CookieStorage.getInstance();
+		myCookieStorage.getArrayList().add(cookieStore);	
+		
 
 		try {
 			HttpResponse response = null;
@@ -121,6 +125,9 @@ public class HttpConnection implements Runnable {
 			case GET:
 				HttpGet httpGet = new HttpGet(url);
 				response = httpClient.execute(httpGet);
+				
+				if (cookieString!=null)	{
+				httpGet.setHeader("Cookie", cookieString); }
 				break;
 			case POST:
 				httpClient.getParams().setParameter(ClientPNames.COOKIE_POLICY,
@@ -134,7 +141,9 @@ public class HttpConnection implements Runnable {
 
 				HttpPost httpPost = new HttpPost(url);
 				httpPost.setEntity(new UrlEncodedFormEntity(this.nameValuePairs));
-
+				
+				if (cookieString!=null)		{ 
+				httpPost.setHeader("Cookie", cookieString); }				
 				httpPost.setHeader(
 						"User-Agent",
 						"Mozilla/5.0 (X11; U; Linux "
@@ -178,10 +187,20 @@ public class HttpConnection implements Runnable {
 
 		// -------------------- Analyze Headers ------------------------//
 
-		Header[] headers = response.getAllHeaders();
+		Header[] headers = response.getAllHeaders();		
+		List<Cookie> cookies = cookieStore.getCookies();		
 		
-		List<Cookie> cookies = cookieStore.getCookies();
-
+		for (Cookie s : cookies) {
+			if ( s.getName() == "user_credentials" ) { cookieString += s.getName() +"="+ s.getValue() + "; ";	 }
+			
+			if ( s.getName() == "_SchEnt2_session" ) { cookieString += s.getName() +"="+ s.getValue();  }
+		}
+		
+		if(CookieStorage.getInstance().getArrayList().isEmpty() && cookieString!=null)
+		{
+			CookieStorage.getInstance().getArrayList().add(cookieString);
+		}	
+		
 		// -------------------- Analyze Content ------------------------//
 		HttpEntity entity = response.getEntity();
 
