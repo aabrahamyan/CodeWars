@@ -99,7 +99,7 @@ public class JobsActivity extends SwipeListViewActivity implements ActionDelegat
 		rowView.startAnimation(getDeleteAnimation(0,  rowView.getWidth(), position));			
 		}
 		else { 	
-		directionRight = false;		
+			directionRight = false;		
 		rowView.startAnimation(getDeleteAnimation(rowView.getWidth(), 0, position));		
 		}
 	}

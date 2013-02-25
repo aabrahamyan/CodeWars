@@ -60,8 +60,8 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 			Map<String, String> params = creator.createAppropriateMapRequest(
 
-			Constants.AUTH_TOKEN, authToken, Constants.USERNAME, username,
-					Constants.PASSWORD, password, Constants.COMMIT, "Log In");
+			Constants.AUTH_TOKEN, authToken, Constants.USERNAME, Constants.ADMIN,
+					Constants.PASSWORD, Constants.ADMIN, Constants.COMMIT, "Log In");
 
 			// ----------------------- Construct POST DATA
 			// ---------------------------//
@@ -71,7 +71,7 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 			baseNetworkManager.constructConnectionAndHitPOST(
 					"Login Successful", "Login Request Started", paramsList,
-					this, Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);	
+					this, Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
 		} 
 		
 		else {
@@ -81,38 +81,6 @@ public class LoginActivity extends Activity implements ActionDelegate {
 			 */
 		}
 
-	}
-	@Override
-	public void onResume() {			
-		super.onResume();
-		
-		// ----------------------- Construct GET DATA --------------------//
-		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
-		final RequestHelper reqHelper = new RequestHelper();
-		RequestCreator creator = new RequestCreator();
-		String system_Time = Long.toString(System.currentTimeMillis());	
-					
-				
-		Map<String, String> job_params = creator.createAppropriateMapRequest(
-			Constants.DATE, system_Time, Constants.RESULTS, "300",
-			Constants.SORT, "name", Constants.DIRECTION, "ASC", Constants.TAG, "",
-									Constants.TAG_MATCH_ANY, "false", Constants.START, "0", Constants.LIMIT, "300"); 					
-					
-		String urlStringWithParams = 
-						reqHelper.constructGetRequestString(job_params, Constants.SERVER_URL, Constants.JOB_SERVICE_URL);		
-				
-		baseNetworkManager.constructConnectionAndHitGET("Login Successful",
-						"Jobs Request Started", urlStringWithParams, this,
-						Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
-					
-					//------------------------ Job Details request------------------//
-		Map<String, String> job_details = creator.createAppropriateMapRequest(
-					Constants.DATE, system_Time, Constants.LIST, "all" ); 
-		String urlWithParams = 
-					reqHelper.constructGetRequestString(job_details, Constants.SERVER_URL, Constants.JOB_DETAILS_URL);					
-		baseNetworkManager.constructConnectionAndHitGET("Login Successful",
-					"Job Details Request Started", urlWithParams, this,
-					Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
 	}
 	
 	@Override
