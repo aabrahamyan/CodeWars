@@ -20,18 +20,23 @@
         <!-- Login Activity -->
         <activity
             android:name="com.skybot.activities.LoginActivity"
-            android:label="@string/app_name" > 		
+            android:label="@string/app_name" >    >           
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>        
-        
+            </intent-filter>            
+      
+
+        </activity>
+
         <!-- SkybotTabLayoutActivity -->
-        <activity android:name="com.skybot.activities.SkybotTabLayoutActivityActivity" />
+         
+        <activity android:name="com.skybot.activities.SkybotTabLayoutActivity" />
         
-        <!-- Dashboard Activity -->
+        <!-- Songs Activity -->
+
         <activity android:name="com.skybot.activities.DashboardActivity" />
 
         <!-- Jobs History Activity -->
@@ -58,7 +63,7 @@
             android:label="Register New Account" >
         </activity>
         <!-- Chart Engine Activity -->
-        <activity android:name="org.achartengine.GraphicalActivity"/> 
+        <activity android:name="org.achartengine.GraphicalActivity" />
     </application>
 
 </manifest>

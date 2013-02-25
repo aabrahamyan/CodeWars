@@ -4,6 +4,7 @@ import com.skybot.activities.delegate.ActionDelegate;
 
 import android.app.TabActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +19,8 @@ import android.widget.TabHost.TabSpec;
  * @author gor, armenabrahamyan
  * 
  */
-public class SkybotTabLayoutActivity extends TabActivity implements ActionDelegate{
+public class SkybotTabLayoutActivity extends TabActivity implements
+		ActionDelegate {
 	/** Tab Layout. */
 	/**
 	 * TODO: USING TABACTIVITY IS DEPRECATED INSTEAD WE NEED TO CREATE TABS WITH
@@ -26,7 +28,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements ActionDelega
 	 */
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) { 
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
@@ -36,6 +38,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements ActionDelega
 		TabSpec jobsspec = tabHost.newTabSpec("Jobs");
 		jobsspec.setIndicator("Jobs",
 				getResources().getDrawable(R.drawable.icon_dashboard_tab));
+
 		Intent jobsIntent = new Intent(this, JobsActivity.class);
 		jobsspec.setContent(jobsIntent);
 
@@ -85,6 +88,9 @@ public class SkybotTabLayoutActivity extends TabActivity implements ActionDelega
 
 	}
 
+	
+
+	
 	// ---------------------------------- Menu Callbacks
 	// -------------------------------//
 	@Override
@@ -117,13 +123,13 @@ public class SkybotTabLayoutActivity extends TabActivity implements ActionDelega
 	@Override
 	public void didFinishRequestProcessing() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void didFailRequestProcessing() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

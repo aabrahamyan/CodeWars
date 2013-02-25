@@ -71,10 +71,13 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 			baseNetworkManager.constructConnectionAndHitPOST(
 					"Login Successful", "Login Request Started", paramsList,
+
 					this, Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
 		} 
-		
+	
+
 		else {
+
 			/*
 			 * Toast.makeText(LoginActivity.this, "Invalid Login",
 			 * Toast.LENGTH_LONG).show();
@@ -82,7 +85,7 @@ public class LoginActivity extends Activity implements ActionDelegate {
 		}
 
 	}
-	
+
 	@Override
 	public void didFinishRequestProcessing() {
 
