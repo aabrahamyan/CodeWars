@@ -45,7 +45,7 @@ public class JobsActivity extends SwipeListViewActivity implements ActionDelegat
 
 		ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 12; i++) {
 
 			HashMap<String, String> map = new HashMap<String, String>();
 
