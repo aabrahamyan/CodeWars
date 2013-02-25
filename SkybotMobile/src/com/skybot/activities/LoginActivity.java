@@ -71,36 +71,15 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 			baseNetworkManager.constructConnectionAndHitPOST(
 					"Login Successful", "Login Request Started", paramsList,
+
 					this, Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
 
-			
-			// ----------------------- Construct GET DATA --------------------//
-		
-			String system_Time = Long.toString(System.currentTimeMillis());		
-			
-			Map<String, String> job_params = creator.createAppropriateMapRequest(
-			Constants.DATE, system_Time, Constants.RESULTS, "300",
-							Constants.SORT, "name", Constants.DIRECTION, "ASC", Constants.TAG, "",
-							Constants.TAG_MATCH_ANY, "false", Constants.START, "0", Constants.LIMIT, "300"); 
-			
-			//final RequestHelper reqHelper = new RequestHelper();
-			String urlStringWithParams = reqHelper.constructGetRequestString(job_params, Constants.SERVER_URL);		
-			
-			baseNetworkManager.constructConnectionAndHitGET("Login Successful",
-					"Jobs Request Started", urlStringWithParams, this,
-					Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
-			
-			//------------------------ Job Details request
-			Map<String, String> job_details = creator.createAppropriateMapRequest(
-					Constants.DATE, system_Time, Constants.LIST, "all" ); 
-			String urlWithParams = reqHelper.constructGetRequestString(job_details, Constants.SERVER_URL);		
-			
-			baseNetworkManager.constructConnectionAndHitGET("Login Successful",
-					"Job Details Request Started", urlWithParams, this,
-					Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
+			// final RequestHelper reqHelper = new RequestHelper();
 
+		}
 
-		} else {
+		else {
+
 			/*
 			 * Toast.makeText(LoginActivity.this, "Invalid Login",
 			 * Toast.LENGTH_LONG).show();
@@ -125,7 +104,6 @@ public class LoginActivity extends Activity implements ActionDelegate {
 				SkybotTabLayoutActivity.class);
 
 		startActivity(skybottablayoutIntent);
-
 	}
 
 	@Override

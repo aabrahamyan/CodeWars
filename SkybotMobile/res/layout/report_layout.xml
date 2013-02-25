@@ -6,9 +6,10 @@
   android:layout_height="match_parent">
   
   <!-- Screen Design for Photos -->
-  <TextView android:text="DASHBOARD HERE"
+  <TextView android:text="SOME REPORT HERE"
   			android:padding="5dip"
   			android:textSize="8dip"
+  			android:textColor="#000"
   			android:layout_width="fill_parent"
   			android:layout_height="wrap_content"/>
     

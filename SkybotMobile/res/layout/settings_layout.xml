@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Enter Api Key"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:textSize="15dp" />
 
     <EditText
@@ -21,7 +21,7 @@
     <!-- Login button -->
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnSumbit"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
