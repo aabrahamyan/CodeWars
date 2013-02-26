@@ -18,6 +18,7 @@ import com.skybot.connection.connection.helper.RequestHelper;
 import com.skybot.util.Base64Coder;
 import com.skybot.util.Constants;
 import com.skybot.util.Util;
+import com.skybot.util.ViewTracker;
 
 public class LoginActivity extends Activity implements ActionDelegate {
 	@Override
@@ -25,6 +26,14 @@ public class LoginActivity extends Activity implements ActionDelegate {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		init();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		ViewTracker.getInstance().setCurrentContext(this);
+		ViewTracker.getInstance().setCurrentViewName(Constants.LOGIN_VIEW);
 	}
 
 	EditText username;

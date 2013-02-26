@@ -39,5 +39,6 @@ public class Constants {
 	
 	//---------------------------- Views ----------------------------------//
 	public static final String LOGIN_VIEW = "LoginView";
+	public static final String JOBS_VIEW = "JobsView";
 }
 

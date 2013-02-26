@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
 import com.skybot.util.Constants;
+import com.skybot.util.ViewTracker;
 
 /**
  * Activity for representing Dashboard items for overall statistics. This class
@@ -45,7 +47,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.jobs_list);
-		super.onCreate(savedInstanceState);
+		
 
 		ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
 
@@ -80,12 +82,13 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 		baseNetworkManager.constructConnectionAndHitGET("Login Successful",
 				"Jobs Request Started", urlStringWithParams, this,
-				Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
+				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
+		ViewTracker.getInstance().setCurrentContext(this);
 		getJobsResponse();
 	}
 
@@ -250,8 +253,8 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 	@Override
 	public void didFinishRequestProcessing() {
-		// TODO Auto-generated method stub
-
+		// TODO Auto-generated method stub		
+		
 	}
 
 	@Override
