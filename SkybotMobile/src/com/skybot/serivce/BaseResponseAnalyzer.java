@@ -33,7 +33,14 @@ public class BaseResponseAnalyzer {
 		else if (serviceName.equals(Constants.JOB_SERVICE_URL)) {
 			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance().getCurrentContext();
 			
+			
+			
 			del.didFinishRequestProcessing();
 		}
+	
+		else if (serviceName.equals(Constants.JOBHISTORY_SERVICE_URL)) {
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance().getCurrentContext();
+			del.didFinishRequestProcessing();}
 	}
+		
 }
