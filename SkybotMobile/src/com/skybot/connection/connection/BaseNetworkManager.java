@@ -94,7 +94,7 @@ public class BaseNetworkManager {
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
-				
+
 				switch (msg.what) {
 				case HttpConnection.DID_START:
 					Log.d("Request", startingMessage);

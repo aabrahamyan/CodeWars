@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONStringer;
+
+import com.skybot.serivce.parser.JSONParser;
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.JobsAdapter;
 import com.skybot.adapters.JobsHistoryAdapter;
@@ -36,6 +42,7 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 
 	ListView list;
 	JobsHistoryAdapter adapter;
+	JSONArray jobsHistoryList = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,21 +52,35 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 
 		ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
 
-		for (int i = 0; i < 6; i++) {
+		// Creating JSON Parser instance
+		JSONParser jParser = new JSONParser();
 
-			HashMap<String, String> map = new HashMap<String, String>();
+		// getting JSON string from URL
 
-			map.put(KEY_TITLE, "Job 1");
-			map.put(KEY_RUNNUMBER, "Job 1");
-			map.put(KEY_SUITRUNNUMBER, "Job 1");
+		try {
 
-			jobsList.add(map);
+			// Getting Array of Contacts
+			// jobsHistoryList = json.getJSONArray(KEY_TITLE);
+
+			for (int i = 0; i < jobsHistoryList.length(); i++) {
+				JSONObject c = jobsHistoryList.getJSONObject(i);
+
+				HashMap<String, String> map = new HashMap<String, String>();
+
+				map.put(KEY_TITLE, "Job 1");
+				map.put(KEY_RUNNUMBER, "Job 1");
+				map.put(KEY_SUITRUNNUMBER, "Job 1");
+
+				jobsList.add(map);
+			}
+
+			adapter = new JobsHistoryAdapter(this, jobsList);
+			this.setListAdapter(adapter);
+			ListView listView = getListView();
+			listView.setBackgroundColor(Color.WHITE);
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
-
-		adapter = new JobsHistoryAdapter(this, jobsList);
-		this.setListAdapter(adapter);
-		ListView listView = getListView();
-		listView.setBackgroundColor(Color.WHITE);
 
 	}
 
