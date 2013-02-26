@@ -15,7 +15,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class ScrollItemsFragmentAdapter extends FragmentPagerAdapter {
 
-	final int PAGE_COUNT = 5;
+	final int PAGE_COUNT = 11;
 
 	/** Constructor of the class */
 	public ScrollItemsFragmentAdapter(FragmentManager fm) {

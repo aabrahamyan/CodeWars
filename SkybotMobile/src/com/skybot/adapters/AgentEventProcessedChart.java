@@ -1,4 +1,5 @@
-package com.skybot.charts;
+package com.skybot.adapters;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.BarChart.Type;
@@ -12,32 +13,38 @@ import android.graphics.Color;
 import android.graphics.Paint.Align;
 
 
-public class TerminatedJobsChart {
+public class AgentEventProcessedChart {
 	
 	public GraphicalView getChart(Object context) {
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); 
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		
-		double[] y = { 0.6,0.8,0.1,0.9,0.7,0.7 };
-		CategorySeries series = new CategorySeries("Canceled");	
+		double[] y = {0.7,0.3,0.4,0.4,0.5,1};
+		CategorySeries series = new CategorySeries("Manual");	
 		for(int i=0;i<y.length;i++) {
 			
 			series.add("Bar " + (i+1), y[i]);
 			
 		}
 		
-		double[] y1 = {0,0,0,0,0.7,0.7};
-		CategorySeries series2 = new CategorySeries("Failed");
+		double[] y1 = {0.68,0.25,0.35,0.35,0.45,0.95};
+		CategorySeries series2 = new CategorySeries("File");
 		for(int i=0;i<y1.length;i++) {
 			
 			series2.add(y1[i]);
 			
 		}
 		
-		double[] y3 = {0,0.2,0.3,0.7,0.8,0.5};
-		CategorySeries series3 = new CategorySeries("Error");
+		double[] y3 = {0.6,0.2,0.3,0.3,0.4,0.9};
+		CategorySeries series3 = new CategorySeries("Directory");
 		for(int i = 0; i <y3.length;i++) {
 			series3.add(y3[i]);
+		}
+		
+		double[] y4 = {0.55,0.15,0.25,0.25,0.35,0.85};
+		CategorySeries series4 = new CategorySeries("Process");
+		for(int i=0;i<y4.length;i++) {
+			series4.add(y4[i]);
 		}
 		
 		/** Adding Series to dataset**/
@@ -45,8 +52,7 @@ public class TerminatedJobsChart {
 		dataset.addSeries(series.toXYSeries());
 		dataset.addSeries(series2.toXYSeries());
 		dataset.addSeries(series3.toXYSeries());
-		
-		
+		dataset.addSeries(series4.toXYSeries());
 		
 		/** Adding text labels for x axis coordinates**/
 	    for(int i=0;i<y.length;i++) {
@@ -64,7 +70,7 @@ public class TerminatedJobsChart {
 		mRenderer.setBackgroundColor(Color.WHITE);
 		mRenderer.setMarginsColor(Color.WHITE);
 		
-		//mRenderer.setMargins(new int[] {10,20,30,40});
+		mRenderer.setMargins(new int[] {10,20,30,40});
 		
 	    mRenderer.setPanEnabled(false, false);
 	    mRenderer.setZoomEnabled(false,false); //Zoom disable
@@ -72,7 +78,7 @@ public class TerminatedJobsChart {
 	    mRenderer.setBarSpacing(0.3); // Distance between bar groups
 	    mRenderer.setShowGrid(true);
 	    
-	    mRenderer.setChartTitle("Terminated Jobs");
+	    mRenderer.setChartTitle("Agent Events Processed");
 	    mRenderer.setLabelsTextSize(20); 
 	    mRenderer.setYLabelsPadding(-20);
 	    
@@ -89,8 +95,8 @@ public class TerminatedJobsChart {
 //	    mRenderer.addYTextLabel(1, "16546454645456456");
 //	    mRenderer.setYLabels(0);
 // 		mRenderer.setYLabelsColor(0, Color.GRAY);
-	    mRenderer.setYAxisMax(1);
-	    mRenderer.setYAxisMin(0);
+//	    mRenderer.setYAxisMax(1.5);
+//	    mRenderer.setYAxisMin(0);
 	    mRenderer.setShowGridX(true);//Shows gridlines for Y axis
 	    mRenderer.setLegendTextSize(20);
 //	    mRenderer.setGridColor(Color.GRAY);
@@ -102,39 +108,43 @@ public class TerminatedJobsChart {
 	    
 	    XYSeriesRenderer renderer = new XYSeriesRenderer();	    
 	    renderer.setChartValuesTextSize(20);
-	   // renderer.setDisplayChartValues(true);
+//	    renderer.setDisplayChartValues(true);
 //	    renderer.setChartValuesTextAlign(Align.CENTER);
 //	    renderer.setChartValuesSpacing(10);
 	    renderer.setColor( Color.parseColor("#65BDE3"));
 	    
-	    //Failed
-	    
 	    XYSeriesRenderer renderer2 = new XYSeriesRenderer();
 	    renderer2.setChartValuesTextSize(20);
-	 // renderer2.setDisplayChartValues(true);
+//	    renderer2.setDisplayChartValues(true);
 //	    renderer2.setChartValuesTextAlign(Align.CENTER);
 //	    renderer2.setChartValuesSpacing(10);
 	    renderer2.setColor(Color.parseColor("#FCCA76"));
 	    
-	    //Error
-	    
 	    XYSeriesRenderer renderer3 = new XYSeriesRenderer();
 	    renderer3.setChartValuesTextSize(20);
-	    // renderer3.setDisplayChartValues(true);
+//	    renderer3.setDisplayChartValues(true);
 //	    renderer3.setChartValuesTextAlign(Align.LEFT);
 //	    renderer3.setChartValuesSpacing(10);
 	    renderer3.setColor(Color.parseColor("#BADC8C"));
 	    
-	   /** Adding Single renderers to multiple renderer **/
+	    XYSeriesRenderer renderer4 = new XYSeriesRenderer();
+	    renderer4.setChartValuesTextSize(20);
+//	    renderer4.setDisplayChartValues(true);
+//	    renderer4.setChartValuesTextAlign(Align.LEFT);
+//	    renderer4.setChartValuesSpacing(10);
+	    renderer4.setColor(Color.parseColor("#C0C0C0"));
 	    
+	    /**Legend Generator**/
 	    mRenderer.addSeriesRenderer(renderer);
 	    mRenderer.addSeriesRenderer(renderer2);
-	    mRenderer.addSeriesRenderer(renderer3);	   
+	    mRenderer.addSeriesRenderer(renderer3);
+	    mRenderer.addSeriesRenderer(renderer4);
 	    
-	    mRenderer.setInScroll(true);		//Setting swipe standart animation  
-	    GraphicalView chartView = ChartFactory.getBarChartView((Context) context, dataset,mRenderer, Type.DEFAULT);
+	    mRenderer.setInScroll(true); //Disable fetch animation
+	    
+	    GraphicalView chartView = ChartFactory.getBarChartView((Context) context, dataset,mRenderer, Type.STACKED);
 		return chartView;
 		
 	}
-		
+	
 }

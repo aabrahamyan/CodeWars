@@ -10,7 +10,6 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Paint.Align;
 
 public class CompletedJobsChart {
 	//Context context;
@@ -18,7 +17,6 @@ public class CompletedJobsChart {
 		
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
-		GetMaxAxis getAxis = new GetMaxAxis();
 		
 		double[] y = {0.2,0.3,0.4,0.5,0.9,0,0.3};
 		CategorySeries series = new CategorySeries("Completed Jobs");
@@ -27,11 +25,16 @@ public class CompletedJobsChart {
 			series.add(y[i]);
 		}
 		
+		/**Setting Labels For X Axis**/
+		
 		for(int i=0;i<y.length;i++) {
 	    	mRenderer.addXTextLabel(i+1,"2" + "-" +i );
 	    }
 		mRenderer.setXLabels(0);
+		
+		GetMaxAxis getAxis = new GetMaxAxis();
 		double maxAxis = getAxis.getMax(y);
+		
 		XYSeriesRenderer renderer = new XYSeriesRenderer();
 		dataset.addSeries(series.toXYSeries());
 		
@@ -41,7 +44,6 @@ public class CompletedJobsChart {
 		
 		/** Layout Settings**/
 		
-		mRenderer.setAxesColor(Color.BLACK);
 		mRenderer.setApplyBackgroundColor(true);
 		mRenderer.setBackgroundColor(Color.WHITE);
 		mRenderer.setMarginsColor(Color.WHITE);
@@ -64,7 +66,7 @@ public class CompletedJobsChart {
 		/**Distance between y axis and labels**/
 		
 		//mRenderer.setYLabelsAlign(Align.LEFT);
-		mRenderer.setYLabelsPadding(-20);
+		mRenderer.setYLabelsPadding(-15);
 		
 		/** X axis customisation settings**/
 
@@ -73,8 +75,10 @@ public class CompletedJobsChart {
 		
 		/** Y axis customisation Settings**/
 		
-		mRenderer.setYAxisMax(1);
+		mRenderer.setYAxisMax(maxAxis);
 		mRenderer.setYAxisMin(0);
+		
+		mRenderer.setShowLegend(false);
 		
 	    GraphicalView chartView = ChartFactory.getBarChartView((Context) context, dataset, mRenderer,Type.DEFAULT);
 	    
