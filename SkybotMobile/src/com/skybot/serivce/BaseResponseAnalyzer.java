@@ -33,9 +33,8 @@ public class BaseResponseAnalyzer {
 		
 		else if (serviceName.equals(Constants.JOB_SERVICE_URL)) {
 			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance().getCurrentContext();			
-			del.didFinishRequestProcessing();
+			del.didFinishRequestProcessing();			
 			
-			System.out.println(serviceName+responseData);
 		}
 	}
 }
