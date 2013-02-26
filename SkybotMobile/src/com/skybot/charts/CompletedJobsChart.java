@@ -18,6 +18,7 @@ public class CompletedJobsChart {
 		
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
+		GetMaxAxis getAxis = new GetMaxAxis();
 		
 		double[] y = {0.2,0.3,0.4,0.5,0.9,0,0.3};
 		CategorySeries series = new CategorySeries("Completed Jobs");
@@ -30,6 +31,7 @@ public class CompletedJobsChart {
 	    	mRenderer.addXTextLabel(i+1,"2" + "-" +i );
 	    }
 		mRenderer.setXLabels(0);
+		double maxAxis = getAxis.getMax(y);
 		XYSeriesRenderer renderer = new XYSeriesRenderer();
 		dataset.addSeries(series.toXYSeries());
 		
