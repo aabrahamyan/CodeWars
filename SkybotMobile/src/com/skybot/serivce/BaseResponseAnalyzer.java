@@ -25,15 +25,17 @@ public class BaseResponseAnalyzer {
 
 		if (serviceName.equals(Constants.LOGIN_SERVICE)) {
 			
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance().getCurrentContext();
-			
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance().getCurrentContext();			
 			del.didFinishRequestProcessing();
+			
+			System.out.println(serviceName+responseData);
 		}
 		
 		else if (serviceName.equals(Constants.JOB_SERVICE_URL)) {
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance().getCurrentContext();
-			
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance().getCurrentContext();			
 			del.didFinishRequestProcessing();
+			
+			System.out.println(serviceName+responseData);
 		}
 	}
 }
