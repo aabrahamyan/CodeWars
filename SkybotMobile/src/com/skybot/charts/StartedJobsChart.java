@@ -52,14 +52,15 @@ public class StartedJobsChart {
 		mRenderer.setShowLegend(false); //Disable legend in Chart
 		mRenderer.setLabelsTextSize(20);
 		
-		mRenderer.setChartTitle("Submitted Jobs");
+		mRenderer.setChartTitle("Started Jobs");
 		mRenderer.setChartTitleTextSize(35);
 		
 		/**Axis Value Limits**/
+		mRenderer.setXAxisMin(0);
 		mRenderer.setXAxisMax(17);
 		//mRenderer.setYAxisMax(7); //y max +1 Important
 		
-		mRenderer.setYLabelsPadding(-20);
+		mRenderer.setYLabelsPadding(-15);
 		/** Distance between Y axis and labels**/
 		
 		dataset.addSeries(series);

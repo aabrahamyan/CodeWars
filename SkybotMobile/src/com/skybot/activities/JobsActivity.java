@@ -24,8 +24,8 @@ import com.skybot.adapters.JobsAdapter;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
-import com.skybot.serivce.parser.JSONParser;
 import com.skybot.util.Constants;
+import com.skybot.util.CookieStorage;
 import com.skybot.util.ViewTracker;
 
 /**
@@ -82,7 +82,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 		final RequestHelper reqHelper = new RequestHelper();
 		String urlStringWithParams = reqHelper.constructGetRequestString(
 				job_params, Constants.SERVER_URL, Constants.JOB_SERVICE_URL);
-
+	
 		baseNetworkManager.constructConnectionAndHitGET("Login Successful",
 				"Jobs Request Started", urlStringWithParams, this,
 				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
