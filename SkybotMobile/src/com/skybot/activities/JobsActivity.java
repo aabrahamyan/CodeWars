@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONObject;
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +24,7 @@ import com.skybot.adapters.JobsAdapter;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
+import com.skybot.serivce.parser.JSONParser;
 import com.skybot.util.Constants;
 import com.skybot.util.ViewTracker;
 
@@ -252,8 +255,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	}
 
 	@Override
-	public void didFinishRequestProcessing() {
-		// TODO Auto-generated method stub		
+	public void didFinishRequestProcessing() {			
 		
 	}
 

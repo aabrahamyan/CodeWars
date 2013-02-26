@@ -24,23 +24,29 @@ public class BaseResponseAnalyzer {
 			final String urlWithParams, final String responseData) {
 
 		if (serviceName.equals(Constants.LOGIN_SERVICE)) {
-			
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance().getCurrentContext();
-			
+
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+					.getCurrentContext();
 			del.didFinishRequestProcessing();
+
+			System.out.println(serviceName + responseData);
 		}
-		
+
 		else if (serviceName.equals(Constants.JOB_SERVICE_URL)) {
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance().getCurrentContext();
-			
-			
-			
+
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+					.getCurrentContext();
+
+			del.didFinishRequestProcessing();
+
+			System.out.println(serviceName + responseData);
+		}
+
+		else if (serviceName.equals(Constants.JOBHISTORY_SERVICE_URL)) {
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+					.getCurrentContext();
 			del.didFinishRequestProcessing();
 		}
-	
-		else if (serviceName.equals(Constants.JOBHISTORY_SERVICE_URL)) {
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance().getCurrentContext();
-			del.didFinishRequestProcessing();}
 	}
-		
+
 }
