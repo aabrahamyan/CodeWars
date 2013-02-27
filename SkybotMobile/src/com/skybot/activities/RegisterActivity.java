@@ -1,5 +1,8 @@
 package com.skybot.activities;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.skybot.activities.delegate.ActionDelegate;
 
 import android.app.Activity;
@@ -29,6 +32,11 @@ public class RegisterActivity extends Activity implements ActionDelegate {
 	@Override
 	public void didFinishRequestProcessing() {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list) {
 		
 	}
 

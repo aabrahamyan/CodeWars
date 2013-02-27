@@ -1,5 +1,8 @@
 package com.skybot.activities;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.ScrollItemsFragmentAdapter;
 import android.os.Bundle;
@@ -42,6 +45,11 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 	@Override
 	public void didFailRequestProcessing() {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list) {
 		
 	}
 

@@ -41,6 +41,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	private ListView listView;
 	private boolean directionRight = false;
 	private JobsAdapter adapter;
+	private ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
 
 	static final String KEY_TITLE = "title";
 	static final String KEY_DESCRIPTION = "description";
@@ -49,19 +50,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.jobs_list);
-		
-
-		ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
-
-		for (int i = 0; i < 12; i++) {
-
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put(KEY_TITLE, "Job 1");
-			map.put(KEY_DESCRIPTION, "Job 1");
-			map.put(KEY_AGENT, "Job 1");
-			jobsList.add(map);
-		}
+		setContentView(R.layout.jobs_list);	
 
 		listView = (ListView) findViewById(R.id.listView1);
 		adapter = new JobsAdapter(this, jobsList);
@@ -93,6 +82,10 @@ public class JobsActivity extends SwipeListViewActivity implements
 		super.onResume();
 		ViewTracker.getInstance().setCurrentContext(this);
 		getJobsResponse();
+		
+		listView = (ListView) findViewById(R.id.listView1);
+		adapter = new JobsAdapter(this, jobsList);
+		listView.setAdapter(adapter);
 	}
 
 	@Override
@@ -256,6 +249,11 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 	@Override
 	public void didFinishRequestProcessing() {			
+		
+	}
+	@Override
+	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list) {
+		jobsList = list;	
 		
 	}
 
