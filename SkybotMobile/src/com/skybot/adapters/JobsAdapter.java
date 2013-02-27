@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.skybot.activities.R;
+import com.skybot.activities.R.drawable;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class JobsAdapter extends BaseAdapter {
@@ -47,13 +49,21 @@ public class JobsAdapter extends BaseAdapter {
 		TextView title = (TextView) vi.findViewById(R.id.title); // title
 		TextView description = (TextView) vi.findViewById(R.id.description); // description
 		TextView agent = (TextView) vi.findViewById(R.id.agent); // agent
+		ImageView image = (ImageView) vi.findViewById(R.id.list_image); //status image
 		
 		if (data != null && !data.isEmpty()) {
 			HashMap m = new HashMap();
 			m = data.get(0);
-			title.setText(m.get("maxId").toString());
-			description.setText(m.get("timestamp").toString());
-			agent.setText(m.get("growler_message").toString());
+			
+			if (m.get("hold_status").toString().equals("Released")) {
+				image.setImageResource(R.drawable.blank_badge_orange);
+			}
+			else if (m.get("hold_status").toString().equals("Hold")) {
+				image.setImageResource(R.drawable.blank_badge_green);
+			}
+			title.setText(m.get("name").toString());
+			description.setText("Agent: "+m.get("agent").toString());
+			agent.setText("Description: "+m.get("description").toString());
 		}
 		
 		vi.findViewById(R.id.title).setVisibility(View.VISIBLE);

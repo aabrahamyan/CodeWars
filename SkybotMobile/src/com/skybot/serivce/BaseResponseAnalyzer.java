@@ -3,12 +3,13 @@ package com.skybot.serivce;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 import android.util.Log;
 
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.util.Constants;
 import com.skybot.util.ViewTracker;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -31,8 +32,7 @@ public class BaseResponseAnalyzer {
 	 * @throws ParseException
 	 */
 	public static synchronized void analyze(final String serviceName,
-			final String urlWithParams, final String responseData)
-			 {
+			final String urlWithParams, final String responseData) {
 
 		if (serviceName.equals(Constants.LOGIN_SERVICE)) {
 
@@ -41,7 +41,7 @@ public class BaseResponseAnalyzer {
 			del.didFinishRequestProcessing();
 		}
 
-		else if (serviceName.equals(Constants.JOB_SERVICE_URL)) {			
+		else if (serviceName.equals(Constants.JOB_SERVICE_URL)) {
 
 			String responseString = "";
 			responseString = responseData.replace("maxId:", "\"maxId\":");
@@ -54,19 +54,26 @@ public class BaseResponseAnalyzer {
 			try {
 				JSONParser jParser = new JSONParser();
 				JSONObject jObject = (JSONObject) jParser.parse(responseString);
-				System.out.println("parsed: " + jObject.toString());					
-				
-				ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();				
+
+				ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("maxId", jObject.get("maxId").toString());
-				map.put("timestamp", jObject.get("timestamp").toString());
-				map.put("growler_message", jObject.get("growler_message").toString());				
-				
-				list.add(map);
-				ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
-						.getCurrentContext();
-				del.didFinishRequestProcessing(list);
-				
+
+				JSONArray jArray = (JSONArray) jObject.get("items");
+
+				for (int i = 0; i < jArray.size(); i++) {
+					JSONObject json_data = (JSONObject) jArray.get(i);
+					map.put("name", json_data.get("name").toString());
+					map.put("agent", json_data.get("agent").toString());
+					map.put("description", json_data.get("description")
+							.toString());
+					map.put("hold_status", json_data.get("hold_status")
+							.toString());
+
+					list.add(map);
+					ActionDelegate del = (ActionDelegate) ViewTracker
+							.getInstance().getCurrentContext();
+					del.didFinishRequestProcessing(list);
+				}
 			} catch (Exception e) {
 				Log.e("JSON Parser", "Error parsing data " + e.toString());
 			}
