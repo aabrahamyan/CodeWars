@@ -2,32 +2,37 @@ package com.skybot.charts;
 
 import java.util.Currency;
 import org.achartengine.GraphicalView;
+
+import com.skybot.adapters.AgentEventProcessedChart;
+
 import android.content.Context;
 import android.view.View;
 	
 public class CheckPageCoordinates {
-	TerminatedJobsChart termChart = new TerminatedJobsChart();
-	CompletedJobsChart compChart = new CompletedJobsChart();
-	SubmittedJobsChart subChart = new SubmittedJobsChart();
-	StartedJobsChart startChart = new StartedJobsChart();
 	
 	GraphicalView ChartView;
 	public View getChart(Context context,int mCurrentPage) {
 		
 	
 		if(mCurrentPage == 1) {
-			ChartView = compChart.getChart(context);
+			ChartView = new CompletedJobsChart().getChart(context);
 		}
 		
 		else if(mCurrentPage == 2) {
-			ChartView = termChart.getChart(context);
+			ChartView = new TerminatedJobsChart().getChart(context);
 		}
 		
 		else if(mCurrentPage == 3) {
-			ChartView = subChart.getChart(context);
+			ChartView = new SubmittedJobsChart().getChart(context);
+		}
+		else if(mCurrentPage == 4){
+			ChartView = new StartedJobsChart().getChart(context);
+		}
+		else if (mCurrentPage == 5) {
+			ChartView = new EndedJobsChart().getChart(context);
 		}
 		else {
-			ChartView = startChart.getChart(context);
+			ChartView = new AgentEventProcessedChart().getChart(context);
 		}
 		return ChartView;
 	}

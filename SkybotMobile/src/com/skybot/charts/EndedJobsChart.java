@@ -11,23 +11,26 @@ import org.achartengine.renderer.XYSeriesRenderer;
 import android.content.Context;
 import android.graphics.Color;
 
-public class SubmittedJobsChart {
+public class EndedJobsChart {
 	
 	public GraphicalView getChart(Object context) {
+		
 		
 		XYMultipleSeriesDataset dataset= new XYMultipleSeriesDataset();
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
 		
 		XYSeriesRenderer renderer = new XYSeriesRenderer();
-		TimeSeries series = new TimeSeries("Jobs Submitted");
+		TimeSeries series = new TimeSeries("Jobs Started");
 		
 		int[] x = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
-		double[] values = {0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,6};
+		double[] values = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		
 		for(int i=0; i<values.length;i++) {
 			series.add(x[i],values[i]);
 		}
 		
+		GetMaxAxis getAxis = new GetMaxAxis();
+		double maxAxis = getAxis.getMax(values);
 		/**   Line Customization   **/
 		
 		renderer.setPointStyle(PointStyle.CIRCLE);
@@ -38,26 +41,27 @@ public class SubmittedJobsChart {
 		/**Layout Customisation**/
 		
 		mRenderer.addSeriesRenderer(renderer);
+		
 		mRenderer.setApplyBackgroundColor(true);
 		mRenderer.setBackgroundColor(Color.WHITE);
 		mRenderer.setMarginsColor(Color.WHITE);
+		
 		mRenderer.setPointSize(10);
+		
 		mRenderer.setPanEnabled(false);
 		mRenderer.setZoomEnabled(false);
+		
 		mRenderer.setShowGridX(true);
 		mRenderer.setShowLegend(false); //Disable legend in Chart
 		mRenderer.setLabelsTextSize(20);
-		mRenderer.setChartTitle("Submitted Jobs");
+		
+		mRenderer.setChartTitle("Ended Jobs");
 		mRenderer.setChartTitleTextSize(35);
 		
-		/**Axis Value Limits**/
 		mRenderer.setXAxisMin(0);
 		mRenderer.setXAxisMax(17);
-		mRenderer.setYAxisMax(7); //y max +1 Important
-		
-		mRenderer.setYLabelsPadding(-15);
-		/** Distance between Y axis and labels**/
-		
+		mRenderer.setYAxisMax(maxAxis+1); //y max +1 Important
+		mRenderer.setYLabelsPadding(-15);		
 		dataset.addSeries(series);
 		
 		/** Layout Customisation**/
@@ -67,4 +71,5 @@ public class SubmittedJobsChart {
 		return chartView;
 		
 	}
+	
 }

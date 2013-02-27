@@ -17,7 +17,7 @@ public class Constants {
 	public static final String PASSWORD = "user_session[password]";
 	public static final String COMMIT = "commit";
 	public static final String ADMIN = "admin";
-	
+	public static final String JOBHISTORY_SERVICE_URL = "job_histories.json";
 	public static final String JOB_SERVICE_URL = "jobs.json";
 	public static final String DATE = "_dc";
 	public static final String RESULTS = "results";
@@ -28,6 +28,11 @@ public class Constants {
 	public static final String START = "start";
 	public static final String LIMIT = "limit";	
 	public static final String LIST = "list";
+	public static final String DATAFILTERFIELD="dateFilter[0][field]";
+	public static final String DATAFILTERDATA="dateFilter[0][data][comparison]";
+	public static final String DATAFILTERDATATYPE="dateFilter[0][data][type]";
+	public static final String DATAFILTERVALUE="dateFilter[0][data][type]";
+	public static final String EXCLUDETIMEDINTERVAL="exclude_timed_interval";
 	
 	public static final String JOB_DETAILS_URL = "jobs/1000/edit.json";
 	public static final String RUN_JOB_URL= "commands.json";	
@@ -39,5 +44,8 @@ public class Constants {
 	
 	//---------------------------- Views ----------------------------------//
 	public static final String LOGIN_VIEW = "LoginView";
+	public static final String JOBS_VIEW = "JobsView";
+
+	public static final String JOBSHISTORY_VIEW = "JobsHistoryView";
 }
 

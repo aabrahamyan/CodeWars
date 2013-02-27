@@ -1,6 +1,8 @@
 package com.skybot.serivce;
 
+import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.util.Constants;
+import com.skybot.util.ViewTracker;
 
 /**
  * Synchronized instance which evaluates response data and passes to the
@@ -22,7 +24,24 @@ public class BaseResponseAnalyzer {
 			final String urlWithParams, final String responseData) {
 
 		if (serviceName.equals(Constants.LOGIN_SERVICE)) {
-			
+
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+					.getCurrentContext();
+			del.didFinishRequestProcessing();			
+		}
+
+		else if (serviceName.equals(Constants.JOB_SERVICE_URL)) {
+
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance().getCurrentContext();			
+			del.didFinishRequestProcessing();
+		}
+
+		else if (serviceName.equals(Constants.JOBHISTORY_SERVICE_URL)) {
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+					.getCurrentContext();
+			del.didFinishRequestProcessing();
+
 		}
 	}
+
 }

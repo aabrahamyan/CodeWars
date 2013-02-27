@@ -62,8 +62,8 @@ public class HttpConnection implements Runnable {
 	private static final int PUT = 2;
 	private static final int DELETE = 3;
 	private static final int BITMAP = 4;
-	
-	private String cookieString = null;
+
+	private String cookieString = "";
 	private String url;
 	private int method;
 	private Handler handler;
@@ -112,26 +112,29 @@ public class HttpConnection implements Runnable {
 	@Override
 	public void run() {
 		handler.sendMessage(Message.obtain(handler, HttpConnection.DID_START));
-		
+
 		httpClient = new DefaultHttpClient();
 		CookieStore cookieStore = new BasicCookieStore();
-		CookieStorage myCookieStorage = CookieStorage.getInstance();
-		myCookieStorage.getArrayList().add(cookieStore);	
-		
+
+		if (CookieStorage.getInstance().getArrayList() != null
+				&& !CookieStorage.getInstance().getArrayList().isEmpty()) {
+			this.cookieString = (String) CookieStorage.getInstance()
+					.getArrayList().get(0);
+		}
 
 		try {
 			HttpResponse response = null;
 			switch (method) {
 			case GET:
 				HttpGet httpGet = new HttpGet(url);
-				response = httpClient.execute(httpGet);
-				
-				if (cookieString!=null)	{
-				httpGet.setHeader("Cookie", cookieString); }
+				if (cookieString != null) {
+					httpGet.setHeader("Cookie", cookieString);
+				}
+				response = httpClient.execute(httpGet);				
 				break;
 			case POST:
 				httpClient.getParams().setParameter(ClientPNames.COOKIE_POLICY,
-						CookiePolicy.RFC_2109);				
+						CookiePolicy.RFC_2109);
 
 				// Create local HTTP context
 				HttpContext localContext = new BasicHttpContext();
@@ -141,9 +144,10 @@ public class HttpConnection implements Runnable {
 
 				HttpPost httpPost = new HttpPost(url);
 				httpPost.setEntity(new UrlEncodedFormEntity(this.nameValuePairs));
-				
-				if (cookieString!=null)		{ 
-				httpPost.setHeader("Cookie", cookieString); }				
+
+				if (cookieString != null) {
+					httpPost.setHeader("Cookie", cookieString);
+				}
 				httpPost.setHeader(
 						"User-Agent",
 						"Mozilla/5.0 (X11; U; Linux "
@@ -158,7 +162,7 @@ public class HttpConnection implements Runnable {
 				// httpPost.addHeader("Cookie",
 				// "_SchEnt2_session=740c8dc090d32826155e8eb8b8e63f37");
 
-				response = httpClient.execute(httpPost,localContext);
+				response = httpClient.execute(httpPost, localContext);
 				break;
 			case PUT:
 				HttpPut httpPut = new HttpPut(url);
@@ -187,20 +191,24 @@ public class HttpConnection implements Runnable {
 
 		// -------------------- Analyze Headers ------------------------//
 
-		Header[] headers = response.getAllHeaders();		
-		List<Cookie> cookies = cookieStore.getCookies();		
-		
+		Header[] headers = response.getAllHeaders();
+		List<Cookie> cookies = cookieStore.getCookies();
+
 		for (Cookie s : cookies) {
-			if ( s.getName() == "user_credentials" ) { cookieString += s.getName() +"="+ s.getValue() + "; ";	 }
-			
-			if ( s.getName() == "_SchEnt2_session" ) { cookieString += s.getName() +"="+ s.getValue();  }
+			if (s.getName().equals("user_credentials")) {
+				cookieString += s.getName() + "=" + s.getValue() + "; ";
+			}
+
+			if (s.getName().equals("_SchEnt2_session")) {
+				cookieString += s.getName() + "=" + s.getValue();
+			}
 		}
-		
-		if(CookieStorage.getInstance().getArrayList().isEmpty() && cookieString!=null)
-		{
+
+		if (CookieStorage.getInstance().getArrayList().isEmpty()
+				&& cookieString != null) {
 			CookieStorage.getInstance().getArrayList().add(cookieString);
-		}	
-		
+		}
+
 		// -------------------- Analyze Content ------------------------//
 		HttpEntity entity = response.getEntity();
 
