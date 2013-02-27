@@ -58,13 +58,10 @@ public class TerminatedJobsChart {
 		
 		/** Settings for whole layout **/
 		
-		//mRenderer.setAxesColor(Color.BLACK);
 		mRenderer.setApplyBackgroundColor(true);
 		
 		mRenderer.setBackgroundColor(Color.WHITE);
 		mRenderer.setMarginsColor(Color.WHITE);
-		
-		//mRenderer.setMargins(new int[] {10,20,30,40});
 		
 	    mRenderer.setPanEnabled(false, false);
 	    mRenderer.setZoomEnabled(false,false); //Zoom disable
@@ -73,63 +70,42 @@ public class TerminatedJobsChart {
 	    mRenderer.setShowGrid(true);
 	    
 	    mRenderer.setChartTitle("Terminated Jobs");
-	    mRenderer.setLabelsTextSize(20); 
-	    mRenderer.setYLabelsPadding(-20);
+	    mRenderer.setLabelsTextSize(15); 
 	    
 	    mRenderer.setLegendHeight(50);
 	    
 	    /**X axis settings**/
+	    
 	    mRenderer.setXAxisMax(7);
 	    mRenderer.setXAxisMin(0);
-	    mRenderer.setChartTitleTextSize(35);
-	   // mRenderer.setXLabelsColor(Color.BLACK);
+	    mRenderer.setChartTitleTextSize(20);
 	    			
 	    /**Y axis settings **/
-//	    mRenderer.addYTextLabel(0.5, "0.5");
-//	    mRenderer.addYTextLabel(1, "16546454645456456");
-//	    mRenderer.setYLabels(0);
-// 		mRenderer.setYLabelsColor(0, Color.GRAY);
-	    mRenderer.setYAxisMax(1);
+	    
+	    mRenderer.setYAxisMax(1.5);
 	    mRenderer.setYAxisMin(0);
 	    mRenderer.setShowGridX(true);//Shows gridlines for Y axis
-	    mRenderer.setLegendTextSize(20);
-//	    mRenderer.setGridColor(Color.GRAY);
-	    
-	    mRenderer.setYLabelsPadding(-20);
+	    mRenderer.setLegendTextSize(20);	
+	    mRenderer.setYLabelsAlign(Align.RIGHT);
+	    //mRenderer.setYLabelsPadding(-20);
 	    
 	    /** Multiple BarcHart customization **/
 	    //Cancelled
 	    
 	    XYSeriesRenderer renderer = new XYSeriesRenderer();	    
-	    renderer.setChartValuesTextSize(20);
-	   // renderer.setDisplayChartValues(true);
-//	    renderer.setChartValuesTextAlign(Align.CENTER);
-//	    renderer.setChartValuesSpacing(10);
 	    renderer.setColor( Color.parseColor("#65BDE3"));
-	    
-	    //Failed
-	    
+	 
 	    XYSeriesRenderer renderer2 = new XYSeriesRenderer();
-	    renderer2.setChartValuesTextSize(20);
-	 // renderer2.setDisplayChartValues(true);
-//	    renderer2.setChartValuesTextAlign(Align.CENTER);
-//	    renderer2.setChartValuesSpacing(10);
 	    renderer2.setColor(Color.parseColor("#FCCA76"));
 	    
-	    //Error
-	    
 	    XYSeriesRenderer renderer3 = new XYSeriesRenderer();
-	    renderer3.setChartValuesTextSize(20);
-	    // renderer3.setDisplayChartValues(true);
-//	    renderer3.setChartValuesTextAlign(Align.LEFT);
-//	    renderer3.setChartValuesSpacing(10);
 	    renderer3.setColor(Color.parseColor("#BADC8C"));
 	    
 	   /** Adding Single renderers to multiple renderer **/
 	    
 	    mRenderer.addSeriesRenderer(renderer);
 	    mRenderer.addSeriesRenderer(renderer2);
-	    mRenderer.addSeriesRenderer(renderer3);	   
+	    mRenderer.addSeriesRenderer(renderer3);
 	    
 	    mRenderer.setInScroll(true);		//Setting swipe standart animation  
 	    GraphicalView chartView = ChartFactory.getBarChartView((Context) context, dataset,mRenderer, Type.DEFAULT);

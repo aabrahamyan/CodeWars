@@ -60,9 +60,8 @@ public class ScrollItemsFragment extends Fragment {
 	@Override
 	public void onResume(){ 
 		super.onResume();
-		LinearLayout ll = (LinearLayout) getActivity().findViewById(R.id.chartLayout);
 		context = getActivity();
-		
+		LinearLayout ll = (LinearLayout) context.findViewById(R.id.chartLayout);
 		if(mChartView == null) {
 			
 			mChartView = (GraphicalView) cpCoord.getChart(context,mCurrentPage);
