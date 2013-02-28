@@ -264,4 +264,10 @@ public class JobsActivity extends SwipeListViewActivity implements
 		// TODO Auto-generated method stub
 
 	}
-}
+	@Override
+	public void didFinishRequestProcessing(Map<?, ?>json) {
+		// TODO Auto-generated method stub
+
+		}
+	}
+

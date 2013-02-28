@@ -1,5 +1,7 @@
 package com.skybot.activities;
 
+import java.util.Map;
+
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.ScrollItemsFragmentAdapter;
 import android.os.Bundle;
@@ -45,8 +47,13 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 		
 	}
 
+	@Override
+	public void didFinishRequestProcessing(Map<?, ?>json) {
+		// TODO Auto-generated method stub
+
+		}
+	}
 	/*
 	 * @Override public boolean onCreateOptionsMenu(Menu menu) {
 	 * getMenuInflater().inflate(R.menu.activity_main, menu); return true; }
 	 */
-}

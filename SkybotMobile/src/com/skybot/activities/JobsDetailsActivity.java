@@ -1,5 +1,7 @@
 package com.skybot.activities;
 
+import java.util.Map;
+
 import com.skybot.activities.delegate.ActionDelegate;
 
 import android.app.Activity;
@@ -23,6 +25,10 @@ public class JobsDetailsActivity extends Activity implements ActionDelegate {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	@Override
+	public void didFinishRequestProcessing(Map<?, ?>json) {
+		// TODO Auto-generated method stub
+
+		}
 	
 }

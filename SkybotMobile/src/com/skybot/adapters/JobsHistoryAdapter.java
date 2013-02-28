@@ -46,7 +46,7 @@ public class JobsHistoryAdapter extends BaseAdapter {
 
 		TextView title = (TextView) vi.findViewById(R.id.title); // title
 		TextView runnumber = (TextView) vi.findViewById(R.id.runnumber); // runnumber
-
+		title.setText((data.get(3).toString()));
 		TextView suitrunnumber = (TextView) vi.findViewById(R.id.suitrunnumber); // suitrunnumber
 
 		HashMap<String, String> jobs = new HashMap<String, String>();

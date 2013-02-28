@@ -1,5 +1,7 @@
 package com.skybot.activities;
 
+import java.util.Map;
+
 import com.skybot.activities.delegate.ActionDelegate;
 
 import android.app.TabActivity;
@@ -131,5 +133,10 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public void didFinishRequestProcessing(Map<?, ?>json) {
+		// TODO Auto-generated method stub
+
+		}
 
 }

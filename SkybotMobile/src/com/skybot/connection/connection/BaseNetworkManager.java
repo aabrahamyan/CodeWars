@@ -1,13 +1,14 @@
 package com.skybot.connection.connection;
 
 import java.util.List;
-import org.apache.http.NameValuePair;
 
-import com.skybot.serivce.BackgroundResponseAnalizer;
-import com.skybot.util.Constants;
+import org.apache.http.NameValuePair;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+
+import com.skybot.serivce.BackgroundResponseAnalizer;
+import com.skybot.util.Constants;
 
 /**
  * 
@@ -41,7 +42,6 @@ public class BaseNetworkManager {
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
-
 				switch (msg.what) {
 				case HttpConnection.DID_START:
 					Log.d("Request", startingMessage);
@@ -109,9 +109,9 @@ public class BaseNetworkManager {
 					Log.d("Exception occured while hitting response",
 							ex.getMessage());
 					break;
+
 				}
 			}
-						
 		};
 
 		final HttpConnection connection = new HttpConnection(handler);

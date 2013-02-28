@@ -7,25 +7,21 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
-import com.skybot.serivce.parser.JSONParser;
-import com.skybot.activities.delegate.ActionDelegate;
-import com.skybot.adapters.JobsAdapter;
-import com.skybot.adapters.JobsHistoryAdapter;
-import com.skybot.connection.connection.BaseNetworkManager;
-import com.skybot.connection.connection.helper.RequestCreator;
-import com.skybot.connection.connection.helper.RequestHelper;
-import com.skybot.util.Constants;
-import com.skybot.util.ViewTracker;
-
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+
+import com.skybot.activities.delegate.ActionDelegate;
+import com.skybot.adapters.JobsHistoryAdapter;
+import com.skybot.connection.connection.BaseNetworkManager;
+import com.skybot.connection.connection.helper.RequestCreator;
+import com.skybot.connection.connection.helper.RequestHelper;
+import com.skybot.util.Constants;
+import com.skybot.util.ViewTracker;
 
 /**
  * Representing and controlling Job History items and logs.
@@ -42,7 +38,10 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 
 	ListView list;
 	JobsHistoryAdapter adapter;
-	JSONArray jobsHistoryList = null;
+
+	ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
+
+	// JSONArray jobsHistoryList = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,38 +49,29 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 		// setContentView(R.layout.jobs_layout);
 		super.onCreate(savedInstanceState);
 
-		ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
-
 		// Creating JSON Parser instance
-		JSONParser jParser = new JSONParser();
 
 		// getting JSON string from URL
 
-		try {
+		// Getting Array of Contacts
+		// responseString = json.getJSONArray(KEY_TITLE);
 
-			// Getting Array of Contacts
-			// jobsHistoryList = json.getJSONArray(KEY_TITLE);
+		for (int i = 0; i < 5; i++) {
 
-			for (int i = 0; i < jobsHistoryList.length(); i++) {
-				JSONObject c = jobsHistoryList.getJSONObject(i);
+			HashMap<String, String> map = new HashMap<String, String>();
 
-				HashMap<String, String> map = new HashMap<String, String>();
+			// map.put(KEY_ID, parser.getValue(e, KEY_ID));
+			map.put(KEY_TITLE, "Job 1");
+			map.put(KEY_RUNNUMBER, "Job 1");
+			map.put(KEY_SUITRUNNUMBER, "Job 1");
 
-				map.put(KEY_TITLE, "Job 1");
-				map.put(KEY_RUNNUMBER, "Job 1");
-				map.put(KEY_SUITRUNNUMBER, "Job 1");
-
-				jobsList.add(map);
-			}
-
-			adapter = new JobsHistoryAdapter(this, jobsList);
-			this.setListAdapter(adapter);
-			ListView listView = getListView();
-			listView.setBackgroundColor(Color.WHITE);
-		} catch (JSONException e) {
-			e.printStackTrace();
+			jobsList.add(map);
 		}
 
+		adapter = new JobsHistoryAdapter(this, jobsList);
+		this.setListAdapter(adapter);
+		ListView listView = getListView();
+		listView.setBackgroundColor(Color.WHITE);
 	}
 
 	private void getJobsHistoryResponse() {
@@ -90,17 +80,23 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
 		Map<String, String> job_params = creator.createAppropriateMapRequest(
-				Constants.DATE, system_Time, Constants.RESULTS, "300",
-				Constants.SORT, "name", Constants.DIRECTION, "ASC",
-				Constants.TAG, "", Constants.TAG_MATCH_ANY, "false",
-				Constants.START, "0",
-				Constants.LIMIT,
-				"300",
+				Constants.DATE, system_Time, Constants.RESULTS, "1",
+				Constants.SORT, "id", Constants.DIRECTION,
+				"DESC",
+				Constants.TAG,
+				"",
+				Constants.TAG_MATCH_ANY,
+				"false",
+
 				// Additional constants for job history
 				Constants.DATAFILTERFIELD, "server_initiated_time_utc",
-				Constants.DATAFILTERDATA, "eq", Constants.DATAFILTERDATATYPE,
-				"dateTime", Constants.DATAFILTERVALUE, "2013-02-26T00:00:00",
-				Constants.EXCLUDETIMEDINTERVAL, "false");
+				Constants.DATAFILTERDATACOMPARASION, "eq",
+				Constants.DATAFILTERDATATYPE, "dateTime",
+				Constants.DATAFILTERVALUE, "2013-02-26T00:00:00",
+				Constants.EXCLUDETIMEDINTERVAL, "false", Constants.START, "0",
+				Constants.LIMIT, "5"
+
+		);
 
 		final RequestHelper reqHelper = new RequestHelper();
 		String urlStringWithParams = reqHelper.constructGetRequestString(
@@ -135,5 +131,13 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 	public void didFailRequestProcessing() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void didFinishRequestProcessing(Map<?, ?> json) {
+		// TODO Auto-generated method stub
+
+		jobsList.add((HashMap<String, String>) json);
+		this.setListAdapter(adapter);
 	}
 }
