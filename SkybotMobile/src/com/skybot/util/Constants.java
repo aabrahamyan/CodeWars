@@ -41,6 +41,8 @@ public class Constants {
 	public static final String CS_ID = "command_set_id";
 	public static final String CS_TYPE = "command_set_type";
 	public static final String JOB_ID = "job_id";	
+	public static final String DO_WHAT = "do_what";
+	public static final String DO_NOW = "donow";
 	
 	//---------------------------- Views ----------------------------------//
 	public static final String LOGIN_VIEW = "LoginView";

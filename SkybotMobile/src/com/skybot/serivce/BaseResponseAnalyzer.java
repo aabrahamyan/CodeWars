@@ -10,6 +10,7 @@ import com.skybot.util.Constants;
 import com.skybot.util.ViewTracker;
 
 import org.json.simple.JSONArray;
+import org.json.JSONException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -56,12 +57,14 @@ public class BaseResponseAnalyzer {
 				JSONObject jObject = (JSONObject) jParser.parse(responseString);
 
 				ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-				HashMap<String, String> map = new HashMap<String, String>();
 
+				int count = Integer.valueOf(jObject.get("totalResultsReturned")
+						.toString());
 				JSONArray jArray = (JSONArray) jObject.get("items");
 
 				for (int i = 0; i < jArray.size(); i++) {
 					JSONObject json_data = (JSONObject) jArray.get(i);
+					HashMap<String, String> map = new HashMap<String, String>();
 					map.put("name", json_data.get("name").toString());
 					map.put("agent", json_data.get("agent").toString());
 					map.put("description", json_data.get("description")
@@ -70,10 +73,10 @@ public class BaseResponseAnalyzer {
 							.toString());
 
 					list.add(map);
-					ActionDelegate del = (ActionDelegate) ViewTracker
-							.getInstance().getCurrentContext();
-					del.didFinishRequestProcessing(list);
 				}
+				ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+						.getCurrentContext();
+				del.didFinishRequestProcessing(list);
 			} catch (Exception e) {
 				Log.e("JSON Parser", "Error parsing data " + e.toString());
 			}

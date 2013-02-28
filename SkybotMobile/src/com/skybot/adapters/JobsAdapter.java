@@ -53,13 +53,13 @@ public class JobsAdapter extends BaseAdapter {
 		
 		if (data != null && !data.isEmpty()) {
 			HashMap m = new HashMap();
-			m = data.get(0);
+			m = data.get(position);
 			
 			if (m.get("hold_status").toString().equals("Released")) {
-				image.setImageResource(R.drawable.blank_badge_orange);
+				image.setImageResource(R.drawable.blank_badge_green);
 			}
 			else if (m.get("hold_status").toString().equals("Hold")) {
-				image.setImageResource(R.drawable.blank_badge_green);
+				image.setImageResource(R.drawable.blank_badge_orange);
 			}
 			title.setText(m.get("name").toString());
 			description.setText("Agent: "+m.get("agent").toString());

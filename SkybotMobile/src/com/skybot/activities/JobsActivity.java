@@ -2,8 +2,10 @@ package com.skybot.activities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.http.NameValuePair;
 import org.json.JSONObject;
 
 import android.app.ListActivity;
@@ -50,7 +52,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.jobs_list);	
+		setContentView(R.layout.jobs_list);
 
 		listView = (ListView) findViewById(R.id.listView1);
 		adapter = new JobsAdapter(this, jobsList);
@@ -71,7 +73,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 		final RequestHelper reqHelper = new RequestHelper();
 		String urlStringWithParams = reqHelper.constructGetRequestString(
 				job_params, Constants.SERVER_URL, Constants.JOB_SERVICE_URL);
-	
+
 		baseNetworkManager.constructConnectionAndHitGET("Login Successful",
 				"Jobs Request Started", urlStringWithParams, this,
 				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
@@ -82,7 +84,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 		super.onResume();
 		ViewTracker.getInstance().setCurrentContext(this);
 		getJobsResponse();
-		
+
 		listView = (ListView) findViewById(R.id.listView1);
 		adapter = new JobsAdapter(this, jobsList);
 		listView.setAdapter(adapter);
@@ -96,16 +98,17 @@ public class JobsActivity extends SwipeListViewActivity implements
 	@Override
 	public void getSwipeItem(boolean isRight, int position) {
 
-		View rowView = listView.getChildAt(position);		
-		if(isRight) {	
-			directionRight = true;			
-		rowView.startAnimation(getDeleteAnimation(0,  rowView.getWidth(), position));			
+		View rowView = listView.getChildAt(position);
+		if (isRight) {
+			directionRight = true;
+			rowView.startAnimation(getDeleteAnimation(0, rowView.getWidth(),
+					position));
+		} else {
+			directionRight = false;
+			rowView.startAnimation(getDeleteAnimation(rowView.getWidth(), 0,
+					position));
 		}
-		else { 	
-			directionRight = false;		
-		rowView.startAnimation(getDeleteAnimation(rowView.getWidth(), 0, position));	}
 
-		
 	}
 
 	@Override
@@ -179,23 +182,19 @@ public class JobsActivity extends SwipeListViewActivity implements
 	}
 
 	public void runJob(View v) {
-		String system_Time = Long.toString(System.currentTimeMillis());
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
 		Map<String, String> run_job_params = creator
-				.createAppropriateMapRequest(Constants.CS_ID, "1000",
-						Constants.CS_TYPE, "1", Constants.JOB_ID, "1000",
-						Constants.DATE, system_Time, Constants.RESULTS, "300",
-						Constants.SORT, "id", Constants.DIRECTION, "ASC",
-						Constants.START, "0", Constants.LIMIT, "300");
+				.createAppropriateMapRequest(Constants.JOB_ID, "1013",
+						Constants.DO_WHAT, Constants.DO_NOW);
 
 		final RequestHelper reqHelper = new RequestHelper();
-		String urlStringWithParams = reqHelper.constructGetRequestString(
-				run_job_params, Constants.SERVER_URL, Constants.RUN_JOB_URL);
+		final List<NameValuePair> paramsList = reqHelper
+				.createPostDataWithKeyValuePair(run_job_params);
 
-		baseNetworkManager.constructConnectionAndHitGET("Run Successful",
-				"Run Job Request Started", urlStringWithParams, this,
+		baseNetworkManager.constructConnectionAndHitPOST("Run Successful",
+				"Run Job Request Started", paramsList, this,
 				Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
 	}
 
@@ -248,13 +247,15 @@ public class JobsActivity extends SwipeListViewActivity implements
 	}
 
 	@Override
-	public void didFinishRequestProcessing() {			
-		
+	public void didFinishRequestProcessing() {
+
 	}
+
 	@Override
-	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list) {
-		jobsList = list;	
-		
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+		jobsList = list;
+
 	}
 
 	@Override
