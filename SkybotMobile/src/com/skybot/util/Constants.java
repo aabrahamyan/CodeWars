@@ -10,16 +10,20 @@ public class Constants {
 	public static final String FIRST_PARAM_SEPARATOR = "?";
 	public static final String PARAMETER_SEPARATOR = "&";
 	public static final String RIGHT_SLASH = "/";
-
 	// ---------------------------- Services Names & Params ----------------//
 	public static final String LOGIN_SERVICE = "user_session";
 	public static final String AUTH_TOKEN = "authenticity_token";
 	public static final String USERNAME = "user_session[username]";
 	public static final String PASSWORD = "user_session[password]";
+	
+	//---------------------------- Services Names & Params ----------------//
+	
+	public static final String DASHBOARD_SERVICE = "dashboards";
 	public static final String COMMIT = "commit";
 	public static final String ADMIN = "admin";
 	public static final String JOBHISTORY_SERVICE_URL = "job_histories.json";
 	public static final String JOB_SERVICE_URL = "jobs.json";
+	public static final String DASHBOARD_SERVICE_URL = "show.json";
 	public static final String DATE = "_dc";
 	public static final String RESULTS = "results";
 	public static final String SORT = "sort";
@@ -41,7 +45,6 @@ public class Constants {
 	// ---------------------------- Run Job Params --------------------------//
 	public static final String CS_ID = "command_set_id";
 	public static final String CS_TYPE = "command_set_type";
-
 	public static final String JOB_ID = "job_id";
 
 	// ---------------------------- Views ----------------------------------//
@@ -53,6 +56,11 @@ public class Constants {
 
 	public static final String LOGIN_VIEW = "LoginView";
 	public static final String JOBS_VIEW = "JobsView";
-
+	public static final String DASHBOARD_VIEW = "DashboardView";
 	public static final String JOBSHISTORY_VIEW = "JobsHistoryView";
+	//---------------- Chart ids ------------------------------------------//
+	public static final String COMPLETED_JOBS_ID = "4";
+	public static final String TERMINATED_JOBS_ID = "5";
+	public static final String SUBMITTED_JOBS_ID = "1";
+	public static final String AGENT_EVENT_PROCESSED_ID = "10";
 }
