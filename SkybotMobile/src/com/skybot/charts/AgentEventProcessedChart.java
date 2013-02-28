@@ -1,4 +1,4 @@
-package com.skybot.adapters;
+package com.skybot.charts;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -64,13 +64,10 @@ public class AgentEventProcessedChart {
 		
 		/** Settings for whole layout **/
 		
-		//mRenderer.setAxesColor(Color.BLACK);
 		mRenderer.setApplyBackgroundColor(true);
 		
 		mRenderer.setBackgroundColor(Color.WHITE);
 		mRenderer.setMarginsColor(Color.WHITE);
-		
-		mRenderer.setMargins(new int[] {10,20,30,40});
 		
 	    mRenderer.setPanEnabled(false, false);
 	    mRenderer.setZoomEnabled(false,false); //Zoom disable
@@ -79,62 +76,44 @@ public class AgentEventProcessedChart {
 	    mRenderer.setShowGrid(true);
 	    
 	    mRenderer.setChartTitle("Agent Events Processed");
-	    mRenderer.setLabelsTextSize(20); 
-	    mRenderer.setYLabelsPadding(-20);
+	    mRenderer.setChartTitleTextSize(20);
 	    
-	    mRenderer.setLegendHeight(50);
+	    mRenderer.setLabelsTextSize(15); 
+	    mRenderer.setLegendHeight(60);
 	    
 	    /**X axis settings**/
+	    
 	    mRenderer.setXAxisMax(7);
 	    mRenderer.setXAxisMin(0);
-	    mRenderer.setChartTitleTextSize(35);
-	   // mRenderer.setXLabelsColor(Color.BLACK);
-	    			
+	   			
 	    /**Y axis settings **/
-//	    mRenderer.addYTextLabel(0.5, "0.5");
-//	    mRenderer.addYTextLabel(1, "16546454645456456");
-//	    mRenderer.setYLabels(0);
-// 		mRenderer.setYLabelsColor(0, Color.GRAY);
-//	    mRenderer.setYAxisMax(1.5);
-//	    mRenderer.setYAxisMin(0);
-	    mRenderer.setShowGridX(true);//Shows gridlines for Y axis
-	    mRenderer.setLegendTextSize(20);
-//	    mRenderer.setGridColor(Color.GRAY);
 	    
-	    mRenderer.setYLabelsPadding(-20);
+	    mRenderer.setShowGridX(true);//Shows gridlines for Y axis
+	    mRenderer.setLegendTextSize(15);
+	    mRenderer.setYLabelsAlign(Align.RIGHT);
+	   // mRenderer.setYLabelsPadding(10);   
 	    
 	    /** Multiple BarcHart customization **/
 	    //Cancelled
 	    
 	    XYSeriesRenderer renderer = new XYSeriesRenderer();	    
 	    renderer.setChartValuesTextSize(20);
-//	    renderer.setDisplayChartValues(true);
-//	    renderer.setChartValuesTextAlign(Align.CENTER);
-//	    renderer.setChartValuesSpacing(10);
 	    renderer.setColor( Color.parseColor("#65BDE3"));
 	    
 	    XYSeriesRenderer renderer2 = new XYSeriesRenderer();
 	    renderer2.setChartValuesTextSize(20);
-//	    renderer2.setDisplayChartValues(true);
-//	    renderer2.setChartValuesTextAlign(Align.CENTER);
-//	    renderer2.setChartValuesSpacing(10);
 	    renderer2.setColor(Color.parseColor("#FCCA76"));
 	    
 	    XYSeriesRenderer renderer3 = new XYSeriesRenderer();
 	    renderer3.setChartValuesTextSize(20);
-//	    renderer3.setDisplayChartValues(true);
-//	    renderer3.setChartValuesTextAlign(Align.LEFT);
-//	    renderer3.setChartValuesSpacing(10);
 	    renderer3.setColor(Color.parseColor("#BADC8C"));
 	    
 	    XYSeriesRenderer renderer4 = new XYSeriesRenderer();
 	    renderer4.setChartValuesTextSize(20);
-//	    renderer4.setDisplayChartValues(true);
-//	    renderer4.setChartValuesTextAlign(Align.LEFT);
-//	    renderer4.setChartValuesSpacing(10);
 	    renderer4.setColor(Color.parseColor("#C0C0C0"));
 	    
 	    /**Legend Generator**/
+	    
 	    mRenderer.addSeriesRenderer(renderer);
 	    mRenderer.addSeriesRenderer(renderer2);
 	    mRenderer.addSeriesRenderer(renderer3);

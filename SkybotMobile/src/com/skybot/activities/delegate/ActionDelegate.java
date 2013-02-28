@@ -2,6 +2,9 @@ package com.skybot.activities.delegate;
 
 import java.util.Map;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Provides callback methods for activities to render or to act on ready
  * situations
@@ -14,7 +17,12 @@ public interface ActionDelegate {
 	// --------------------- Service Response Delegates -------------//
 
 	public void didFinishRequestProcessing();
-	public void didFinishRequestProcessing(Map<?, ?>json);
+
+	public void didFinishRequestProcessing(Map<?, ?> json);
+
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list);
+
 	public void didFailRequestProcessing();
 
 }

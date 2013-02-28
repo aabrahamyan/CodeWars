@@ -41,9 +41,17 @@ public class Constants {
 	// ---------------------------- Run Job Params --------------------------//
 	public static final String CS_ID = "command_set_id";
 	public static final String CS_TYPE = "command_set_type";
+<<<<<<< HEAD
 	public static final String JOB_ID = "job_id";
 
 	// ---------------------------- Views ----------------------------------//
+=======
+	public static final String JOB_ID = "job_id";	
+	public static final String DO_WHAT = "do_what";
+	public static final String DO_NOW = "donow";
+	
+	//---------------------------- Views ----------------------------------//
+>>>>>>> 130305a93ee53b4c3b03c9f484596fa48e5723f2
 	public static final String LOGIN_VIEW = "LoginView";
 	public static final String JOBS_VIEW = "JobsView";
 

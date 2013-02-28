@@ -1,5 +1,7 @@
 package com.skybot.activities;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -111,6 +113,11 @@ public class LoginActivity extends Activity implements ActionDelegate {
 				SkybotTabLayoutActivity.class);
 
 		startActivity(skybottablayoutIntent);
+	}
+	
+	@Override
+	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list) {
+		
 	}
 
 	@Override
