@@ -18,8 +18,6 @@ public interface ActionDelegate {
 
 	public void didFinishRequestProcessing();
 
-	public void didFinishRequestProcessing(Map<?, ?> json);
-
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list);
 

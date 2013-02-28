@@ -1,18 +1,16 @@
 package com.skybot.activities;
 
-<<<<<<< HEAD
-import java.util.Map;
-=======
+
 import java.util.ArrayList;
 import java.util.HashMap;
->>>>>>> 130305a93ee53b4c3b03c9f484596fa48e5723f2
-
-import com.skybot.activities.delegate.ActionDelegate;
+import java.util.Map;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.skybot.activities.delegate.ActionDelegate;
 
 public class RegisterActivity extends Activity implements ActionDelegate {
 	@Override
@@ -50,10 +48,6 @@ public class RegisterActivity extends Activity implements ActionDelegate {
 		
 	}
 	
-	@Override
-	public void didFinishRequestProcessing(Map<?, ?>json) {
-		// TODO Auto-generated method stub
 
-		}
 	
 }

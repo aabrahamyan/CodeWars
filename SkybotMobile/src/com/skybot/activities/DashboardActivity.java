@@ -1,18 +1,17 @@
 package com.skybot.activities;
 
-<<<<<<< HEAD
-import java.util.Map;
-=======
+
 import java.util.ArrayList;
 import java.util.HashMap;
->>>>>>> 130305a93ee53b4c3b03c9f484596fa48e5723f2
+import java.util.Map;
 
-import com.skybot.activities.delegate.ActionDelegate;
-import com.skybot.adapters.ScrollItemsFragmentAdapter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+
+import com.skybot.activities.delegate.ActionDelegate;
+import com.skybot.adapters.ScrollItemsFragmentAdapter;
 
 /**
  * Activity for representing Dashboard charts and statistics
@@ -57,11 +56,7 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 		
 	}
 
-	@Override
-	public void didFinishRequestProcessing(Map<?, ?>json) {
-		// TODO Auto-generated method stub
 
-		}
 	}
 	/*
 	 * @Override public boolean onCreateOptionsMenu(Menu menu) {

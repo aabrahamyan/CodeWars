@@ -2,18 +2,13 @@ package com.skybot.serivce;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ContainerFactory;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import android.app.Activity;
 import android.util.Log;
 
 import com.skybot.activities.delegate.ActionDelegate;
@@ -62,11 +57,7 @@ public class BaseResponseAnalyzer {
 				JSONObject jObject = (JSONObject) jParser.parse(responseString);
 
 				ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-
-				int count = Integer.valueOf(jObject.get("totalResultsReturned")
-						.toString());
 				JSONArray jArray = (JSONArray) jObject.get("items");
-
 				for (int i = 0; i < jArray.size(); i++) {
 					JSONObject json_data = (JSONObject) jArray.get(i);
 					HashMap<String, String> map = new HashMap<String, String>();
@@ -94,7 +85,7 @@ public class BaseResponseAnalyzer {
 		else if (serviceName.equals(Constants.JOBHISTORY_SERVICE_URL)) {
 
 			String responseString = "";
-			responseString = responseString.replace("{totalResultsReturned:",
+			responseString = responseData.replace("{totalResultsReturned:",
 					"{\"totalResultsReturned\":");
 			responseString = responseString.replace("totalResultsAvailable:",
 					"\"totalResultsAvailable\":");
@@ -107,48 +98,83 @@ public class BaseResponseAnalyzer {
 					"\"timestamp\":");
 
 			responseString = responseString.replace("items:", "\"items\":");
+
+			responseString = responseString
+					.replace(
+							"\"<span><span class='icon-job-history-job-suite'></span>6408_suite_special</span>\"",
+							"\"6408_suite_special\"");
+
+			responseString = responseString
+					.replace(
+							"\"<span><span class='icon-job-individual-job'></span>6408_reactive</span>\"",
+							"\"6408_reactive\"");
+
+			responseString = responseString
+					.replace(
+							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_1</span>\"",
+							"\">Mobile_Job_Test\"");
+			responseString = responseString
+					.replace(
+							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_2</span>\"",
+							"\">Mobile_Job_Test\"");
+			responseString = responseString
+					.replace(
+							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_3</span>\"",
+							"\">Mobile_Job_Test\"");
+			responseString = responseString
+					.replace(
+							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_4</span>\"",
+							"\">Mobile_Job_Test\"");
+			responseString = responseString
+					.replace(
+							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_5</span>\"",
+							"\">Mobile_Job_Test\"");
+
 			System.out.println(responseString);
 
 			try {
-				final JSONParser jParser = new JSONParser();
+				JSONParser jParser = new JSONParser();
 				JSONObject jObject = (JSONObject) jParser.parse(responseString);
 
-				final ContainerFactory containerFactory = new ContainerFactory() {
-					public List<?> creatArrayContainer() {
-						return new LinkedList<Object>();
-					}
+				final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 
-					public Map<?, ?> createObjectContainer() {
-						return new LinkedHashMap<Object, Object>();
-					}
-				};
-				try {
-					Map<?, ?> json = (Map<?, ?>) jParser.parse(responseString,
-							containerFactory);
-					Iterator<?> iter = json.entrySet().iterator();
-					System.out
-							.println("==+++**+++HERE++++**++iterate result+++**+++HERE++++**+++==");
-					while (iter.hasNext()) {
-						Map.Entry entry = (Map.Entry) iter.next();
-						System.out.println(entry.getKey() + "=>"
-								+ entry.getValue());
+				JSONArray jArray = (JSONArray) jObject.get("items");
 
-						ActionDelegate del = (ActionDelegate) ViewTracker
-								.getInstance().getCurrentContext();
-						del.didFinishRequestProcessing(json);
+				for (int i = 0; i < jArray.size(); i++) {
+					JSONObject json_data = (JSONObject) jArray.get(i);
+					HashMap<String, String> map = new HashMap<String, String>();
+					map.put("id", json_data.get("id").toString());
+					map.put("job", json_data.get("job").toString());
+					map.put("job_id", json_data.get("job_id").toString());
+					map.put("job_suite_run_id",
+							json_data.get("job_suite_run_id").toString());
+					map.put("job_status_raw", json_data.get("job_status_raw")
+							.toString());
 
-					}
-
-				} catch (Exception pe) {
-					pe.printStackTrace();
+					list.add(map);
 				}
-				;
+				final ActionDelegate del = (ActionDelegate) ViewTracker
+						.getInstance().getCurrentContext();
 
-			}
+				Activity jobHistoryActivity = (Activity) ViewTracker
+						.getInstance().getCurrentContext();
 
-			catch (Exception e) {
+				jobHistoryActivity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+
+						del.didFinishRequestProcessing(list);
+					}
+				});
+
+			} catch (Exception e) {
 				Log.e("JSON Parser", "Error parsing data " + e.toString());
 			}
+
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+					.getCurrentContext();
+			del.didFinishRequestProcessing();
 
 		}
 
