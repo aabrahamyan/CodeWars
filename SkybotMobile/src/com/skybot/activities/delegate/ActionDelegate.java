@@ -1,7 +1,5 @@
 package com.skybot.activities.delegate;
 
-import java.util.Map;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 

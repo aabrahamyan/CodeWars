@@ -55,21 +55,22 @@ public class JobsHistoryAdapter extends BaseAdapter {
 			HashMap m = new HashMap();
 			m = data.get(position);
 
-			if (m.get("job_status_raw").toString().equals("C")) {
-				image.setImageResource(R.drawable.blank_badge_green);
-			} else if (m.get("job_status_raw").toString().equals("S")) {
-				image.setImageResource(R.drawable.blank_badge_orange);
-			}
+			if (m.get("job_status_raw") != null) {
+				if (m.get("job_status_raw").toString().equals("C")) {
+					image.setImageResource(R.drawable.blank_badge_green);
+				} else if (m.get("job_status_raw").toString().equals("S")) {
+					image.setImageResource(R.drawable.blank_badge_orange);
+				}
 
-			else if (m.get("job_status_raw").toString().equals("F")) {
-				image.setImageResource(R.drawable.blank_badge_red);
-			}
-
+				else if (m.get("job_status_raw").toString().equals("F")) {
+					image.setImageResource(R.drawable.blank_badge_red);
+				}
+			
 			id.setText(m.get("job").toString());
 			job.setText("JOB RUN ID: " + m.get("id").toString());
 			job_id.setText("JOB SUITE RUN ID: "
 					+ m.get("job_suite_run_id").toString());
-
+}
 		}
 
 		return vi;

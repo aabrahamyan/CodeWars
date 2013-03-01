@@ -3,8 +3,6 @@ package com.skybot.serivce;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -42,7 +40,7 @@ public class BaseResponseAnalyzer {
 					.getCurrentContext();
 			del.didFinishRequestProcessing();
 		}
-
+		/******************************************* JOB **********************************************/
 		else if (serviceName.equals(Constants.JOB_SERVICE_URL)) {
 
 			String responseString = "";
@@ -58,7 +56,6 @@ public class BaseResponseAnalyzer {
 				JSONObject jObject = (JSONObject) jParser.parse(responseString);
 
 				final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-				
 
 				JSONArray jArray = (JSONArray) jObject.get("items");
 				for (int i = 0; i < jArray.size(); i++) {
@@ -73,19 +70,19 @@ public class BaseResponseAnalyzer {
 
 					list.add(map);
 				}
-				final ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+				final ActionDelegate del = (ActionDelegate) ViewTracker
+						.getInstance().getCurrentContext();
+				Activity jobsActivity = (Activity) ViewTracker.getInstance()
 						.getCurrentContext();
-				Activity jobsActivity = (Activity)ViewTracker.getInstance().getCurrentContext();
-				
+
 				jobsActivity.runOnUiThread(new Runnable() {
-					
+
 					@Override
 					public void run() {
-						del.didFinishRequestProcessing(list);						
+						del.didFinishRequestProcessing(list);
 					}
 				});
-				
-				
+
 			} catch (Exception e) {
 				Log.e("JSON Parser", "Error parsing data " + e.toString());
 			}
@@ -94,7 +91,7 @@ public class BaseResponseAnalyzer {
 					.getCurrentContext();
 			del.didFinishRequestProcessing();
 		}
-
+		/******************************************* JOB HISTORY **********************************************/
 		else if (serviceName.equals(Constants.JOBHISTORY_SERVICE_URL)) {
 
 			String responseString = "";
@@ -125,23 +122,23 @@ public class BaseResponseAnalyzer {
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_1</span>\"",
-							"\">Mobile_Job_Test\"");
+							"\"Mobile_Job_Test\"");
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_2</span>\"",
-							"\">Mobile_Job_Test\"");
+							"\"Mobile_Job_Test\"");
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_3</span>\"",
-							"\">Mobile_Job_Test\"");
+							"\"Mobile_Job_Test\"");
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_4</span>\"",
-							"\">Mobile_Job_Test\"");
+							"\"Mobile_Job_Test\"");
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_5</span>\"",
-							"\">Mobile_Job_Test\"");
+							"\"Mobile_Job_Test\"");
 
 			System.out.println(responseString);
 
@@ -189,6 +186,124 @@ public class BaseResponseAnalyzer {
 					.getCurrentContext();
 			del.didFinishRequestProcessing();
 
+		}
+		/******************************************* AGENT **********************************************/
+		else if (serviceName.equals(Constants.AGENT_SERVICE_URL)) {
+
+			String responseString = "";
+			responseString = responseData.replace("maxId:", "\"maxId\":");
+			responseString = responseString.replace("timestamp:",
+					"\"timestamp\":");
+			responseString = responseString.replace("growler_message:",
+					"\"growler_message\":");
+			responseString = responseString.replace("items:", "\"items\":");
+
+			responseString = responseString
+					.replace(
+							"\"<span><span class='icon-agent-active'></span>Active</span>\"",
+							"\"Active\"");
+			responseString = responseString
+					.replace(
+							"\"<span><span class='icon-agent-failed'></span>Failed</span>\"",
+							"\"Failed\"");
+
+			System.out.println(responseString);
+
+			try {
+				JSONParser jParser = new JSONParser();
+				JSONObject jObject = (JSONObject) jParser.parse(responseString);
+
+				final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+
+				JSONArray jArray = (JSONArray) jObject.get("items");
+				for (int i = 0; i < jArray.size(); i++) {
+					JSONObject json_data = (JSONObject) jArray.get(i);
+					HashMap<String, String> map = new HashMap<String, String>();
+
+					map.put("id", json_data.get("id").toString());
+					map.put("status", json_data.get("status").toString());
+					map.put("name", json_data.get("name").toString());
+					map.put("description", json_data.get("description")
+							.toString());
+
+					list.add(map);
+				}
+				final ActionDelegate del = (ActionDelegate) ViewTracker
+						.getInstance().getCurrentContext();
+				Activity jobsActivity = (Activity) ViewTracker.getInstance()
+						.getCurrentContext();
+
+				jobsActivity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						del.didFinishRequestProcessing(list);
+					}
+				});
+
+			} catch (Exception e) {
+				Log.e("JSON Parser", "Error parsing data " + e.toString());
+			}
+
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+					.getCurrentContext();
+			del.didFinishRequestProcessing();
+		}
+
+		/******************************************* JOB HISTORY DATA REPORT **********************************************/
+		else if (serviceName.equals(Constants.JOBHISTORYREPORT_SERVICE_URL)) {
+
+			String responseString = "";
+
+			responseString = responseData.replace("items:", "\"items\":");
+			responseString = responseString.replace("timestamp:",
+					"\"timestamp\":");
+			responseString = responseString
+					.replace(
+							"\"<div class='job-history-status job-history-finished'><span class='icon-job-history icon-job-history-finished'></span>Finished</div>\"",
+							"\"Finished\"");
+
+			System.out.println(responseString);
+
+			try {
+				JSONParser jParser = new JSONParser();
+				JSONObject jObject = (JSONObject) jParser.parse(responseString);
+
+				final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+
+				JSONArray jArray = (JSONArray) jObject.get("items");
+				for (int i = 0; i < jArray.size(); i++) {
+					JSONObject json_data = (JSONObject) jArray.get(i);
+					HashMap<String, String> map = new HashMap<String, String>();
+
+					map.put("id", json_data.get("id").toString());
+					map.put("status", json_data.get("status").toString());
+					map.put("file_name", json_data.get("file_name").toString());
+					map.put("copied_server_time_utc",
+							json_data.get("copied_server_time_utc").toString());
+
+					list.add(map);
+				}
+				final ActionDelegate del = (ActionDelegate) ViewTracker
+						.getInstance().getCurrentContext();
+				Activity jobsActivity = (Activity) ViewTracker.getInstance()
+						.getCurrentContext();
+
+				jobsActivity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						del.didFinishRequestProcessing(list);
+					}
+				});
+
+			} catch (Exception e) {
+				Log.e("JSON Parser", "Error parsing data " + e.toString());
+			}
+
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+					.getCurrentContext();
+			del.didFinishRequestProcessing();
 		}
 
 	}

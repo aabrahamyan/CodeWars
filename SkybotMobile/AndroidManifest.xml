@@ -53,7 +53,7 @@
         <activity android:name="com.skybot.activities.AgentActivity" />
 
         <!-- Report Activity -->
-        <activity android:name="com.skybot.activities.ReportActivity" />
+        <activity android:name="com.skybot.activities.JobHistoryReportActivity" />
 
         <!-- Settings Activity -->
         <activity android:name="com.skybot.activities.SettingsActivity" />
