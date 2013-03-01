@@ -126,4 +126,5 @@ public class LoginActivity extends Activity implements ActionDelegate {
 		// TODO Auto-generated method stub
 
 	}
+	
 }

@@ -1,20 +1,21 @@
 package com.skybot.activities;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.skybot.activities.delegate.ActionDelegate;
+import java.util.Map;
 
 import android.app.TabActivity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TabHost;
-import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
+import android.widget.Toast;
+
+import com.skybot.activities.delegate.ActionDelegate;
 
 /**
  * Main Activity where all other pages and activities are initiated in Tab Bar
@@ -137,5 +138,6 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		// TODO Auto-generated method stub
 
 	}
+
 
 }

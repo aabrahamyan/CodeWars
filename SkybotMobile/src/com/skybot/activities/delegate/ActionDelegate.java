@@ -1,5 +1,7 @@
 package com.skybot.activities.delegate;
 
+import java.util.Map;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,8 +15,12 @@ import java.util.HashMap;
 public interface ActionDelegate {
 
 	// --------------------- Service Response Delegates -------------//
+
 	public void didFinishRequestProcessing();
-	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list);
+
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list);
+
 	public void didFailRequestProcessing();
 
 }

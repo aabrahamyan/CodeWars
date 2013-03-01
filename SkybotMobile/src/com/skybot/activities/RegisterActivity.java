@@ -1,14 +1,16 @@
 package com.skybot.activities;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.skybot.activities.delegate.ActionDelegate;
+import java.util.Map;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.skybot.activities.delegate.ActionDelegate;
 
 public class RegisterActivity extends Activity implements ActionDelegate {
 	@Override
@@ -45,4 +47,7 @@ public class RegisterActivity extends Activity implements ActionDelegate {
 		// TODO Auto-generated method stub
 		
 	}
+	
+
+	
 }

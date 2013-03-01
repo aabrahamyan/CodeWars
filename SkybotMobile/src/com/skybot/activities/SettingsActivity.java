@@ -1,13 +1,15 @@
 package com.skybot.activities;
 
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.skybot.activities.delegate.ActionDelegate;
+import java.util.Map;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.skybot.activities.delegate.ActionDelegate;
 
 /**
  * Activity for setting properties and settings of Skybot server
@@ -35,4 +37,5 @@ public class SettingsActivity extends Activity implements ActionDelegate {
 		// TODO Auto-generated method stub
 		
 	}
+
 }

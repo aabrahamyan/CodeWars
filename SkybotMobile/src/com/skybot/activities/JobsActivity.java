@@ -288,4 +288,5 @@ public class JobsActivity extends SwipeListViewActivity implements
 		// TODO Auto-generated method stub
 
 	}
+
 }

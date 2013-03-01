@@ -2,16 +2,12 @@ package com.skybot.activities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.skybot.activities.delegate.ActionDelegate;
+import java.util.Map;
 
 import android.app.Activity;
-
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
+
+import com.skybot.activities.delegate.ActionDelegate;
 
 /**
  * Activity lifecycle for Skybot Agents
@@ -32,9 +28,11 @@ public class AgentActivity extends Activity implements ActionDelegate {
 		// TODO Auto-generated method stub
 
 	}
+
 	@Override
-	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list) {
-		
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+
 	}
 
 	@Override
@@ -42,4 +40,5 @@ public class AgentActivity extends Activity implements ActionDelegate {
 		// TODO Auto-generated method stub
 
 	}
+
 }
