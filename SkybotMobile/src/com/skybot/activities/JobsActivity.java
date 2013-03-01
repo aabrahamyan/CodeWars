@@ -26,6 +26,7 @@ import com.skybot.adapters.JobsAdapter;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
+import com.skybot.util.Base64Coder;
 import com.skybot.util.Constants;
 import com.skybot.util.CookieStorage;
 import com.skybot.util.ViewTracker;
@@ -85,9 +86,10 @@ public class JobsActivity extends SwipeListViewActivity implements
 		ViewTracker.getInstance().setCurrentContext(this);
 		getJobsResponse();
 
-		listView = (ListView) findViewById(R.id.listView1);
-		adapter = new JobsAdapter(this, jobsList);
-		listView.setAdapter(adapter);
+		/*
+		 * listView = (ListView) findViewById(R.id.listView1); adapter = new
+		 * JobsAdapter(this, jobsList); listView.setAdapter(adapter);
+		 */
 	}
 
 	@Override
@@ -122,10 +124,10 @@ public class JobsActivity extends SwipeListViewActivity implements
 	private Animation getDeleteAnimation(float fromX, float toX, int position) {
 		Animation animation = new TranslateAnimation(fromX, toX, 0, 0);
 		animation.setStartOffset(100);
-		animation.setDuration(800);
+		animation.setDuration(400);
 		animation.setAnimationListener(new DeleteAnimationListenter(position));
 		animation.setInterpolator(AnimationUtils.loadInterpolator(this,
-				android.R.anim.anticipate_overshoot_interpolator));
+				android.R.anim.linear_interpolator));
 		return animation;
 	}
 
@@ -182,20 +184,41 @@ public class JobsActivity extends SwipeListViewActivity implements
 	}
 
 	public void runJob(View v) {
+
+		String system_Time = Long.toString(System.currentTimeMillis());
 		RequestCreator creator = new RequestCreator();
+		final RequestHelper reqHelper = new RequestHelper();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
-		Map<String, String> run_job_params = creator
-				.createAppropriateMapRequest(Constants.JOB_ID, "1013",
-						Constants.DO_WHAT, Constants.DO_NOW);
+		Map<String, String> command_params = creator
+				.createAppropriateMapRequest(Constants.CS_ID, "1006",
+						Constants.CS_TYPE, "1", Constants.JOB_ID, "1010",
+						Constants.DATE, system_Time, Constants.RESULTS, "300",
+						Constants.SORT, "id", Constants.DIRECTION, "ASC", Constants.START, "0",
+						Constants.LIMIT, "300");
 
-		final RequestHelper reqHelper = new RequestHelper();
+		String urlStringWithParams = reqHelper
+				.constructGetRequestString(command_params,
+						Constants.SERVER_URL, Constants.COMMAND_URL);
+		baseNetworkManager.constructConnectionAndHitGET("Command Successful",
+				"Command Request Started", urlStringWithParams, this,
+				"Commands", Constants.COMMAND_URL);		
+
+		Map<String, String> run_job_params = creator
+				.createAppropriateMapRequest("cmd_seq", "1", "skip_reactive",
+						"false", "clear_reactivity", "false",
+						"ignore_monitors", "false", "ignore_conditions",
+						"false", "run_priority", "50", "authenticity_token",
+						LoginActivity.authToken);
+
 		final List<NameValuePair> paramsList = reqHelper
 				.createPostDataWithKeyValuePair(run_job_params);
+		String service_url = Constants.JOB_SERVICE + "/1011/"
+				+ Constants.DO_NOW;
 
 		baseNetworkManager.constructConnectionAndHitPOST("Run Successful",
 				"Run Job Request Started", paramsList, this,
-				Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
+				Constants.JOBS_VIEW, service_url);
 	}
 
 	public void holdJob(View v) {
@@ -255,6 +278,8 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list) {
 		jobsList = list;
+		adapter.data = jobsList;
+		adapter.notifyDataSetChanged();
 
 	}
 

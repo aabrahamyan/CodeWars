@@ -45,8 +45,8 @@ public abstract class SwipeListViewActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		DisplayMetrics dm = getResources().getDisplayMetrics();
-		REL_SWIPE_MIN_DISTANCE = (int) (120.0f * dm.densityDpi / 160.0f + 0.5);
-		REL_SWIPE_MAX_OFF_PATH = (int) (250.0f * dm.densityDpi / 160.0f + 0.5);
+		REL_SWIPE_MIN_DISTANCE = (int) (40.0f * dm.densityDpi / 160.0f + 0.5);
+		REL_SWIPE_MAX_OFF_PATH = (int) (500.0f * dm.densityDpi / 160.0f + 0.5);
 		REL_SWIPE_THRESHOLD_VELOCITY = (int) (200.0f * dm.densityDpi / 160.0f + 0.5);
 	}
 

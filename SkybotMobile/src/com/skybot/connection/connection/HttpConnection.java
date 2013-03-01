@@ -157,7 +157,7 @@ public class HttpConnection implements Runnable {
 						"text/html,application/xml,"
 								+ "application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");
 				httpPost.setHeader("Content-Type",
-						"application/x-www-form-urlencoded");
+						"application/x-www-form-urlencoded");				
 
 				// httpPost.addHeader("Cookie",
 				// "_SchEnt2_session=740c8dc090d32826155e8eb8b8e63f37");
@@ -206,7 +206,8 @@ public class HttpConnection implements Runnable {
 
 		if (CookieStorage.getInstance().getArrayList().isEmpty()
 				&& cookieString != null) {
-			CookieStorage.getInstance().getArrayList().add(cookieString);
+			CookieStorage.getInstance().getArrayList().add(cookieString+"; ys-job_historiesGrid=o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253A"
+					+"; ys-job_start_job_new = o%3Awidth%3Dn%253A530%5Eheight%3Dn%253A540");
 		}
 
 		// -------------------- Analyze Content ------------------------//

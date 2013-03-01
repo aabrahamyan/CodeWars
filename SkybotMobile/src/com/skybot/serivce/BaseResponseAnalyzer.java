@@ -3,6 +3,7 @@ package com.skybot.serivce;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.app.Activity;
 import android.util.Log;
 
 import com.skybot.activities.delegate.ActionDelegate;
@@ -55,11 +56,7 @@ public class BaseResponseAnalyzer {
 			try {
 				JSONParser jParser = new JSONParser();
 				JSONObject jObject = (JSONObject) jParser.parse(responseString);
-
-				ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-
-				int count = Integer.valueOf(jObject.get("totalResultsReturned")
-						.toString());
+				final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 				JSONArray jArray = (JSONArray) jObject.get("items");
 
 				for (int i = 0; i < jArray.size(); i++) {
@@ -74,9 +71,19 @@ public class BaseResponseAnalyzer {
 
 					list.add(map);
 				}
-				ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+				final ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
 						.getCurrentContext();
-				del.didFinishRequestProcessing(list);
+				Activity jobsActivity = (Activity)ViewTracker.getInstance().getCurrentContext();
+				
+				jobsActivity.runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						del.didFinishRequestProcessing(list);						
+					}
+				});
+				
+				
 			} catch (Exception e) {
 				Log.e("JSON Parser", "Error parsing data " + e.toString());
 			}

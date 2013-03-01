@@ -12,6 +12,7 @@ public class Constants {
 	
 	//---------------------------- Services Names & Params ----------------//
 	public static final String LOGIN_SERVICE = "user_session";
+	public static final String JOB_SERVICE = "jobs";
 	public static final String AUTH_TOKEN = "authenticity_token";
 	public static final String USERNAME = "user_session[username]";
 	public static final String PASSWORD = "user_session[password]";
@@ -35,7 +36,7 @@ public class Constants {
 	public static final String EXCLUDETIMEDINTERVAL="exclude_timed_interval";
 	
 	public static final String JOB_DETAILS_URL = "jobs/1000/edit.json";
-	public static final String RUN_JOB_URL= "commands.json";	
+	public static final String COMMAND_URL= "commands.json";	
 	
 	//---------------------------- Run Job Params --------------------------//	
 	public static final String CS_ID = "command_set_id";

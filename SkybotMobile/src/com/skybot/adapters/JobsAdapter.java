@@ -3,6 +3,7 @@ package com.skybot.adapters;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.skybot.activities.JobsActivity;
 import com.skybot.activities.R;
 import com.skybot.activities.R.drawable;
 
@@ -17,10 +18,11 @@ import android.widget.TextView;
 
 public class JobsAdapter extends BaseAdapter {
 
+	private static String id;
 	private Activity activity;
-	private ArrayList<HashMap<String, String>> data;
+	public ArrayList<HashMap<String, String>> data;
 	private static LayoutInflater inflater = null;
-
+	
 	public JobsAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
 		activity = a;
 		data = d;
@@ -28,7 +30,12 @@ public class JobsAdapter extends BaseAdapter {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 	}
-
+	public static String getId () {
+		return id;
+	}
+	public static void setId (String _id) {
+		id = _id;
+	}
 	public int getCount() {
 		return data.size();
 	}
@@ -64,6 +71,7 @@ public class JobsAdapter extends BaseAdapter {
 			title.setText(m.get("name").toString());
 			description.setText("Agent: "+m.get("agent").toString());
 			agent.setText("Description: "+m.get("description").toString());
+			//setId(m.get("id").toString());
 		}
 		
 		vi.findViewById(R.id.title).setVisibility(View.VISIBLE);
