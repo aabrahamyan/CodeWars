@@ -86,10 +86,10 @@ public class JobsActivity extends SwipeListViewActivity implements
 		ViewTracker.getInstance().setCurrentContext(this);
 		getJobsResponse();
 
-		/*
-		 * listView = (ListView) findViewById(R.id.listView1); adapter = new
-		 * JobsAdapter(this, jobsList); listView.setAdapter(adapter);
-		 */
+		
+		listView = (ListView) findViewById(R.id.listView1); adapter = new
+		JobsAdapter(this, jobsList); listView.setAdapter(adapter);
+		 
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	private Animation getDeleteAnimation(float fromX, float toX, int position) {
 		Animation animation = new TranslateAnimation(fromX, toX, 0, 0);
 		animation.setStartOffset(100);
-		animation.setDuration(400);
+		animation.setDuration(250);
 		animation.setAnimationListener(new DeleteAnimationListenter(position));
 		animation.setInterpolator(AnimationUtils.loadInterpolator(this,
 				android.R.anim.linear_interpolator));
