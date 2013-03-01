@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 public class JobsAdapter extends BaseAdapter {
 
-	private static String id;
+	public static String run_id;
 	private Activity activity;
 	public ArrayList<HashMap<String, String>> data;
 	private static LayoutInflater inflater = null;
@@ -31,10 +31,10 @@ public class JobsAdapter extends BaseAdapter {
 
 	}
 	public static String getId () {
-		return id;
+		return run_id;
 	}
 	public static void setId (String _id) {
-		id = _id;
+		run_id = _id;
 	}
 	public int getCount() {
 		return data.size();
@@ -56,10 +56,11 @@ public class JobsAdapter extends BaseAdapter {
 		TextView title = (TextView) vi.findViewById(R.id.title); // title
 		TextView description = (TextView) vi.findViewById(R.id.description); // description
 		TextView agent = (TextView) vi.findViewById(R.id.agent); // agent
+		TextView jobId = (TextView) vi.findViewById(R.id.job_id); // Job Id
 		ImageView image = (ImageView) vi.findViewById(R.id.list_image); //status image
 		
 		if (data != null && !data.isEmpty()) {
-			HashMap m = new HashMap();
+			HashMap<String, String> m = new HashMap<String, String>();
 			m = data.get(position);
 			
 			if (m.get("hold_status").toString().equals("Released")) {
@@ -71,7 +72,8 @@ public class JobsAdapter extends BaseAdapter {
 			title.setText(m.get("name").toString());
 			description.setText("Agent: "+m.get("agent").toString());
 			agent.setText("Description: "+m.get("description").toString());
-			//setId(m.get("id").toString());
+			jobId.setText(m.get("runid").toString());
+			run_id = m.get("runid");
 		}
 		
 		vi.findViewById(R.id.title).setVisibility(View.VISIBLE);

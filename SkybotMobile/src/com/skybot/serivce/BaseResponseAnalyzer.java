@@ -3,8 +3,6 @@ package com.skybot.serivce;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -58,7 +56,6 @@ public class BaseResponseAnalyzer {
 				JSONObject jObject = (JSONObject) jParser.parse(responseString);
 
 				final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-				
 
 				JSONArray jArray = (JSONArray) jObject.get("items");
 				for (int i = 0; i < jArray.size(); i++) {
@@ -70,29 +67,27 @@ public class BaseResponseAnalyzer {
 							.toString());
 					map.put("hold_status", json_data.get("hold_status")
 							.toString());
+					map.put("runid", json_data.get("id").toString());
 
 					list.add(map);
 				}
-				final ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+				final ActionDelegate del = (ActionDelegate) ViewTracker
+						.getInstance().getCurrentContext();
+				Activity jobsActivity = (Activity) ViewTracker.getInstance()
 						.getCurrentContext();
-				Activity jobsActivity = (Activity)ViewTracker.getInstance().getCurrentContext();
-				
+
 				jobsActivity.runOnUiThread(new Runnable() {
-					
+
 					@Override
 					public void run() {
-						del.didFinishRequestProcessing(list);						
+						del.didFinishRequestProcessing(list);
 					}
 				});
-				
-				
+
 			} catch (Exception e) {
 				Log.e("JSON Parser", "Error parsing data " + e.toString());
 			}
 
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
-					.getCurrentContext();
-			del.didFinishRequestProcessing();
 		}
 
 		else if (serviceName.equals(Constants.JOBHISTORY_SERVICE_URL)) {
@@ -184,10 +179,6 @@ public class BaseResponseAnalyzer {
 			} catch (Exception e) {
 				Log.e("JSON Parser", "Error parsing data " + e.toString());
 			}
-
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
-					.getCurrentContext();
-			del.didFinishRequestProcessing();
 
 		}
 
