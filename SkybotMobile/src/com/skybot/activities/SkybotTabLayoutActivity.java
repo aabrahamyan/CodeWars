@@ -72,7 +72,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		TabSpec reportspec = tabHost.newTabSpec("Report");
 		reportspec.setIndicator("Report",
 				getResources().getDrawable(R.drawable.icon_dashboard_tab));
-		Intent reportIntent = new Intent(this, ReportActivity.class);
+		Intent reportIntent = new Intent(this, JobHistoryReportActivity.class);
 		reportspec.setContent(reportIntent);
 
 		// Tab for API key

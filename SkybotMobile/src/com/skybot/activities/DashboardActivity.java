@@ -14,7 +14,6 @@ import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.ScrollItemsFragmentAdapter;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
-import com.skybot.connection.connection.helper.RequestHelper;
 import com.skybot.util.Constants;
 
 

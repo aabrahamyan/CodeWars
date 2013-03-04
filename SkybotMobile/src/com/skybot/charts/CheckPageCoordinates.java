@@ -1,8 +1,6 @@
 package com.skybot.charts;
 
-import java.util.Currency;
 import org.achartengine.GraphicalView;
-
 
 import android.content.Context;
 import android.view.View;

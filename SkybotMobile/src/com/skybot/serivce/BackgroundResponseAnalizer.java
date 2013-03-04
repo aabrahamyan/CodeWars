@@ -1,10 +1,8 @@
 package com.skybot.serivce;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.http.NameValuePair;
-import org.json.simple.parser.ParseException;
 
 /**
  * Executes new thread for parsing response data
