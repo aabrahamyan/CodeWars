@@ -24,7 +24,7 @@
             android:src="@drawable/blank_badge_green" />
     </LinearLayout>
 
-    <!-- Title -->
+    <!-- Full Name -->
 
     <TextView
         android:id="@+id/title"
@@ -32,38 +32,36 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/thumbnail"
         android:layout_toRightOf="@+id/thumbnail"
-        android:text="Agent name"
+        android:text="Job History"
         android:textColor="#040404"
         android:textSize="15dip"
         android:textStyle="bold"
         android:typeface="sans" />
 
-    <!-- Agent Description -->
+    <!-- Server Copied Time -->
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/servercopiedtime"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_marginTop="10dip"
         android:layout_toRightOf="@+id/thumbnail"
-        android:text="Description"
+        android:text="Server Copied Time"
         android:textColor="#343434"
         android:textSize="10dip" />
-
-    <!-- Agent ID -->
+      <!-- Server Copied Time -->
 
     <TextView
-        android:id="@+id/agent_id"
+        android:id="@+id/report_id"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"
-        android:text="ID"
+        android:text="Server Copied Time"
         android:textColor="#343434"
         android:textSize="10dip" />
-    
 
     <!-- Rightend Arrow -->
 

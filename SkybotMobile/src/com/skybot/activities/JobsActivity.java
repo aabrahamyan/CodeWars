@@ -2,8 +2,10 @@ package com.skybot.activities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.http.NameValuePair;
 import org.json.JSONObject;
 
 import android.app.ListActivity;
@@ -24,6 +26,7 @@ import com.skybot.adapters.JobsAdapter;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
+import com.skybot.util.Base64Coder;
 import com.skybot.util.Constants;
 import com.skybot.util.CookieStorage;
 import com.skybot.util.ViewTracker;
@@ -41,6 +44,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	private ListView listView;
 	private boolean directionRight = false;
 	private JobsAdapter adapter;
+	private ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
 
 	static final String KEY_TITLE = "title";
 	static final String KEY_DESCRIPTION = "description";
@@ -50,18 +54,6 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.jobs_list);
-		
-
-		ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
-
-		for (int i = 0; i < 12; i++) {
-
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put(KEY_TITLE, "Job 1");
-			map.put(KEY_DESCRIPTION, "Job 1");
-			map.put(KEY_AGENT, "Job 1");
-			jobsList.add(map);
-		}
 
 		listView = (ListView) findViewById(R.id.listView1);
 		adapter = new JobsAdapter(this, jobsList);
@@ -82,7 +74,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 		final RequestHelper reqHelper = new RequestHelper();
 		String urlStringWithParams = reqHelper.constructGetRequestString(
 				job_params, Constants.SERVER_URL, Constants.JOB_SERVICE_URL);
-	
+
 		baseNetworkManager.constructConnectionAndHitGET("Login Successful",
 				"Jobs Request Started", urlStringWithParams, this,
 				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
@@ -93,6 +85,11 @@ public class JobsActivity extends SwipeListViewActivity implements
 		super.onResume();
 		ViewTracker.getInstance().setCurrentContext(this);
 		getJobsResponse();
+
+		
+		listView = (ListView) findViewById(R.id.listView1); adapter = new
+		JobsAdapter(this, jobsList); listView.setAdapter(adapter);
+		 
 	}
 
 	@Override
@@ -103,16 +100,17 @@ public class JobsActivity extends SwipeListViewActivity implements
 	@Override
 	public void getSwipeItem(boolean isRight, int position) {
 
-		View rowView = listView.getChildAt(position);		
-		if(isRight) {	
-			directionRight = true;			
-		rowView.startAnimation(getDeleteAnimation(0,  rowView.getWidth(), position));			
+		View rowView = listView.getChildAt(position);
+		if (isRight) {
+			directionRight = true;
+			rowView.startAnimation(getDeleteAnimation(0, rowView.getWidth(),
+					position));
+		} else {
+			directionRight = false;
+			rowView.startAnimation(getDeleteAnimation(rowView.getWidth(), 0,
+					position));
 		}
-		else { 	
-			directionRight = false;		
-		rowView.startAnimation(getDeleteAnimation(rowView.getWidth(), 0, position));	}
 
-		
 	}
 
 	@Override
@@ -126,10 +124,10 @@ public class JobsActivity extends SwipeListViewActivity implements
 	private Animation getDeleteAnimation(float fromX, float toX, int position) {
 		Animation animation = new TranslateAnimation(fromX, toX, 0, 0);
 		animation.setStartOffset(100);
-		animation.setDuration(800);
+		animation.setDuration(250);
 		animation.setAnimationListener(new DeleteAnimationListenter(position));
 		animation.setInterpolator(AnimationUtils.loadInterpolator(this,
-				android.R.anim.anticipate_overshoot_interpolator));
+				android.R.anim.linear_interpolator));
 		return animation;
 	}
 
@@ -186,24 +184,41 @@ public class JobsActivity extends SwipeListViewActivity implements
 	}
 
 	public void runJob(View v) {
+
 		String system_Time = Long.toString(System.currentTimeMillis());
 		RequestCreator creator = new RequestCreator();
+		final RequestHelper reqHelper = new RequestHelper();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
-		Map<String, String> run_job_params = creator
-				.createAppropriateMapRequest(Constants.CS_ID, "1000",
-						Constants.CS_TYPE, "1", Constants.JOB_ID, "1000",
+		Map<String, String> command_params = creator
+				.createAppropriateMapRequest(Constants.CS_ID, "1006",
+						Constants.CS_TYPE, "1", Constants.JOB_ID, "1010",
 						Constants.DATE, system_Time, Constants.RESULTS, "300",
-						Constants.SORT, "id", Constants.DIRECTION, "ASC",
-						Constants.START, "0", Constants.LIMIT, "300");
+						Constants.SORT, "id", Constants.DIRECTION, "ASC", Constants.START, "0",
+						Constants.LIMIT, "300");
 
-		final RequestHelper reqHelper = new RequestHelper();
-		String urlStringWithParams = reqHelper.constructGetRequestString(
-				run_job_params, Constants.SERVER_URL, Constants.RUN_JOB_URL);
+		String urlStringWithParams = reqHelper
+				.constructGetRequestString(command_params,
+						Constants.SERVER_URL, Constants.COMMAND_URL);
+		baseNetworkManager.constructConnectionAndHitGET("Command Successful",
+				"Command Request Started", urlStringWithParams, this,
+				"Commands", Constants.COMMAND_URL);		
 
-		baseNetworkManager.constructConnectionAndHitGET("Run Successful",
-				"Run Job Request Started", urlStringWithParams, this,
-				Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
+		Map<String, String> run_job_params = creator
+				.createAppropriateMapRequest("cmd_seq", "1", "skip_reactive",
+						"false", "clear_reactivity", "false",
+						"ignore_monitors", "false", "ignore_conditions",
+						"false", "run_priority", "50", "authenticity_token",
+						LoginActivity.authToken);
+
+		final List<NameValuePair> paramsList = reqHelper
+				.createPostDataWithKeyValuePair(run_job_params);
+		String service_url = Constants.JOB_SERVICE + "/1011/"
+				+ Constants.DO_NOW;
+
+		baseNetworkManager.constructConnectionAndHitPOST("Run Successful",
+				"Run Job Request Started", paramsList, this,
+				Constants.JOBS_VIEW, service_url);
 	}
 
 	public void holdJob(View v) {
@@ -255,8 +270,17 @@ public class JobsActivity extends SwipeListViewActivity implements
 	}
 
 	@Override
-	public void didFinishRequestProcessing() {			
-		
+	public void didFinishRequestProcessing() {
+
+	}
+
+	@Override
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+		jobsList = list;
+		adapter.data = jobsList;
+		adapter.notifyDataSetChanged();
+
 	}
 
 	@Override
@@ -264,4 +288,5 @@ public class JobsActivity extends SwipeListViewActivity implements
 		// TODO Auto-generated method stub
 
 	}
+
 }

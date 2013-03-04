@@ -31,6 +31,7 @@ public class EndedJobsChart {
 		
 		GetMaxAxis getAxis = new GetMaxAxis();
 		double maxAxis = getAxis.getMax(values);
+		
 		/**   Line Customization   **/
 		
 		renderer.setPointStyle(PointStyle.CIRCLE);
@@ -56,7 +57,7 @@ public class EndedJobsChart {
 		mRenderer.setLabelsTextSize(20);
 		
 		mRenderer.setChartTitle("Ended Jobs");
-		mRenderer.setChartTitleTextSize(35);
+		mRenderer.setChartTitleTextSize(20);
 		
 		mRenderer.setXAxisMin(0);
 		mRenderer.setXAxisMax(17);

@@ -3,7 +3,9 @@ package com.skybot.adapters;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.skybot.activities.JobsActivity;
 import com.skybot.activities.R;
+import com.skybot.activities.R.drawable;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,21 +18,24 @@ import android.widget.TextView;
 
 public class JobsAdapter extends BaseAdapter {
 
+	private static String id;
 	private Activity activity;
-	private ArrayList<HashMap<String, String>> data;
+	public ArrayList<HashMap<String, String>> data;
 	private static LayoutInflater inflater = null;
-
-	// public ImageLoaderAdapter imageLoader;
-
+	
 	public JobsAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
 		activity = a;
 		data = d;
 		inflater = (LayoutInflater) activity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		// imageLoader = new
-		// ImageLoaderAdapter(activity.getApplicationContext());
-	}
 
+	}
+	public static String getId () {
+		return id;
+	}
+	public static void setId (String _id) {
+		id = _id;
+	}
 	public int getCount() {
 		return data.size();
 	}
@@ -51,24 +56,31 @@ public class JobsAdapter extends BaseAdapter {
 		TextView title = (TextView) vi.findViewById(R.id.title); // title
 		TextView description = (TextView) vi.findViewById(R.id.description); // description
 		TextView agent = (TextView) vi.findViewById(R.id.agent); // agent
-	//	ImageView thumb_image = (ImageView) vi.findViewById(R.id.list_image); // thumb
-																				// image
-
-		HashMap<String, String> jobs = new HashMap<String, String>();
-		jobs = data.get(position);
-
-		// Setting all values in listview
-		// title.setText(jobs.get(CustomizedListViewActivity.KEY_TITLE));
-		// description.setText(jobs
-		// .get(CustomizedListViewActivity.KEY_DESCRIPTION));
-		// agent.setText(jobs.get(CustomizedListViewActivity.KEY_AGENT));
-			vi.findViewById(R.id.title).setVisibility(View.VISIBLE);
-			vi.findViewById(R.id.description).setVisibility(View.VISIBLE);
-			vi.findViewById(R.id.agent).setVisibility(View.VISIBLE);	
-			vi.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);
-			vi.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
-			vi.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);	
+		ImageView image = (ImageView) vi.findViewById(R.id.list_image); //status image
 		
+		if (data != null && !data.isEmpty()) {
+			HashMap m = new HashMap();
+			m = data.get(position);
+			
+			if (m.get("hold_status").toString().equals("Released")) {
+				image.setImageResource(R.drawable.blank_badge_green);
+			}
+			else if (m.get("hold_status").toString().equals("Hold")) {
+				image.setImageResource(R.drawable.blank_badge_orange);
+			}
+			title.setText(m.get("name").toString());
+			description.setText("Agent: "+m.get("agent").toString());
+			agent.setText("Description: "+m.get("description").toString());
+			//setId(m.get("id").toString());
+		}
+		
+		vi.findViewById(R.id.title).setVisibility(View.VISIBLE);
+		vi.findViewById(R.id.description).setVisibility(View.VISIBLE);
+		vi.findViewById(R.id.agent).setVisibility(View.VISIBLE);
+		vi.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);
+		vi.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
+		vi.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);
+
 		return vi;
 	}
 }

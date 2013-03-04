@@ -53,7 +53,7 @@ public class StartedJobsChart {
 		mRenderer.setLabelsTextSize(20);
 		
 		mRenderer.setChartTitle("Started Jobs");
-		mRenderer.setChartTitleTextSize(35);
+		mRenderer.setChartTitleTextSize(20);
 		
 		/**Axis Value Limits**/
 		mRenderer.setXAxisMin(0);

@@ -1,7 +1,6 @@
 package com.skybot.serivce;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.http.NameValuePair;
 
@@ -37,7 +36,9 @@ public class BackgroundResponseAnalizer extends Thread {
 	public void run() {
 		super.run();
 
-		BaseResponseAnalyzer.analyze(serviceName, urlWithParams, responseData);
+		
+			BaseResponseAnalyzer.analyze(serviceName, urlWithParams, responseData);			
+		
 	}
 
 }

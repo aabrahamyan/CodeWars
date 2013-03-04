@@ -1,9 +1,6 @@
 package com.skybot.charts;
 
-import java.util.Currency;
 import org.achartengine.GraphicalView;
-
-import com.skybot.adapters.AgentEventProcessedChart;
 
 import android.content.Context;
 import android.view.View;
@@ -17,11 +14,9 @@ public class CheckPageCoordinates {
 		if(mCurrentPage == 1) {
 			ChartView = new CompletedJobsChart().getChart(context);
 		}
-		
 		else if(mCurrentPage == 2) {
 			ChartView = new TerminatedJobsChart().getChart(context);
 		}
-		
 		else if(mCurrentPage == 3) {
 			ChartView = new SubmittedJobsChart().getChart(context);
 		}

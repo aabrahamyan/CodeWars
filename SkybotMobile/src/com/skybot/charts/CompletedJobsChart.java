@@ -22,7 +22,9 @@ public class CompletedJobsChart {
 		CategorySeries series = new CategorySeries("Completed Jobs");
 		
 		for(int i=0; i<y.length;i++) {
+			
 			series.add(y[i]);
+			
 		}
 		
 		/**Setting Labels For X Axis**/
@@ -54,19 +56,18 @@ public class CompletedJobsChart {
 	    mRenderer.setBarSpacing(0.3); // Distance between bar groups
 	    mRenderer.setShowGrid(true);
 	   
-	    
 	    mRenderer.setChartTitle("Completed Jobs");
-	    mRenderer.setChartTitleTextSize(35);
+	    mRenderer.setChartTitleTextSize(20);
 		
 		mRenderer.setBarSpacing(0.5);
-		mRenderer.setLabelsTextSize(20);
+		mRenderer.setLabelsTextSize(15);
 		mRenderer.setInScroll(true);
 		 
 		mRenderer.addSeriesRenderer(renderer);
 		/**Distance between y axis and labels**/
 		
 		//mRenderer.setYLabelsAlign(Align.LEFT);
-		mRenderer.setYLabelsPadding(-15);
+		mRenderer.setYLabelsPadding(10);
 		
 		/** X axis customisation settings**/
 

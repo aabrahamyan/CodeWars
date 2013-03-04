@@ -11,81 +11,65 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.skybot.activities.delegate.ActionDelegate;
-import com.skybot.adapters.AgentAdapter;
+import com.skybot.adapters.JobHistoryReportAdapter;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
 import com.skybot.util.Constants;
 import com.skybot.util.ViewTracker;
 
-/**
- * Activity lifecycle for Skybot Agents
- * 
- * @author gor, armenabrahamyan
- * 
- */
-
-public class AgentActivity extends ListActivity implements ActionDelegate {
+public class JobHistoryReportActivity extends ListActivity implements
+		ActionDelegate {
 
 	private ListView listView;
-	private AgentAdapter adapter;
+	private JobHistoryReportAdapter adapter;
 
-	ArrayList<HashMap<String, String>> agentList = new ArrayList<HashMap<String, String>>();
+	ArrayList<HashMap<String, String>> jobHistoryReportList = new ArrayList<HashMap<String, String>>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		listView = getListView(); 
-		adapter = new AgentAdapter(this, agentList);
+		listView = getListView();
+		adapter = new JobHistoryReportAdapter(this, jobHistoryReportList);
 		listView.setAdapter(adapter);
 	}
 
-	private void getAgentResponse() {
-	
+	private void getJobHistoryReportResponse() {
+		String system_Time = Long.toString(System.currentTimeMillis());
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
 		Map<String, String> job_params = creator.createAppropriateMapRequest(
-				Constants.DATE, "1362126843029",
-				Constants.RESULTS, "5",
-				Constants.SORT, "id",
-				Constants.DIRECTION, "ASC",
-				Constants.TAG, "",
-				Constants.TAG_MATCH_ANY, "false",
-				Constants.LIMIT, "3"
-		// Additional constants for job history
-				/*
-				 * Constants.DATAFILTERFIELD, "server_initiated_time_utc",
-				 * Constants.DATAFILTERDATACOMPARASION, "eq",
-				 * Constants.DATAFILTERDATATYPE, "dateTime",
-				 * Constants.DATAFILTERVALUE, "2013-02-26T00:00:00",
-				 * Constants.EXCLUDETIMEDINTERVAL, "false", Constants.START,
-				 * "0", Constants.LIMIT, "3"
-				 */
 
-				);
+		Constants.USERID, "1", Constants.DATE, "1362129459671",
+				Constants.RESULTS, "5", Constants.SORT,
+				"copied_server_time_utc", Constants.DIRECTION, "DESC",
+				Constants.TAG, "", Constants.LIMIT, "3"
+
+		);
 
 		final RequestHelper reqHelper = new RequestHelper();
 		String urlStringWithParams = reqHelper.constructGetRequestString(
 				job_params, Constants.SERVER_URL,
-				Constants.AGENT_SERVICE_URL);
+				Constants.JOBHISTORYREPORT_SERVICE_URL);
 
 		baseNetworkManager.constructConnectionAndHitGET(
-				"Agent data Recieved", "Agent Data Request Started",
-				urlStringWithParams, this, Constants.AGENT_VIEW,
-				Constants.AGENT_SERVICE_URL);
+				"Job History Report Data Recieved",
+				"Job History Report Data Request Started", urlStringWithParams,
+				this, Constants.JOBHISTORYREPORT_VIEW,
+				Constants.JOBHISTORYREPORT_SERVICE_URL);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
 		ViewTracker.getInstance().setCurrentContext(this);
-		getAgentResponse();                            
-		
+		getJobHistoryReportResponse();
+
 		listView = getListView();
-		if (agentList != null) {
-			adapter.data = agentList;
+		if (jobHistoryReportList != null) {
+			adapter.data = jobHistoryReportList;
 			adapter.notifyDataSetChanged();
 		}
 	};
@@ -97,21 +81,21 @@ public class AgentActivity extends ListActivity implements ActionDelegate {
 	}
 
 	@Override
-	public void didFinishRequestProcessing() {
-		// TODO Auto-generated method stub
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+		jobHistoryReportList = list;
 
+		listView = getListView();
+		if (jobHistoryReportList != null) {
+			adapter.data = jobHistoryReportList;
+			adapter.notifyDataSetChanged();
+		}
 	}
 
 	@Override
-	public void didFinishRequestProcessing(
-			ArrayList<HashMap<String, String>> list) {
-		agentList = list;
+	public void didFinishRequestProcessing() {
+		// TODO Auto-generated method stub
 
-		listView = getListView();
-		if (agentList != null) {
-			adapter.data = agentList;
-			adapter.notifyDataSetChanged();
-		}
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.skybot.activities;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +23,7 @@ import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
 
 public class LoginActivity extends Activity implements ActionDelegate {
+	public static String authToken;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,7 +62,7 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 		// ------------------- Setting up login request here
 		// ------------------//
-		final String authToken = Base64Coder.encodeRandomBase64(); // "td7b4DquQScIPx9jqs0WSy07YX+AvCjRu/WzdyaCyi0=";
+		authToken = Base64Coder.encodeRandomBase64(); // "td7b4DquQScIPx9jqs0WSy07YX+AvCjRu/WzdyaCyi0=";
 
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
@@ -112,10 +115,16 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 		startActivity(skybottablayoutIntent);
 	}
+	
+	@Override
+	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list) {
+		
+	}
 
 	@Override
 	public void didFailRequestProcessing() {
 		// TODO Auto-generated method stub
 
 	}
+	
 }
