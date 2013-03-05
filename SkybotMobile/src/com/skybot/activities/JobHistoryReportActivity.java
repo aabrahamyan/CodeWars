@@ -6,6 +6,7 @@ import java.util.Map;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -33,10 +34,11 @@ public class JobHistoryReportActivity extends ListActivity implements
 		listView = getListView();
 		adapter = new JobHistoryReportAdapter(this, jobHistoryReportList);
 		listView.setAdapter(adapter);
+
 	}
 
 	private void getJobHistoryReportResponse() {
-		String system_Time = Long.toString(System.currentTimeMillis());
+
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
@@ -59,7 +61,10 @@ public class JobHistoryReportActivity extends ListActivity implements
 				"Job History Report Data Request Started", urlStringWithParams,
 				this, Constants.JOBHISTORYREPORT_VIEW,
 				Constants.JOBHISTORYREPORT_SERVICE_URL);
+
 	}
+	
+	
 
 	@Override
 	public void onResume() {
@@ -73,12 +78,6 @@ public class JobHistoryReportActivity extends ListActivity implements
 			adapter.notifyDataSetChanged();
 		}
 	};
-
-	public void onClick(View v) {
-		Intent jobsdetailsIntent = new Intent(this, JobsDetailsActivity.class);
-		startActivity(jobsdetailsIntent);
-
-	}
 
 	@Override
 	public void didFinishRequestProcessing(
