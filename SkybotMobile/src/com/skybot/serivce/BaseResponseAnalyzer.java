@@ -120,23 +120,23 @@ public class BaseResponseAnalyzer {
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_1</span>\"",
-							"\"Mobile_Job_Test\"");
+							"\"Mobile_Job_Test_1\"");
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_2</span>\"",
-							"\"Mobile_Job_Test\"");
+							"\"Mobile_Job_Test_2\"");
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_3</span>\"",
-							"\"Mobile_Job_Test\"");
+							"\"Mobile_Job_Test_3\"");
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_4</span>\"",
-							"\"Mobile_Job_Test\"");
+							"\"Mobile_Job_Test_4\"");
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_5</span>\"",
-							"\"Mobile_Job_Test\"");
+							"\"Mobile_Job_Test_5\"");
 
 			System.out.println(responseString);
 
