@@ -21,7 +21,7 @@ public class CheckPageCoordinates {
 			ChartView = new CompletedJobsChart().getChart(context,data);
 		}
 		else if(mCurrentPage == 2) {
-			ChartView = new TerminatedJobsChart().getChart(context);
+			ChartView = new TerminatedJobsChart().getChart(context,data);
 		}
 		else if(mCurrentPage == 3) {
 			ChartView = new SubmittedJobsChart().getChart(context);

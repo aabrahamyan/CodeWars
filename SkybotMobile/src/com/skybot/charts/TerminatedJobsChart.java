@@ -1,4 +1,7 @@
 package com.skybot.charts;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.BarChart.Type;
@@ -14,7 +17,14 @@ import android.graphics.Paint.Align;
 
 public class TerminatedJobsChart {
 	
-	public GraphicalView getChart(Object context) {
+	public GraphicalView getChart(Object context, ArrayList<HashMap<String, String>> data) {
+		
+		for(int i=0;i<data.size();i++) {
+			System.out.println(data.get(i));
+		}
+		
+		//double[] y = getArray(data, "real_canceled_value");
+		
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); 
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		
@@ -111,6 +121,15 @@ public class TerminatedJobsChart {
 	    GraphicalView chartView = ChartFactory.getBarChartView((Context) context, dataset,mRenderer, Type.DEFAULT);
 		return chartView;
 		
+	}
+	
+	public double[] getArray(ArrayList<HashMap<String, String>> data, String key) {
+		double[] valueArray = {0,0,0,0,0,0,0};
+		
+		for(int i=0;i<data.size();i++) {
+			valueArray[i] = Double.parseDouble(data.get(i).get(key)) ;
+		}
+		return valueArray;
 	}
 		
 }

@@ -278,6 +278,7 @@ public class BaseResponseAnalyzer {
 
 					list.add(map);
 				}
+				
 				final ActionDelegate del = (ActionDelegate) ViewTracker
 						.getInstance().getCurrentContext();
 				Activity jobsActivity = (Activity) ViewTracker.getInstance()
@@ -287,7 +288,9 @@ public class BaseResponseAnalyzer {
 
 					@Override
 					public void run() {
-						del.didFinishRequestProcessing(list);
+						synchronized(BaseResponseAnalyzer.class) {
+							del.didFinishRequestProcessing(list);
+						}
 					}
 				});
 
@@ -329,6 +332,22 @@ public class BaseResponseAnalyzer {
 						Log.w("Element", list.get(i).toString());
 					}
 					
+					final ActionDelegate del = (ActionDelegate) ViewTracker
+							.getInstance().getCurrentContext();
+					
+					Activity dashboardActivity = (Activity) ViewTracker.getInstance()
+							.getCurrentContext();
+
+					dashboardActivity.runOnUiThread(new Runnable() {
+
+						@Override
+						public void run() {
+							synchronized(BaseResponseAnalyzer.class) {
+								del.didFinishRequestProcessing(list);
+							}
+						}
+					});
+					
 					
 					
 					} catch (ParseException e) {
@@ -337,9 +356,7 @@ public class BaseResponseAnalyzer {
 						e.printStackTrace();
 					}
 					
-					ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
-							.getCurrentContext();
-					del.didFinishRequestProcessing(list);			
+					
 		}
 		
 		else if (serviceName.equals(Constants.TERMINATED_JOBS_ID)) {
@@ -370,6 +387,21 @@ public class BaseResponseAnalyzer {
 						Log.w("Element", list.get(i).toString());
 					}
 					
+					final ActionDelegate del = (ActionDelegate) ViewTracker
+							.getInstance().getCurrentContext();
+					
+					Activity dashboardActivity = (Activity) ViewTracker.getInstance()
+							.getCurrentContext();
+
+					dashboardActivity.runOnUiThread(new Runnable() {
+
+						@Override
+						public void run() {
+							del.didFinishRequestProcessing(list);
+						}
+					});
+					
+					
 			}
 			catch (ParseException e) {
 				
@@ -379,9 +411,7 @@ public class BaseResponseAnalyzer {
 				e.printStackTrace();
 			}
 			
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
-					.getCurrentContext();
-			del.didFinishRequestProcessing(list);	
+			
 			
 		}
 

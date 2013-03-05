@@ -11,6 +11,7 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import android.R.string;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -20,29 +21,50 @@ public class CompletedJobsChart {
 	ArrayList<HashMap<String, String>> data;
 	
 	
+	public double[] getValue(ArrayList<HashMap<String, String>> data) {
+		
+			double[] y = {0,0,0,0,0,0,0};
+			for(int i=0;i<data.size();i++) {
+				y[i] =Double.parseDouble(data.get(i).get("real_value")) ;
+				System.out.println(y[i]);
+			}
+			
+			return y;
+		}
+	
+	public String[] getLabels(ArrayList<HashMap<String, String>> data) {
+		
+		String[] x = {"","","","","","",""};
+		
+		for(int i=0;i<data.size();i++) {
+			x[i] = data.get(i).get("label");
+			System.out.println(x[i]);
+		}
+		
+		return x;
+	}
 	
 	public GraphicalView getChart(Object context, ArrayList<HashMap<String, String>> data) {
 		
-		if(data == null){ 
-			Log.e("Error", "Data Is Null");
-		}
+		
+		
+		double[] y = getValue(data);
+		String[] xLabels = getLabels(data);
 		
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
 		
-		double[] y = {0.2,0.3,0.4,0.5,0.9,0,0.3};
+		//double[] y = {0.2,0.3,0.4,0.5,0.9,0,0.3};
 		CategorySeries series = new CategorySeries("Completed Jobs");
 		
 		for(int i=0; i<y.length;i++) {
-			
 			series.add(y[i]);
-			
 		}
 		
 		/**Setting Labels For X Axis**/
 		
-		for(int i=0;i<y.length;i++) {
-	    	mRenderer.addXTextLabel(i+1,"2" + "-" +i );
+		for(int i=0;i<xLabels.length;i++) {
+	    	mRenderer.addXTextLabel(i+1,xLabels[i] );
 	    }
 		mRenderer.setXLabels(0);
 		
@@ -88,7 +110,7 @@ public class CompletedJobsChart {
 		
 		/** Y axis customisation Settings**/
 		
-		mRenderer.setYAxisMax(maxAxis);
+		//mRenderer.setYAxisMax(1);
 		mRenderer.setYAxisMin(0);
 		
 		mRenderer.setShowLegend(false);
@@ -98,4 +120,7 @@ public class CompletedJobsChart {
 		return chartView;
 		
 	}
+	
+	
+	
 }

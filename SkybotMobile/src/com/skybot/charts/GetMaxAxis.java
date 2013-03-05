@@ -9,11 +9,15 @@ public class GetMaxAxis {
 			maxValue = y[0];
 			if(y[i] > maxValue) { 
 				maxValue = y[i];
-				
 			}
 		}
 		System.out.println(maxValue);
 		maxAxis = (float) Math.ceil(maxValue);
+		
+		if(maxAxis == 0) {
+			maxAxis = 1;
+		}
+		
 		return maxAxis;
 	}
 }
