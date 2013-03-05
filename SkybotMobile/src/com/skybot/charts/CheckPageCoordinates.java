@@ -1,5 +1,8 @@
 package com.skybot.charts;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.achartengine.GraphicalView;
 
 import android.content.Context;
@@ -8,11 +11,14 @@ import android.view.View;
 public class CheckPageCoordinates {
 	
 	GraphicalView ChartView;
-	public View getChart(Context context,int mCurrentPage) {
-		
+	ArrayList<HashMap<String, String>> data;
 	
+	public View getChart(Context context,int mCurrentPage,ArrayList<HashMap<String, String>> data) {
+		
+		this.data = data;
+		
 		if(mCurrentPage == 1) {
-			ChartView = new CompletedJobsChart().getChart(context);
+			ChartView = new CompletedJobsChart().getChart(context,data);
 		}
 		else if(mCurrentPage == 2) {
 			ChartView = new TerminatedJobsChart().getChart(context);
