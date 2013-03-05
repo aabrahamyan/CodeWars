@@ -1,5 +1,8 @@
 package com.skybot.charts;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.BarChart.Type;
@@ -10,10 +13,19 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 
 public class CompletedJobsChart {
 	//Context context;
-	public GraphicalView getChart(Object context) {
+	ArrayList<HashMap<String, String>> data;
+	
+	
+	
+	public GraphicalView getChart(Object context, ArrayList<HashMap<String, String>> data) {
+		
+		if(data == null){ 
+			Log.e("Error", "Data Is Null");
+		}
 		
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
@@ -82,7 +94,7 @@ public class CompletedJobsChart {
 		mRenderer.setShowLegend(false);
 		
 	    GraphicalView chartView = ChartFactory.getBarChartView((Context) context, dataset, mRenderer,Type.DEFAULT);
-	    
+	    Log.i("CompletedJobs", "CompletedJobs");
 		return chartView;
 		
 	}

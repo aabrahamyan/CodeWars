@@ -67,6 +67,7 @@ public class BaseResponseAnalyzer {
 							.toString());
 					map.put("hold_status", json_data.get("hold_status")
 							.toString());
+					map.put("runid", json_data.get("id").toString());
 
 					list.add(map);
 				}
@@ -87,9 +88,6 @@ public class BaseResponseAnalyzer {
 				Log.e("JSON Parser", "Error parsing data " + e.toString());
 			}
 
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
-					.getCurrentContext();
-			del.didFinishRequestProcessing();
 		}
 		/******************************************* JOB HISTORY **********************************************/
 		else if (serviceName.equals(Constants.JOBHISTORY_SERVICE_URL)) {
@@ -122,23 +120,23 @@ public class BaseResponseAnalyzer {
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_1</span>\"",
-							"\"Mobile_Job_Test\"");
+							"\"Mobile_Job_Test_1\"");
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_2</span>\"",
-							"\"Mobile_Job_Test\"");
+							"\"Mobile_Job_Test_2\"");
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_3</span>\"",
-							"\"Mobile_Job_Test\"");
+							"\"Mobile_Job_Test_3\"");
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_4</span>\"",
-							"\"Mobile_Job_Test\"");
+							"\"Mobile_Job_Test_4\"");
 			responseString = responseString
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_5</span>\"",
-							"\"Mobile_Job_Test\"");
+							"\"Mobile_Job_Test_5\"");
 
 			System.out.println(responseString);
 
@@ -181,10 +179,6 @@ public class BaseResponseAnalyzer {
 			} catch (Exception e) {
 				Log.e("JSON Parser", "Error parsing data " + e.toString());
 			}
-
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
-					.getCurrentContext();
-			del.didFinishRequestProcessing();
 
 		}
 		/******************************************* AGENT **********************************************/
@@ -304,6 +298,91 @@ public class BaseResponseAnalyzer {
 			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
 					.getCurrentContext();
 			del.didFinishRequestProcessing();
+		}
+		
+		else if(serviceName.equals(Constants.COMPLETED_JOBS_ID)) {
+			Log.i("Parser info", "Entered Completed Jobs sequence");
+			
+			String responseString = "";
+					responseString = responseData;
+					final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+					
+					try {
+						
+						JSONParser jParser = new JSONParser();
+						JSONObject jObject = (JSONObject) jParser.parse(responseString);
+						
+						
+						JSONArray jArray = (JSONArray) jObject.get("data");
+						
+						
+						for(int i=0; i<jArray.size();i++) {
+							JSONObject json_data = (JSONObject) jArray.get(i);
+							HashMap<String, String> map = new HashMap<String, String>();
+							map.put("label", json_data.get("label").toString());
+							map.put("value", json_data.get("value").toString());
+							map.put("real_value", json_data.get("real_value").toString());
+							list.add(map);
+						}
+						
+					for(int i=0; i<list.size();i++){ 
+						Log.w("Element", list.get(i).toString());
+					}
+					
+					
+					
+					} catch (ParseException e) {
+						Log.e("Chart Parser error", "Error parsing Chart Data");
+						
+						e.printStackTrace();
+					}
+					
+					ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+							.getCurrentContext();
+					del.didFinishRequestProcessing(list);			
+		}
+		
+		else if (serviceName.equals(Constants.TERMINATED_JOBS_ID)) {
+			Log.i("Parser Info", "Entered Terminated Jobs sequence ");
+			String responseString = "";
+			responseString = responseData;
+			final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+			
+			try {
+					JSONParser jParser = new JSONParser();
+					JSONObject jObject = (JSONObject) jParser.parse(responseString);
+					
+					JSONArray jArray = (JSONArray) jObject.get("data");
+					for(int i=0; i<jArray.size();i++) {
+						
+						JSONObject json_data = (JSONObject) jArray.get(i);
+						HashMap<String, String> map = new HashMap<String, String>();
+						map.put("label", json_data.get("label").toString());
+						map.put("real_canceled_value", json_data.get("real_canceled_value").toString());
+						map.put("real_failed_value",json_data.get("real_failed_value").toString());
+						map.put("real_error_value",json_data.get("real_error_value").toString());
+						
+						list.add(map);
+						
+					}
+					
+					for(int i=0; i<list.size();i++){ 
+						Log.w("Element", list.get(i).toString());
+					}
+					
+			}
+			catch (ParseException e) {
+				
+				Log.e("Chart Parser error", "Error parsing Chart Data");
+				
+				
+				e.printStackTrace();
+			}
+			
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+					.getCurrentContext();
+			del.didFinishRequestProcessing(list);	
+			
 		}
 
 	}

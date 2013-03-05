@@ -44,8 +44,12 @@ public class Constants {
 	public static final String DATAFILTERVALUE = "dateFilter[0][data][value]";
 	public static final String EXCLUDETIMEDINTERVAL = "exclude_timed_interval";
 
-	public static final String JOB_DETAILS_URL = "jobs/1000/edit.json";
 
+
+	
+	//---------------------------- Run Job Params --------------------------//	
+
+	public static final String JOB_DETAILS_URL = "jobs/1000/edit.json";
 	public static final String COMMAND_URL = "commands.json";
 
 	// ---------------------------- Run Job Params --------------------------//
@@ -54,6 +58,9 @@ public class Constants {
 	public static final String CS_ID = "command_set_id";
 	public static final String CS_TYPE = "command_set_type";
 	public static final String JOB_ID = "job_id";
+	
+	public static final String HOLD_JOB = "hold_job";
+	public static final String RELEASE_JOB = "release_job";
 
 	// ---------------------------- Views ----------------------------------//
 
