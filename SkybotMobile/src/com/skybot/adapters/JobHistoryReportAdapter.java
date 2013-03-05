@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,9 @@ public class JobHistoryReportAdapter extends BaseAdapter {
 
 		ImageView image = (ImageView) vi.findViewById(R.id.list_image);
 
-		if (data != null && !data.isEmpty()) {
+		try {
+			if (data != null && !data.isEmpty()) {
+			}
 			HashMap m = new HashMap();
 			m = data.get(position);
 
@@ -69,16 +72,17 @@ public class JobHistoryReportAdapter extends BaseAdapter {
 			 * image.setImageResource(R.drawable.blank_badge_red); }
 			 */
 
-			if (m.get("file_name") != null &&  m.get("copied_server_time_utc")  != null) {
+			if (m.get("file_name") != null
+					&& m.get("copied_server_time_utc") != null) {
 
-				
-				id.setText("ID: "+m.get("id").toString());
+				id.setText("ID: " + m.get("id").toString());
 				file_name.setText(m.get("file_name").toString());
 				servercopiedtime.setText("Server copied Time: "
 						+ m.get("copied_server_time_utc").toString());
 			}
+		} catch (Exception e) {
+			Log.e("Exception occured", e.toString());
 		}
-
 		return vi;
 	}
 

@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,9 @@ public class JobsHistoryAdapter extends BaseAdapter {
 		ImageView image = (ImageView) vi.findViewById(R.id.list_image); // status
 																		// image
 
-		if (data != null && !data.isEmpty()) {
+		try {
+			if (data != null && !data.isEmpty()) {
+			}
 			HashMap m = new HashMap();
 			m = data.get(position);
 
@@ -65,14 +68,15 @@ public class JobsHistoryAdapter extends BaseAdapter {
 				else if (m.get("job_status_raw").toString().equals("F")) {
 					image.setImageResource(R.drawable.blank_badge_red);
 				}
-			
-			id.setText(m.get("job").toString());
-			job.setText("JOB RUN ID: " + m.get("id").toString());
-			job_id.setText("JOB SUITE RUN ID: "
-					+ m.get("job_suite_run_id").toString());
-}
-		}
 
+				id.setText(m.get("job").toString());
+				job.setText("JOB RUN ID: " + m.get("id").toString());
+				job_id.setText("JOB SUITE RUN ID: "
+						+ m.get("job_suite_run_id").toString());
+			}
+		} catch (Exception e) {
+			Log.e("Exception occured", e.toString());
+		}
 		return vi;
 	}
 

@@ -165,7 +165,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 		baseNetworkManager.constructConnectionAndHitGET("Hold Successful",
 				"Hold Job Request Started", urlStringWithParams, this,
-				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
+				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);		
 	}
 
 	public void releaseJob(View v, String id) {

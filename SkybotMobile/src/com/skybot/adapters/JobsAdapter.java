@@ -10,6 +10,7 @@ import com.skybot.activities.R.drawable;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -60,18 +61,24 @@ public class JobsAdapter extends BaseAdapter {
 		ImageButton holdBtn = (ImageButton) vi.findViewById(R.id.btn2);
 		ImageButton releaseBtn = (ImageButton) vi.findViewById(R.id.btn3);
 
-		if (data != null && !data.isEmpty()) {
+		try {
+			if (data != null && !data.isEmpty()) {
+		
 			HashMap<String, String> m = new HashMap<String, String>();
 			m = data.get(position);
 
 			if (m.get("hold_status").toString().equals("Released")) {
 				image.setImageResource(R.drawable.blank_badge_green);
-			} else if (m.get("hold_status").toString().equals("Hold")) {
+			} else if (m.get("hold_status").toString().equals("Held")) {
 				image.setImageResource(R.drawable.blank_badge_orange);
 			}
+			 else if (m.get("hold_status").toString().equals("Running")) {
+					image.setImageResource(R.drawable.blank_badge_red);
+				}
 			title.setText(m.get("name").toString());
 			description.setText("Agent: " + m.get("agent").toString());
 			agent.setText("Description: " + m.get("description").toString());
+			
 
 			String runid = m.get("runid");
 			runBtn.setTag(runid);
@@ -106,7 +113,10 @@ public class JobsAdapter extends BaseAdapter {
 				}
 			});
 		}
-
+		}
+		catch(Exception e) {
+			Log.e("Exception occured", e.toString());
+		}
 		vi.findViewById(R.id.title).setVisibility(View.VISIBLE);
 		vi.findViewById(R.id.description).setVisibility(View.VISIBLE);
 		vi.findViewById(R.id.agent).setVisibility(View.VISIBLE);
@@ -116,5 +126,4 @@ public class JobsAdapter extends BaseAdapter {
 
 		return vi;
 	}
-
 }
