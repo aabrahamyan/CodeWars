@@ -81,7 +81,7 @@ public class JobHistoryReportActivity extends ListActivity implements
 
 	@Override
 	public void didFinishRequestProcessing(
-			ArrayList<HashMap<String, String>> list) {
+			ArrayList<HashMap<String, String>> list, String service) {
 		jobHistoryReportList = list;
 
 		listView = getListView();

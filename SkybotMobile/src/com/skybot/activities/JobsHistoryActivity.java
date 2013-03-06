@@ -114,7 +114,7 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 
 	@Override
 	public void didFinishRequestProcessing(
-			ArrayList<HashMap<String, String>> list) {
+			ArrayList<HashMap<String, String>> list, String service) {
 		jobsList = list;
 
 		listView = getListView();

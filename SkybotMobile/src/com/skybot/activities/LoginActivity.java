@@ -123,7 +123,7 @@ public class LoginActivity extends Activity implements ActionDelegate {
 	}
 	
 	@Override
-	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list) {
+	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list,String service) {
 		
 	}
 

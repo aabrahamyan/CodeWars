@@ -20,6 +20,7 @@ import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.util.Constants;
 import com.skybot.util.ViewTracker;
+import com.skybot.charts.singleton.*;
 
 
 /**
@@ -30,12 +31,10 @@ import com.skybot.util.ViewTracker;
  */
 public class DashboardActivity extends FragmentActivity implements ActionDelegate{
 	
-	private ArrayList<HashMap<String, String>> dataList;
+	private List<ArrayList<HashMap<String, String>>> dataList;
 	private ScrollItemsFragmentAdapter pagerAdapter;
-	private Handler handler = new Handler();
-	private int REQUEST_IN_PROGRESS = 0;
-	private int REQUEST_FINISHED = 1;
 	private ViewPager pager;
+	private ChartSingleton chartSingleton = ChartSingleton.getInstance();
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,11 +49,9 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 		/** Instantiating FragmentPagerAdapter */
 		pagerAdapter = new ScrollItemsFragmentAdapter(fm);
 			
-		getCompletedJobsResponse();
+		sendAndGetCharts();
 		
-		//getTerminatedJobsResponse();
 	}
-	
 	
 	private void getCompletedJobsResponse() {
 		
@@ -111,6 +108,44 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 		Log.i("Request Status", "Request completed");
 	}
 	
+	public void getSubmittedJobResponse() {
+		String system_time = Long.toString(System.currentTimeMillis());
+		RequestCreator creator = new RequestCreator();
+		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
+		
+		Map <String,String> dashboard_params = creator.createAppropriateMapRequest(Constants.DATE,system_time);
+		
+		StringBuilder stringBuilder = new StringBuilder(Constants.SERVER_URL);
+		stringBuilder.append(Constants.RIGHT_SLASH)
+					 .append(Constants.DASHBOARD_SERVICE)
+					 .append(Constants.RIGHT_SLASH)
+					 .append(Constants.SUBMITTED_JOBS_ID)
+					 .append(Constants.RIGHT_SLASH)
+					 .append(Constants.DASHBOARD_SERVICE_URL)
+					 .append(Constants.FIRST_PARAM_SEPARATOR)
+					 .append(Constants.DATE)
+					 .append(Constants.EQUAL)
+					 .append(system_time);
+		
+		String stringWithUrlAndParams = stringBuilder.toString();
+		
+		baseNetworkManager.constructConnectionAndHitGET("Chart Request is successful", "Chart Request Started", stringWithUrlAndParams, 
+				this, Constants.DASHBOARD_VIEW, Constants.SUBMITTED_JOBS_ID);
+		Log.i("Request Status", "Request completed");
+	}
+	
+	public void sendAndGetCharts() {
+		
+		
+		chartSingleton.charts_reg_counter = 3;
+		
+		getCompletedJobsResponse();
+		getTerminatedJobsResponse();
+		getSubmittedJobResponse();
+		
+	}
+	
+	
 	@Override
 	protected void onResume() {	
 		super.onResume();
@@ -122,35 +157,66 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 	@Override
 	public void didFinishRequestProcessing() {
 		
-			
 	}
 
 	@Override
 	public void didFailRequestProcessing() {
-		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
-	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list) {						
+	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list, String service) {						
 		
 		for(int i=0;i<list.size();i++) {
 			Log.e("Thread", list.get(i).toString());
 		}
 		
-		dataList = list;
 		
 		
-		
-		pagerAdapter.data = list;//dataList;				
-		
-		if(pager.getAdapter() == null) {
-			pager.setAdapter(pagerAdapter);
+		if(chartSingleton.charts_reg_counter>0) {
+			
+			chartSingleton.charts_reg_counter--;
+			
+			if(service.equals("terminated_jobs")) {
+				chartSingleton.terminatedArrayLIst = list;
+			}
+			else if (service.equals("completed_jobs")) {
+				chartSingleton.completedArayList = list;
+			}
+			else if (service.equals("submitted_jobs")) {
+				chartSingleton.submittedArrayList = list;
+			}
+			
+			if(chartSingleton.charts_reg_counter == 0) {			
+
+				if(pager.getAdapter() == null) {
+					pager.setAdapter(pagerAdapter);
+				}
+				
+				pager.getAdapter().notifyDataSetChanged();
+				
+			}
+				
 		}
 		
-		pager.getAdapter().notifyDataSetChanged();
+//		else if(chartSingleton.charts_reg_counter == 0) {			
+//
+//			
+//				if(pager.getAdapter() == null) {
+//					pager.setAdapter(pagerAdapter);
+//				}
+//				
+//				pager.getAdapter().notifyDataSetChanged();
+//				
+//		}
+		
+		
 				
-		Log.i("KukU","KuKu");		
+		//pagerAdapter.data = list; //dataList;				
+		
+		
+		
+		Log.i("Kuku","KuKu");		
 	}
 
 

@@ -29,7 +29,7 @@ public class SettingsActivity extends Activity implements ActionDelegate {
 		
 	}
 	@Override
-	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list) {
+	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list,String service) {
 		
 	}
 	@Override

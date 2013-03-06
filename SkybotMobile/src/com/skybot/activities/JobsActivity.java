@@ -223,7 +223,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 	@Override
 	public void didFinishRequestProcessing(
-			ArrayList<HashMap<String, String>> list) {
+			ArrayList<HashMap<String, String>> list, String service) {
 		if (list != null) {
 			Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 1, "Requesting Jobs List...");
 			jobsList = list;

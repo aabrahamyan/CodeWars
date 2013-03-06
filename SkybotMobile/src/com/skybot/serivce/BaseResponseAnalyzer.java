@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.skybot.activities.delegate.ActionDelegate;
+import com.skybot.charts.singleton.ChartSingleton;
 import com.skybot.util.Constants;
 import com.skybot.util.ViewTracker;
 
@@ -80,7 +81,7 @@ public class BaseResponseAnalyzer {
 
 					@Override
 					public void run() {
-						del.didFinishRequestProcessing(list);
+						del.didFinishRequestProcessing(list,"");
 					}
 				});
 
@@ -172,7 +173,7 @@ public class BaseResponseAnalyzer {
 					@Override
 					public void run() {
 
-						del.didFinishRequestProcessing(list);
+						del.didFinishRequestProcessing(list,"");
 					}
 				});
 
@@ -231,7 +232,7 @@ public class BaseResponseAnalyzer {
 
 					@Override
 					public void run() {
-						del.didFinishRequestProcessing(list);
+						del.didFinishRequestProcessing(list,"");
 					}
 				});
 
@@ -289,7 +290,7 @@ public class BaseResponseAnalyzer {
 					@Override
 					public void run() {
 						synchronized(BaseResponseAnalyzer.class) {
-							del.didFinishRequestProcessing(list);
+							del.didFinishRequestProcessing(list,"");
 						}
 					}
 				});
@@ -305,7 +306,6 @@ public class BaseResponseAnalyzer {
 		
 		else if(serviceName.equals(Constants.COMPLETED_JOBS_ID)) {
 			Log.i("Parser info", "Entered Completed Jobs sequence");
-			
 			String responseString = "";
 					responseString = responseData;
 					final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
@@ -343,7 +343,7 @@ public class BaseResponseAnalyzer {
 						@Override
 						public void run() {
 							synchronized(BaseResponseAnalyzer.class) {
-								del.didFinishRequestProcessing(list);
+								del.didFinishRequestProcessing(list,"completed_jobs");
 							}
 						}
 					});
@@ -397,7 +397,7 @@ public class BaseResponseAnalyzer {
 
 						@Override
 						public void run() {
-							del.didFinishRequestProcessing(list);
+							del.didFinishRequestProcessing(list,"terminated_jobs");
 						}
 					});
 					
@@ -413,6 +413,48 @@ public class BaseResponseAnalyzer {
 			
 			
 			
+		}
+		else if(serviceName.equals(Constants.SUBMITTED_JOBS_ID)) {
+			Log.i("Parser Info", "Entered Submitted Jobs sequence ");
+			String responseString = "";
+			responseString = responseData;
+			final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+			try {
+				
+				JSONParser jParser = new JSONParser();
+				JSONObject jObject = (JSONObject) jParser.parse(responseString);
+				JSONArray jArray = (JSONArray) jObject.get("data");
+				
+				for(int i=0;i<jArray.size();i++) {
+					JSONObject json_data = (JSONObject) jArray.get(i);
+					HashMap<String, String> map = new HashMap<String, String>();
+					map.put("label", json_data.get("label").toString());
+					map.put("value", json_data.get("value").toString());
+					map.put("real_value", json_data.get("real_value").toString());
+					list.add(map);
+				}
+				
+				for(int i=0; i<list.size();i++){ 
+					Log.w("Submitted Job Elements", list.get(i).toString());
+				}
+				
+				final ActionDelegate del = (ActionDelegate) ViewTracker
+						.getInstance().getCurrentContext();
+				
+				Activity dashboardActivity = (Activity) ViewTracker.getInstance()
+						.getCurrentContext();
+
+				dashboardActivity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						del.didFinishRequestProcessing(list,"submitted_jobs");
+					}
+				});
+			}
+			catch(ParseException e) {
+				
+			}
 		}
 
 	}

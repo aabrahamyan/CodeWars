@@ -19,7 +19,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class ScrollItemsFragmentAdapter extends FragmentPagerAdapter {
 
-	final int PAGE_COUNT = 11;
+	final int PAGE_COUNT = 4;
 	public ArrayList<HashMap<String, String>> data;
 
 	/** Constructor of the class */

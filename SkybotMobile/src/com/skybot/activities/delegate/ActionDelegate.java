@@ -17,7 +17,7 @@ public interface ActionDelegate {
 	public void didFinishRequestProcessing();
 
 	public void didFinishRequestProcessing(
-			ArrayList<HashMap<String, String>> list);
+			ArrayList<HashMap<String, String>> list, String service);
 
 	public void didFailRequestProcessing();
 
