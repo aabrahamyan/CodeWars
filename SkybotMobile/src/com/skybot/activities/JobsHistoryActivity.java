@@ -57,7 +57,7 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
 		Map<String, String> job_params = creator.createAppropriateMapRequest(
-				Constants.DATE, "1362050790525", Constants.RESULTS, "5",
+				Constants.DATE, system_Time, Constants.RESULTS, "5",
 				Constants.SORT, "id", Constants.DIRECTION, "DESC",
 				Constants.TAG, "", Constants.TAG_MATCH_ANY, "false"
 
@@ -98,12 +98,6 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 			adapter.notifyDataSetChanged();
 		}
 	};
-
-	public void onClick(View v) {
-		Intent jobsdetailsIntent = new Intent(this, JobsDetailsActivity.class);
-		startActivity(jobsdetailsIntent);
-
-	}
 
 	@Override
 	public void didFinishRequestProcessing() {

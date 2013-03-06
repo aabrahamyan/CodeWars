@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >  
+    android:orientation="horizontal" >  
 
     <TextView
         android:id="@+id/detailName"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dip"
-        android:text="Job details "
-        android:textSize="10dip"
-        android:textColor="#000" />
-
-    <TextView
-        android:id="@+id/detailContent"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dip"
         android:text="Job details "
         android:textSize="15dip"
-        android:textColor="#000" />
+        android:textColor="#000"
+        android:layout_alignParentLeft="true" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/detailContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip"
+        android:text="Job details "
+        android:textSize="15dip"
+        android:textColor="#000"
+        android:layout_toRightOf="@+id/detailName" />
+
+</RelativeLayout>

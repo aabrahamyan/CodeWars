@@ -50,6 +50,8 @@ public class BaseResponseAnalyzer {
 			responseString = responseString.replace("growler_message:",
 					"\"growler_message\":");
 			responseString = responseString.replace("items:", "\"items\":");
+			responseString = responseString.replace("<span>", "");
+			responseString = responseString.replace("</span>", "");
 
 			try {
 				JSONParser jParser = new JSONParser();
@@ -61,7 +63,7 @@ public class BaseResponseAnalyzer {
 				for (int i = 0; i < jArray.size(); i++) {
 					JSONObject json_data = (JSONObject) jArray.get(i);
 					HashMap<String, String> map = new HashMap<String, String>();
-					map.put("name", json_data.get("name").toString());					
+					map.put("name", json_data.get("name").toString());
 					map.put("runid", json_data.get("id").toString());
 					map.put("agent", json_data.get("agent").toString());
 					map.put("description", json_data.get("description")
@@ -69,9 +71,12 @@ public class BaseResponseAnalyzer {
 					map.put("hold_status", json_data.get("hold_status")
 							.toString());
 					map.put("job_type", json_data.get("job_type").toString());
-					map.put("agent_name", json_data.get("agent_name").toString());
-					map.put("target_type", json_data.get("target_type").toString());
-					map.put("schedule_type", json_data.get("schedule_type").toString());
+					map.put("agent_name", json_data.get("agent_name")
+							.toString());
+					map.put("target_type", json_data.get("target_type")
+							.toString());
+					map.put("schedule_type", json_data.get("schedule_type")
+							.toString());
 					map.put("calendar", json_data.get("calendar").toString());
 					map.put("day_count_interval",
 							json_data.get("day_count_interval").toString());
@@ -165,6 +170,27 @@ public class BaseResponseAnalyzer {
 					.replace(
 							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_5</span>\"",
 							"\"Mobile_Job_Test_5\"");
+			responseString = responseString
+					.replace(
+							"\"<span><span class='job-history-schedule-time job-history-server-time-zone'><span class='icon-job-history icon-job-history-server-time-zone'></span>",
+							"");
+			responseString = responseString.replace(
+					"<span><span class='icon-job-history-scheduled'></span>",
+					"");
+			responseString = responseString
+					.replace(
+							"<div class='job-history-agent-schedule-time job-history-server-time-zone'><span class='icon-job-history icon-job-history-server-time-zone'></span>",
+							"");
+			responseString = responseString
+					.replace(
+							"<div class='job-history-schedule-time job-history-server-time-zone'><span class='icon-job-history icon-job-history-server-time-zone'></span>",
+							"");
+			responseString = responseString
+					.replace(
+							"<div class='job-history-status job-history-complete'><span class='icon-job-history icon-job-history-complete'></span>",
+							"");
+			responseString = responseString.replace("</div>", "");
+			responseString = responseString.replace("</span>", "");
 
 			System.out.println(responseString);
 
@@ -185,6 +211,39 @@ public class BaseResponseAnalyzer {
 					map.put("job_suite_run_id",
 							json_data.get("job_suite_run_id").toString());
 					map.put("job_status_raw", json_data.get("job_status_raw")
+							.toString());
+					map.put("job_suite_name", json_data.get("job_suite_name")
+							.toString());
+					map.put("agent", json_data.get("agent").toString());
+					map.put("agent_group_name",
+							json_data.get("agent_group_name").toString());
+					map.put("job_status", json_data.get("job_status")
+							.toString());
+					map.put("job_retry_number",
+							json_data.get("job_retry_number").toString());
+					map.put("job_retry_next_time",
+							json_data.get("job_retry_next_time").toString());
+					map.put("job_initiated_code",
+							json_data.get("job_initiated_code").toString());
+					map.put("scheduled_time_utc",
+							json_data.get("scheduled_time_utc").toString());
+					map.put("scheduled_time_agent",
+							json_data.get("scheduled_time_agent").toString());
+					map.put("server_initiated_time_utc",
+							json_data.get("server_initiated_time_utc")
+									.toString());
+					map.put("server_ended_time_utc",
+							json_data.get("server_ended_time_utc").toString());
+					map.put("queue_ended_time_utc",
+							json_data.get("queue_ended_time_utc").toString());
+					map.put("queued_duration", json_data.get("queued_duration")
+							.toString());
+					map.put("running_duration",
+							json_data.get("running_duration").toString());
+					map.put("duration", json_data.get("duration").toString());
+					map.put("restart_history", json_data.get("restart_history")
+							.toString());
+					map.put("job_priority", json_data.get("job_priority")
 							.toString());
 
 					list.add(map);

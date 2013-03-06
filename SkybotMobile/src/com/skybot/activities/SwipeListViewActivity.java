@@ -19,7 +19,7 @@ public abstract class SwipeListViewActivity extends Activity {
 	private int REL_SWIPE_THRESHOLD_VELOCITY;
 
 	/**
-	 * 
+	 *
 	 * @return ListView
 	 */
 	public abstract ListView getListView();

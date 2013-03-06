@@ -4,12 +4,23 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/job_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" 
+        android:padding="5dip"
+        android:background="@android:color/black"
+        android:text="Job Details "
+        android:textColor="#FFF"
+        android:textSize="18dip" />
+
     <ListView
         android:id="@+id/listView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#e0f2f9" 
-        android:scrollingCache="false">
+        android:background="#e0f2f9"
+        android:scrollingCache="false" >
     </ListView>
 
 </LinearLayout>

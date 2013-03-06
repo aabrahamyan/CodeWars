@@ -85,16 +85,21 @@ public class JobsAdapter extends BaseAdapter {
 				runBtn.setTag(runid);
 				holdBtn.setTag(runid);
 				releaseBtn.setTag(runid);
+				final HashMap<String, String> detailMap;
+				detailMap = m;
 
-				JobsDetailsActivity.map = m;
 				showDetails.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
-						
-						Intent jobsdetailsIntent = new Intent(v.getContext(),
-								JobsDetailsActivity.class);
-						v.getContext().startActivity(jobsdetailsIntent);
+						try {
+							Intent jobsdetailsIntent = new Intent(v
+									.getContext(), JobsDetailsActivity.class);
+							jobsdetailsIntent.putExtra("DetailMap", detailMap);
+							v.getContext().startActivity(jobsdetailsIntent);
+						} catch (Exception e) {
+							Log.e("Error", e.getMessage());
+						}
 					}
 				});
 

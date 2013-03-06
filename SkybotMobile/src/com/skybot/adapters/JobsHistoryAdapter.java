@@ -17,13 +17,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.skybot.activities.JobsDetailsActivity;
 import com.skybot.activities.R;
 
 public class JobsHistoryAdapter extends BaseAdapter {
 
 	private Activity activity;
 	public ArrayList<HashMap<String, String>> data;
-	protected HashMap<String, String> m;
 	private static LayoutInflater inflater = null;
 
 	public JobsHistoryAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
@@ -55,12 +55,12 @@ public class JobsHistoryAdapter extends BaseAdapter {
 		TextView job = (TextView) vi.findViewById(R.id.runnumber); // runnumber
 		TextView job_id = (TextView) vi.findViewById(R.id.suitrunnumber); // suitrunnumber
 		ImageView image = (ImageView) vi.findViewById(R.id.list_image); // status
-																		// image
+		ImageView infoButton = (ImageView) vi.findViewById(R.id.info_button);
 
 		try {
 			if (data != null && !data.isEmpty()) {
 
-				HashMap m = new HashMap();
+				HashMap<String, String> m = new HashMap<String, String>();
 				m = data.get(position);
 
 				if (m.get("job_status_raw") != null) {
@@ -77,14 +77,29 @@ public class JobsHistoryAdapter extends BaseAdapter {
 					job.setText("JOB RUN ID: " + m.get("id").toString());
 					job_id.setText("JOB SUITE RUN ID: "
 							+ m.get("job_suite_run_id").toString());
+
+					final HashMap<String, String> detailMap;
+					detailMap = m;
+
+					infoButton.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							try {
+								Intent jobsdetailsIntent = new Intent(v
+										.getContext(),
+										JobsDetailsActivity.class);
+								jobsdetailsIntent.putExtra("DetailMap",
+										detailMap);
+								v.getContext().startActivity(jobsdetailsIntent);
+							} catch (Exception e) {
+								Log.e("Error", e.getMessage());
+							}
+						}
+					});
 				}
+
 			}
-
-			id.setText(m.get("job").toString());
-			job.setText("JOB RUN ID: " + m.get("id").toString());
-			job_id.setText("JOB SUITE RUN ID: "
-					+ m.get("job_suite_run_id").toString());
-
 		} catch (Exception e) {
 			Log.e("Exception occured", e.toString());
 		}

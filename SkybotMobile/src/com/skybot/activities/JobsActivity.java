@@ -246,10 +246,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 	@Override
 	public void onItemClickListener(ListAdapter adapter, int position) {
-		/*
-		 * Toast.makeText(this, "Single tap on item position " + position,
-		 * Toast.LENGTH_SHORT).show();
-		 */
+
 		if (directionRight)
 			getSwipeItem(false, position);
 	}
