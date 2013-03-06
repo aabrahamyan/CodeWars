@@ -3,6 +3,7 @@ package com.skybot.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -102,23 +103,31 @@ public abstract class SwipeListViewActivity extends Activity {
 		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 				float velocityY) {
-			if (Math.abs(e1.getY() - e2.getY()) > REL_SWIPE_MAX_OFF_PATH)
-				return false;
-			if (e1.getX() - e2.getX() > REL_SWIPE_MIN_DISTANCE
-					&& Math.abs(velocityX) > REL_SWIPE_THRESHOLD_VELOCITY) {
+			try {
+				if (Math.abs(e1.getY() - e2.getY()) > REL_SWIPE_MAX_OFF_PATH)
+					return false;
+				if (e1.getX() - e2.getX() > REL_SWIPE_MIN_DISTANCE
+						&& Math.abs(velocityX) > REL_SWIPE_THRESHOLD_VELOCITY) {
 
-				int pos = list.pointToPosition((int) e1.getX(), (int) e2.getY());
+					int pos = list.pointToPosition((int) e1.getX(),
+							(int) e2.getY());
 
-				if (pos >= 0 && temp_position == pos)
-					getSwipeItem(false, pos);
-			} else if (e2.getX() - e1.getX() > REL_SWIPE_MIN_DISTANCE
-					&& Math.abs(velocityX) > REL_SWIPE_THRESHOLD_VELOCITY) {
+					if (pos >= 0 && temp_position == pos)
+						getSwipeItem(false, pos);
+				} else if (e2.getX() - e1.getX() > REL_SWIPE_MIN_DISTANCE
+						&& Math.abs(velocityX) > REL_SWIPE_THRESHOLD_VELOCITY) {
 
-				int pos = list.pointToPosition((int) e1.getX(), (int) e2.getY());
-				if (pos >= 0 && temp_position == pos)
-					getSwipeItem(true, pos);
-
+					int pos = list.pointToPosition((int) e1.getX(),
+							(int) e2.getY());
+					if (pos >= 0 && temp_position == pos)
+						getSwipeItem(true, pos);
+				}
 			}
+
+			catch (Exception e) {
+				Log.e("Exception occured", e.toString());
+			}
+
 			return false;
 		}
 

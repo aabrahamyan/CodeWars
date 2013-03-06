@@ -47,7 +47,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	private ListView listView;
 	private boolean directionRight = false;
 	private JobsAdapter adapter;
-	private ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
+	public static ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
 
 	static final String KEY_TITLE = "title";
 	static final String KEY_DESCRIPTION = "description";
@@ -165,7 +165,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 		baseNetworkManager.constructConnectionAndHitGET("Hold Successful",
 				"Hold Job Request Started", urlStringWithParams, this,
-				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);		
+				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
 	}
 
 	public void releaseJob(View v, String id) {
@@ -200,11 +200,6 @@ public class JobsActivity extends SwipeListViewActivity implements
 		baseNetworkManager.constructConnectionAndHitGET("Release Successful",
 				"Release Job Request Started", urlStringWithParams, this,
 				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
-	}
-
-	public void onClick(View v) {
-		Intent jobsdetailsIntent = new Intent(this, JobsDetailsActivity.class);
-		startActivity(jobsdetailsIntent);
 	}
 
 	@Override
@@ -255,6 +250,8 @@ public class JobsActivity extends SwipeListViewActivity implements
 		 * Toast.makeText(this, "Single tap on item position " + position,
 		 * Toast.LENGTH_SHORT).show();
 		 */
+		if (directionRight)
+			getSwipeItem(false, position);
 	}
 
 	private Animation getDeleteAnimation(float fromX, float toX, int position) {
