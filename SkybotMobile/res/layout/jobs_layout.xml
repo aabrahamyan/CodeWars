@@ -62,7 +62,7 @@
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Agent"
         android:textColor="#343434"
-        android:textSize="10dip" />
+        android:textSize="10dip" />   
 
     <!-- Rightend Arrow -->
 
@@ -82,7 +82,7 @@
      	android:layout_marginTop="10dp"    	
      	android:src="@drawable/run"
      	android:contentDescription="RUN" 
-     	android:onClick="runJob"   	 />
+     		 />
       <ImageButton
         android:id="@+id/btn2"
      	android:layout_height="40dp"
@@ -91,7 +91,7 @@
      	android:layout_marginTop="10dp"  
      	android:src="@drawable/hold"  
      	android:contentDescription="HOLD" 
-     	android:onClick="holdJob" 	 />        
+     		 />        
       <ImageButton
         android:id="@+id/btn3"
      	android:layout_height="40dp"
@@ -100,6 +100,6 @@
      	android:layout_marginTop="10dp"  
      	android:src="@drawable/release"
      	android:contentDescription="RELEASE"    
-     	android:onClick="releaseJob"	 />  
+     		 />  
 
 </RelativeLayout>

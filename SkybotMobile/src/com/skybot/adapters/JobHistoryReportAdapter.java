@@ -5,20 +5,26 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.skybot.activities.R;
+import com.skybot.util.ViewTracker;
 
 public class JobHistoryReportAdapter extends BaseAdapter {
 
 	private Activity activity;
 	public ArrayList<HashMap<String, String>> data;
 	private static LayoutInflater inflater = null;
+	HashMap m = new HashMap();
 
 	public JobHistoryReportAdapter(Activity a,
 			ArrayList<HashMap<String, String>> d) {
@@ -50,35 +56,56 @@ public class JobHistoryReportAdapter extends BaseAdapter {
 		TextView id = (TextView) vi.findViewById(R.id.report_id);
 		TextView servercopiedtime = (TextView) vi
 				.findViewById(R.id.servercopiedtime);
-
 		ImageView image = (ImageView) vi.findViewById(R.id.list_image);
 
-		if (data != null && !data.isEmpty()) {
-			HashMap m = new HashMap();
-			m = data.get(position);
+		try {
+			if (data != null && !data.isEmpty()) {
 
-			if (m.get("status").toString().equals("Finished")) {
-				image.setImageResource(R.drawable.blank_badge_green);
-			} /*
-			 * else if (m.get("status").toString().equals("S")) {
-			 * image.setImageResource(R.drawable.blank_badge_orange); }
-			 */
+				m = data.get(position);
 
-			/*
-			 * else if (m.get("status").toString().equals("Failed")) {
-			 * image.setImageResource(R.drawable.blank_badge_red); }
-			 */
+				if (m.get("status").toString().equals("Finished")) {
+					image.setImageResource(R.drawable.blank_badge_green);
+				} /*
+				 * else if (m.get("status").toString().equals("S")) {
+				 * image.setImageResource(R.drawable.blank_badge_orange); }
+				 */
 
-			if (m.get("file_name") != null &&  m.get("copied_server_time_utc")  != null) {
+				/*
+				 * else if (m.get("status").toString().equals("Failed")) {
+				 * image.setImageResource(R.drawable.blank_badge_red); }
+				 */
 
-				
-				id.setText("ID: "+m.get("id").toString());
-				file_name.setText(m.get("file_name").toString());
-				servercopiedtime.setText("Server copied Time: "
-						+ m.get("copied_server_time_utc").toString());
+				if (m.get("file_name") != null
+						&& m.get("copied_server_time_utc") != null) {
+
+					id.setText("ID: " + m.get("id").toString());
+					file_name.setText(m.get("file_name").toString());
+					servercopiedtime.setText("Server copied Time: "
+							+ m.get("copied_server_time_utc").toString());
+				}
+
 			}
-		}
+		} catch (Exception e) {
+			Log.e("Exception occured", e.toString());
+}
+			vi.setOnClickListener(new OnClickListener() {
 
+				@Override
+				public void onClick(View v) {
+					String pdfurl = "http://192.168.0.5:8008/skybot-scheduler/user_files/"
+							+ m.get("id") + "?download=true";
+
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setDataAndType(Uri.parse(pdfurl), "text/html");
+					ViewTracker.getInstance().getCurrentContext()
+							.startActivity(intent);
+					// JobsHistoryReportAdapter.this.onClickAction("sadasdas");
+
+				}
+
+			});
+
+		
 		return vi;
 	}
 

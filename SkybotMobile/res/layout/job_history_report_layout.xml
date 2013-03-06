@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/thumbnail"
         android:layout_toRightOf="@+id/thumbnail"
-        android:text="Job History"
+        android:text="Job History Report "
         android:textColor="#040404"
         android:textSize="15dip"
         android:textStyle="bold"
@@ -47,10 +47,10 @@
         android:layout_below="@id/title"
         android:layout_marginTop="10dip"
         android:layout_toRightOf="@+id/thumbnail"
-        android:text="Server Copied Time"
+        android:text=""
         android:textColor="#343434"
         android:textSize="10dip" />
-      <!-- Server Copied Time -->
+    <!-- Server Copied Time -->
 
     <TextView
         android:id="@+id/report_id"
@@ -59,18 +59,18 @@
         android:layout_below="@id/title"
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"
-        android:text="Server Copied Time"
+        android:text=""
         android:textColor="#343434"
         android:textSize="10dip" />
 
-    <!-- Rightend Arrow -->
+    <!-- Download Icon -->
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/download_button"
+        android:layout_width="20dip"
+        android:layout_height="20dip"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:onClick="onClick"
-        android:src="@drawable/arrow" />
+        android:layout_centerVertical="true"      
+        android:src="@drawable/download_icon" />
 
 </RelativeLayout>

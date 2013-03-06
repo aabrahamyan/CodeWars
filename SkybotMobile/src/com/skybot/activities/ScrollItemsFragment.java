@@ -1,6 +1,9 @@
 package com.skybot.activities;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.achartengine.GraphicalView;
 
 import android.content.Context;
@@ -22,12 +25,15 @@ import com.skybot.charts.CheckPageCoordinates;
  * 
  */
 public class ScrollItemsFragment extends Fragment {
-
 	int mCurrentPage;
+	public ArrayList<HashMap<String, String>> data;
 	GraphicalView mChartView;
 	CheckPageCoordinates cpCoord= new CheckPageCoordinates();
 	FragmentActivity context;
 	
+public ScrollItemsFragment() {
+		
+	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +55,7 @@ public class ScrollItemsFragment extends Fragment {
 		
 		LinearLayout ll = (LinearLayout) v.findViewById(R.id.chartLayout);
 		context = getActivity();
-		mChartView = (GraphicalView) cpCoord.getChart(context, mCurrentPage);
+		mChartView = (GraphicalView) cpCoord.getChart(context, mCurrentPage,data);
 		ll.addView(mChartView, new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
 		
 		
@@ -59,20 +65,23 @@ public class ScrollItemsFragment extends Fragment {
 	
 	@Override
 	public void onResume(){ 
+		
+		Log.i("notification", "onResume()");
+		
 		super.onResume();
 		context = getActivity();
 		LinearLayout ll = (LinearLayout) context.findViewById(R.id.chartLayout);
 		if(mChartView == null) {
 			
-			mChartView = (GraphicalView) cpCoord.getChart(context,mCurrentPage);
+			mChartView = (GraphicalView) cpCoord.getChart(context,mCurrentPage,data);
 			ll.addView(mChartView, new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
-			Log.i("ChartView null", "Creating view");
+			Log.i("ChartView null Event", "Creating view");
 		}
 		else {
 			mChartView.repaint();
 			Log.i("else", "repaint()");
 		}
-		Log.i("notification", "onResume()");
+		
 	}
 	
 	

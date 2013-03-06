@@ -2,12 +2,17 @@ package com.skybot.adapters;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +23,7 @@ public class JobsHistoryAdapter extends BaseAdapter {
 
 	private Activity activity;
 	public ArrayList<HashMap<String, String>> data;
+	protected HashMap<String, String> m;
 	private static LayoutInflater inflater = null;
 
 	public JobsHistoryAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
@@ -40,7 +46,7 @@ public class JobsHistoryAdapter extends BaseAdapter {
 		return position;
 	}
 
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		View vi = convertView;
 		if (convertView == null)
 			vi = inflater.inflate(R.layout.jobs_history_layout, null);
@@ -51,28 +57,37 @@ public class JobsHistoryAdapter extends BaseAdapter {
 		ImageView image = (ImageView) vi.findViewById(R.id.list_image); // status
 																		// image
 
-		if (data != null && !data.isEmpty()) {
-			HashMap m = new HashMap();
-			m = data.get(position);
+		try {
+			if (data != null && !data.isEmpty()) {
 
-			if (m.get("job_status_raw") != null) {
-				if (m.get("job_status_raw").toString().equals("C")) {
-					image.setImageResource(R.drawable.blank_badge_green);
-				} else if (m.get("job_status_raw").toString().equals("S")) {
-					image.setImageResource(R.drawable.blank_badge_orange);
-				}
+				HashMap m = new HashMap();
+				m = data.get(position);
 
-				else if (m.get("job_status_raw").toString().equals("F")) {
-					image.setImageResource(R.drawable.blank_badge_red);
+				if (m.get("job_status_raw") != null) {
+					if (m.get("job_status_raw").toString().equals("C")) {
+						image.setImageResource(R.drawable.blank_badge_green);
+					} else if (m.get("job_status_raw").toString().equals("S")) {
+						image.setImageResource(R.drawable.blank_badge_orange);
+					}
+
+					else if (m.get("job_status_raw").toString().equals("F")) {
+						image.setImageResource(R.drawable.blank_badge_red);
+					}
+					id.setText(m.get("job").toString());
+					job.setText("JOB RUN ID: " + m.get("id").toString());
+					job_id.setText("JOB SUITE RUN ID: "
+							+ m.get("job_suite_run_id").toString());
 				}
-			
+			}
+
 			id.setText(m.get("job").toString());
 			job.setText("JOB RUN ID: " + m.get("id").toString());
 			job_id.setText("JOB SUITE RUN ID: "
 					+ m.get("job_suite_run_id").toString());
-}
-		}
 
+		} catch (Exception e) {
+			Log.e("Exception occured", e.toString());
+		}
 		return vi;
 	}
 
