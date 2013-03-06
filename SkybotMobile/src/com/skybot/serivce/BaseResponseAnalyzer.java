@@ -36,7 +36,7 @@ public class BaseResponseAnalyzer {
 
 		if (serviceName.equals(Constants.LOGIN_SERVICE)) {
 
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance() 
 					.getCurrentContext();
 			del.didFinishRequestProcessing();
 		}
