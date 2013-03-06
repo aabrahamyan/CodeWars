@@ -1,17 +1,19 @@
 package com.skybot.util;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 public class Util {
-	
-	
+
 	public static final String PREF_NAME = "PEOPLE_PREFERENCES";
 	public static final int MODE = Context.MODE_PRIVATE;
 
 	public static final String LOGIN = "LOGIN";
 	public static final String PASSWORD = "PASSWORD";
+	
+	private static ProgressDialog mDialog;
 
 	public static void writeBoolean(Context context, String key, boolean value) {
 		getEditor(context).putBoolean(key, value).commit();
@@ -63,10 +65,19 @@ public class Util {
 	public static Editor getEditor(Context context) {
 		return getPreferences(context).edit();
 	}
-
-		
-	}
 	
+	//----------------------- Progress/Activity Indicator -----------------------//
+	
+	public static void showOrHideActivityIndicator(Context ctx, final int hide, final String message) {
+		if(mDialog != null && hide == 1) {
+			mDialog.dismiss();
+		} else {
+			mDialog = new ProgressDialog(ctx);
+			mDialog.setMessage(message);
+			mDialog.setCancelable(false);
+			mDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			mDialog.show();
+		}
+	}
 
-
-
+}

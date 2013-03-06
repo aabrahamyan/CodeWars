@@ -1,4 +1,7 @@
 package com.skybot.charts;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.BarChart.Type;
@@ -14,11 +17,18 @@ import android.graphics.Paint.Align;
 
 public class TerminatedJobsChart {
 	
-	public GraphicalView getChart(Object context) {
+	public GraphicalView getChart(Object context, ArrayList<HashMap<String, String>> data) {
+		
+		for(int i=0;i<data.size();i++) {
+			System.out.println(data.get(i));
+		}
+		
+		double[] y = getValue(data, "real_canceled_value");
+		
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); 
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		
-		double[] y = { 0.6,0.8,0.1,0.9,0.7,0.7 };
+		//double[] y = { 0.6,0.8,0.1,0.9,0.7,0.7 };
 		CategorySeries series = new CategorySeries("Canceled");	
 		for(int i=0;i<y.length;i++) {
 			
@@ -26,7 +36,8 @@ public class TerminatedJobsChart {
 			
 		}
 		
-		double[] y1 = {0,0,0,0,0.7,0.7};
+		//double[] y1 = {0,0,0,0,0.7,0.7};
+		double[] y1 = getValue(data, "real_failed_value");
 		CategorySeries series2 = new CategorySeries("Failed");
 		for(int i=0;i<y1.length;i++) {
 			
@@ -34,7 +45,8 @@ public class TerminatedJobsChart {
 			
 		}
 		
-		double[] y3 = {0,0.2,0.3,0.7,0.8,0.5};
+//		double[] y3 = {0,0.2,0.3,0.7,0.8,0.5};
+		double[] y3 = getValue(data, "real_error_value");
 		CategorySeries series3 = new CategorySeries("Error");
 		for(int i = 0; i <y3.length;i++) {
 			series3.add(y3[i]);
@@ -82,7 +94,7 @@ public class TerminatedJobsChart {
 	    			
 	    /**Y axis settings **/
 	    
-	    mRenderer.setYAxisMax(1.5);
+	    mRenderer.setYAxisMax(120);
 	    mRenderer.setYAxisMin(0);
 	    mRenderer.setShowGridX(true);//Shows gridlines for Y axis
 	    mRenderer.setLegendTextSize(20);	
@@ -111,6 +123,15 @@ public class TerminatedJobsChart {
 	    GraphicalView chartView = ChartFactory.getBarChartView((Context) context, dataset,mRenderer, Type.DEFAULT);
 		return chartView;
 		
+	}
+	
+	public double[] getValue(ArrayList<HashMap<String, String>> data, String key) {
+		double[] valueArray = {0,0,0,0,0,0,0};
+		
+		for(int i=0;i<data.size();i++) {
+			valueArray[i] = Double.parseDouble(data.get(i).get(key)) ;
+		}
+		return valueArray;
 	}
 		
 }

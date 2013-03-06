@@ -19,7 +19,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class ScrollItemsFragmentAdapter extends FragmentPagerAdapter {
 
-	final int PAGE_COUNT = 11;
+	final int PAGE_COUNT = 4;
 	public ArrayList<HashMap<String, String>> data;
 
 	/** Constructor of the class */
@@ -30,10 +30,9 @@ public class ScrollItemsFragmentAdapter extends FragmentPagerAdapter {
 	/** This method will be invoked when a page is requested to create */
 	@Override
 	public Fragment getItem(int arg0) {
-
+		
 		ScrollItemsFragment myFragment = new ScrollItemsFragment();
 		myFragment.data = data;
-		
 		Bundle data = new Bundle();
 		data.putInt("current_page", arg0 + 1);
 		myFragment.setArguments(data);

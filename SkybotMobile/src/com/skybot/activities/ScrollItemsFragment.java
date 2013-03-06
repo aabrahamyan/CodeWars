@@ -67,6 +67,7 @@ public ScrollItemsFragment() {
 	public void onResume(){ 
 		
 		Log.i("notification", "onResume()");
+		
 		super.onResume();
 		context = getActivity();
 		LinearLayout ll = (LinearLayout) context.findViewById(R.id.chartLayout);

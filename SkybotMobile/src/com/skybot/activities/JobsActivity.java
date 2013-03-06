@@ -7,8 +7,10 @@ import java.util.Map;
 
 import org.apache.http.NameValuePair;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,6 +25,7 @@ import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
 import com.skybot.util.Constants;
+import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
 
 /**
@@ -38,7 +41,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	private ListView listView;
 	private boolean directionRight = false;
 	private JobsAdapter adapter;
-	private ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
+	public static ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
 
 	static final String KEY_TITLE = "title";
 	static final String KEY_DESCRIPTION = "description";
@@ -48,13 +51,18 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.jobs_list);
+		
+		
 
 		listView = (ListView) findViewById(R.id.listView1);
 		adapter = new JobsAdapter(this, jobsList);
 		listView.setAdapter(adapter);
+		
+		
 	}
 
 	private void getJobsResponse() {
+		Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 0, "Requesting Jobs List...");
 		String system_Time = Long.toString(System.currentTimeMillis());
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
@@ -193,11 +201,6 @@ public class JobsActivity extends SwipeListViewActivity implements
 				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
 	}
 
-	public void onClick(View v) {
-		Intent jobsdetailsIntent = new Intent(this, JobsDetailsActivity.class);
-		startActivity(jobsdetailsIntent);
-	}
-
 	@Override
 	public void didFinishRequestProcessing() {
 
@@ -205,8 +208,9 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 	@Override
 	public void didFinishRequestProcessing(
-			ArrayList<HashMap<String, String>> list) {
+			ArrayList<HashMap<String, String>> list, String service) {
 		if (list != null) {
+			Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 1, "Requesting Jobs List...");
 			jobsList = list;
 			adapter.data = jobsList;
 			adapter.notifyDataSetChanged();
@@ -242,10 +246,9 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 	@Override
 	public void onItemClickListener(ListAdapter adapter, int position) {
-		/*
-		 * Toast.makeText(this, "Single tap on item position " + position,
-		 * Toast.LENGTH_SHORT).show();
-		 */
+
+		if (directionRight)
+			getSwipeItem(false, position);
 	}
 
 	private Animation getDeleteAnimation(float fromX, float toX, int position) {
@@ -308,6 +311,36 @@ public class JobsActivity extends SwipeListViewActivity implements
 				rowView.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);
 			}
 		}
+	}
+
+	//---------------------------------- Menu Callbacks
+	//-------------------------------//
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.layout.more_refresh_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+			case R.id.menu_refresh:
+				getJobsResponse();
+				return true;
+			case R.id.menu_more:
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

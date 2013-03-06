@@ -29,11 +29,18 @@ public class SettingsActivity extends Activity implements ActionDelegate {
 		
 	}
 	@Override
-	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list) {
+	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list,String service) {
 		
 	}
 	@Override
 	public void didFailRequestProcessing() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
 		// TODO Auto-generated method stub
 		
 	}
