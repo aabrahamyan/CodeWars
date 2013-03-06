@@ -104,7 +104,7 @@ public class AgentActivity extends ListActivity implements ActionDelegate {
 
 	@Override
 	public void didFinishRequestProcessing(
-			ArrayList<HashMap<String, String>> list) {
+			ArrayList<HashMap<String, String>> list, String service) {
 		agentList = list;
 
 		listView = getListView();
@@ -118,6 +118,13 @@ public class AgentActivity extends ListActivity implements ActionDelegate {
 	public void didFailRequestProcessing() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import org.achartengine.GraphicalView;
 
+import com.skybot.charts.singleton.ChartSingleton;
+
 import android.content.Context;
 import android.view.View;
 	
@@ -12,19 +14,20 @@ public class CheckPageCoordinates {
 	
 	GraphicalView ChartView;
 	ArrayList<HashMap<String, String>> data;
+	ChartSingleton chartSingleton = ChartSingleton.getInstance();
 	
 	public View getChart(Context context,int mCurrentPage,ArrayList<HashMap<String, String>> data) {
 		
 		this.data = data;
 		
 		if(mCurrentPage == 1) {
-			ChartView = new CompletedJobsChart().getChart(context,data);
+			ChartView = new CompletedJobsChart().getChart(context,chartSingleton.completedArayList);
 		}
 		else if(mCurrentPage == 2) {
-			ChartView = new TerminatedJobsChart().getChart(context);
+			ChartView = new TerminatedJobsChart().getChart(context,chartSingleton.terminatedArrayLIst);
 		}
 		else if(mCurrentPage == 3) {
-			ChartView = new SubmittedJobsChart().getChart(context);
+			ChartView = new SubmittedJobsChart().getChart(context,chartSingleton.submittedArrayList);
 		}
 		else if(mCurrentPage == 4){
 			ChartView = new StartedJobsChart().getChart(context);

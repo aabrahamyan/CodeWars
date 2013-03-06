@@ -22,6 +22,7 @@ import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
 import com.skybot.util.Constants;
+import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
 
 /**
@@ -52,9 +53,10 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 	}
 
 	private void getJobsHistoryResponse() {
-		String system_Time = Long.toString(System.currentTimeMillis());
+		Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(), 0, "Requesting Job Histories...");		
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
+		String system_Time = Long.toString(System.currentTimeMillis());
 
 		Map<String, String> job_params = creator.createAppropriateMapRequest(
 				Constants.DATE, system_Time, Constants.RESULTS, "5",
@@ -107,11 +109,12 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 
 	@Override
 	public void didFinishRequestProcessing(
-			ArrayList<HashMap<String, String>> list) {
+			ArrayList<HashMap<String, String>> list, String service) {
 		jobsList = list;
 
 		listView = getListView();
 		if (jobsList != null) {
+			Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(), 1, "Requesting Job Histories...");
 			adapter.data = jobsList;
 			adapter.notifyDataSetChanged();
 		}
@@ -121,6 +124,13 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 	public void didFailRequestProcessing() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

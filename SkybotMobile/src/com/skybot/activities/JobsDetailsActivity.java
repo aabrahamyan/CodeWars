@@ -21,7 +21,8 @@ public class JobsDetailsActivity extends Activity implements ActionDelegate {
 		setContentView(R.layout.jobdetails_list);
 
 		Intent intent = getIntent();
-		map = (HashMap<String, String>) intent.getSerializableExtra("DetailMap");
+		map = (HashMap<String, String>) intent
+				.getSerializableExtra("DetailMap");
 
 		listView = (ListView) findViewById(R.id.listView2);
 		adapter = new JobDetailsAdapter(this, map);
@@ -43,6 +44,12 @@ public class JobsDetailsActivity extends Activity implements ActionDelegate {
 	@Override
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list) {
+
+	}
+
+	@Override
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list, String service) {
 
 	}
 

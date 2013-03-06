@@ -192,8 +192,6 @@ public class BaseResponseAnalyzer {
 			responseString = responseString.replace("</div>", "");
 			responseString = responseString.replace("</span>", "");
 
-			System.out.println(responseString);
-
 			try {
 				JSONParser jParser = new JSONParser();
 				JSONObject jObject = (JSONObject) jParser.parse(responseString);
