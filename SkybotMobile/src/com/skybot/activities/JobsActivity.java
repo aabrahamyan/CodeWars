@@ -6,22 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
-import org.json.JSONObject;
 
-import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.skybot.activities.delegate.ActionDelegate;
@@ -29,9 +22,7 @@ import com.skybot.adapters.JobsAdapter;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
-import com.skybot.util.Base64Coder;
 import com.skybot.util.Constants;
-import com.skybot.util.CookieStorage;
 import com.skybot.util.ViewTracker;
 
 /**

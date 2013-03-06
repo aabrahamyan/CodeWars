@@ -69,7 +69,6 @@ public class AgentAdapter extends BaseAdapter {
 			description.setText("Description: "
 					+ m.get("description").toString());
 			
-
 		}
 
 		return vi;

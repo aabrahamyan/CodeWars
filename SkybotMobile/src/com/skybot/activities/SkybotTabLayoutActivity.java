@@ -3,7 +3,6 @@ package com.skybot.activities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -41,7 +40,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		// Tab for Job
 		TabSpec jobsspec = tabHost.newTabSpec("Jobs");
 		jobsspec.setIndicator("Jobs",
-				getResources().getDrawable(R.drawable.icon_dashboard_tab));
+				getResources().getDrawable(R.drawable.icon_job_tab));
 
 		Intent jobsIntent = new Intent(this, JobsActivity.class);
 		jobsspec.setContent(jobsIntent);
@@ -57,28 +56,28 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		// Tab for Job History
 		TabSpec jobhistspec = tabHost.newTabSpec("Jobs History");
 		jobhistspec.setIndicator("Jobs History",
-				getResources().getDrawable(R.drawable.icon_dashboard_tab));
+				getResources().getDrawable(R.drawable.icon_job_history_tab));
 		Intent jobhistsIntent = new Intent(this, JobsHistoryActivity.class);
 		jobhistspec.setContent(jobhistsIntent);
 
 		// Tab for Agent
 		TabSpec agentspec = tabHost.newTabSpec("Agent");
 		agentspec.setIndicator("Agent",
-				getResources().getDrawable(R.drawable.icon_dashboard_tab));
+				getResources().getDrawable(R.drawable.icon_agent_tab));
 		Intent agentIntent = new Intent(this, AgentActivity.class);
 		agentspec.setContent(agentIntent);
 
 		// Tab for Report
 		TabSpec reportspec = tabHost.newTabSpec("Report");
 		reportspec.setIndicator("Report",
-				getResources().getDrawable(R.drawable.icon_dashboard_tab));
+				getResources().getDrawable(R.drawable.icon_report_tab));
 		Intent reportIntent = new Intent(this, JobHistoryReportActivity.class);
 		reportspec.setContent(reportIntent);
 
 		// Tab for API key
-		TabSpec apikeyspec = tabHost.newTabSpec("API key");
-		apikeyspec.setIndicator("API key",
-				getResources().getDrawable(R.drawable.icon_dashboard_tab));
+		TabSpec apikeyspec = tabHost.newTabSpec("Help");
+		apikeyspec.setIndicator("Help",
+				getResources().getDrawable(R.drawable.icon_help_tab));
 		Intent apikeyIntent = new Intent(this, SettingsActivity.class);
 		apikeyspec.setContent(apikeyIntent);
 
