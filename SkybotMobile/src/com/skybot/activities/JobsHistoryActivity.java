@@ -22,6 +22,7 @@ import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
 import com.skybot.util.Constants;
+import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
 
 /**
@@ -52,7 +53,7 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 	}
 
 	private void getJobsHistoryResponse() {
-		String system_Time = Long.toString(System.currentTimeMillis());
+		Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(), 0, "Requesting Job Histories...");		
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
@@ -118,6 +119,7 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 
 		listView = getListView();
 		if (jobsList != null) {
+			Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(), 1, "Requesting Job Histories...");
 			adapter.data = jobsList;
 			adapter.notifyDataSetChanged();
 		}

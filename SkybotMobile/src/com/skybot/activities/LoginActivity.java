@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.skybot.activities.delegate.ActionDelegate;
@@ -27,6 +28,8 @@ public class LoginActivity extends Activity implements ActionDelegate {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getWindow().setSoftInputMode(
+			    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		setContentView(R.layout.login);
 		init();
 	}
@@ -59,7 +62,8 @@ public class LoginActivity extends Activity implements ActionDelegate {
 	}
 
 	public void loginAction(View v) {
-
+		
+		Util.showOrHideActivityIndicator(LoginActivity.this, 0, "Logging into Skybot...");
 		// ------------------- Setting up login request here
 		// ------------------//
 		authToken = Base64Coder.encodeRandomBase64(); // "td7b4DquQScIPx9jqs0WSy07YX+AvCjRu/WzdyaCyi0=";
@@ -112,6 +116,8 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 		Intent skybottablayoutIntent = new Intent(getApplicationContext(),
 				SkybotTabLayoutActivity.class);
+		
+		Util.showOrHideActivityIndicator(LoginActivity.this, 1, "Logging into Skybot...");
 
 		startActivity(skybottablayoutIntent);
 	}

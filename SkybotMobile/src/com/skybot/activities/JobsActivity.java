@@ -13,6 +13,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -32,6 +35,7 @@ import com.skybot.connection.connection.helper.RequestHelper;
 import com.skybot.util.Base64Coder;
 import com.skybot.util.Constants;
 import com.skybot.util.CookieStorage;
+import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
 
 /**
@@ -57,13 +61,18 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.jobs_list);
+		
+		
 
 		listView = (ListView) findViewById(R.id.listView1);
 		adapter = new JobsAdapter(this, jobsList);
 		listView.setAdapter(adapter);
+		
+		
 	}
 
 	private void getJobsResponse() {
+		Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 0, "Requesting Jobs List...");
 		String system_Time = Long.toString(System.currentTimeMillis());
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
@@ -165,7 +174,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 		baseNetworkManager.constructConnectionAndHitGET("Hold Successful",
 				"Hold Job Request Started", urlStringWithParams, this,
-				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);		
+				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
 	}
 
 	public void releaseJob(View v, String id) {
@@ -216,6 +225,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list) {
 		if (list != null) {
+			Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 1, "Requesting Jobs List...");
 			jobsList = list;
 			adapter.data = jobsList;
 			adapter.notifyDataSetChanged();
@@ -316,6 +326,29 @@ public class JobsActivity extends SwipeListViewActivity implements
 				rowView.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
 				rowView.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);
 			}
+		}
+	}
+
+	//---------------------------------- Menu Callbacks
+	//-------------------------------//
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.layout.more_refresh_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+			case R.id.menu_refresh:
+				getJobsResponse();
+				return true;
+			case R.id.menu_more:
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
 	}
 
