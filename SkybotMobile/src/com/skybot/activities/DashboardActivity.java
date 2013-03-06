@@ -219,6 +219,13 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 		Log.i("Kuku","KuKu");		
 	}
 
+	@Override
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	}
 	/*

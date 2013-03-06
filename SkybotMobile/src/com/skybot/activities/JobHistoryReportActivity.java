@@ -103,4 +103,11 @@ public class JobHistoryReportActivity extends ListActivity implements
 
 	}
 
+	@Override
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -132,5 +132,12 @@ public class LoginActivity extends Activity implements ActionDelegate {
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

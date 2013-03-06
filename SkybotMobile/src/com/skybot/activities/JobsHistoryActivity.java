@@ -56,9 +56,10 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 		Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(), 0, "Requesting Job Histories...");		
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
+		String system_Time = Long.toString(System.currentTimeMillis());
 
 		Map<String, String> job_params = creator.createAppropriateMapRequest(
-				Constants.DATE, "1362050790525", Constants.RESULTS, "5",
+				Constants.DATE, system_Time, Constants.RESULTS, "5",
 				Constants.SORT, "id", Constants.DIRECTION, "DESC",
 				Constants.TAG, "", Constants.TAG_MATCH_ANY, "false"
 
@@ -100,12 +101,6 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 		}
 	};
 
-	public void onClick(View v) {
-		Intent jobsdetailsIntent = new Intent(this, JobsDetailsActivity.class);
-		startActivity(jobsdetailsIntent);
-
-	}
-
 	@Override
 	public void didFinishRequestProcessing() {
 		// TODO Auto-generated method stub
@@ -129,6 +124,13 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 	public void didFailRequestProcessing() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

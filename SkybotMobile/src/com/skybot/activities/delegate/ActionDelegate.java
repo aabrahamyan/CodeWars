@@ -15,6 +15,9 @@ public interface ActionDelegate {
 	// --------------------- Service Response Delegates -------------//
 
 	public void didFinishRequestProcessing();
+	
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list);
 
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list, String service);

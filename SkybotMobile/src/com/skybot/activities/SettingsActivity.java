@@ -38,4 +38,11 @@ public class SettingsActivity extends Activity implements ActionDelegate {
 		
 	}
 
+	@Override
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

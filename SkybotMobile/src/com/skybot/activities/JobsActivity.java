@@ -51,7 +51,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	private ListView listView;
 	private boolean directionRight = false;
 	private JobsAdapter adapter;
-	private ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
+	public static ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
 
 	static final String KEY_TITLE = "title";
 	static final String KEY_DESCRIPTION = "description";
@@ -211,11 +211,6 @@ public class JobsActivity extends SwipeListViewActivity implements
 				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
 	}
 
-	public void onClick(View v) {
-		Intent jobsdetailsIntent = new Intent(this, JobsDetailsActivity.class);
-		startActivity(jobsdetailsIntent);
-	}
-
 	@Override
 	public void didFinishRequestProcessing() {
 
@@ -261,10 +256,9 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 	@Override
 	public void onItemClickListener(ListAdapter adapter, int position) {
-		/*
-		 * Toast.makeText(this, "Single tap on item position " + position,
-		 * Toast.LENGTH_SHORT).show();
-		 */
+
+		if (directionRight)
+			getSwipeItem(false, position);
 	}
 
 	private Animation getDeleteAnimation(float fromX, float toX, int position) {
@@ -350,6 +344,13 @@ public class JobsActivity extends SwipeListViewActivity implements
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
