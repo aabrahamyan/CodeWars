@@ -113,7 +113,7 @@ public class BaseResponseAnalyzer {
 
 					@Override
 					public void run() {
-						del.didFinishRequestProcessing(list);
+						del.didFinishRequestProcessing(list, "");
 					}
 				});
 
@@ -257,7 +257,7 @@ public class BaseResponseAnalyzer {
 					@Override
 					public void run() {
 
-						del.didFinishRequestProcessing(list);
+						del.didFinishRequestProcessing(list,"");
 					}
 				});
 
@@ -316,7 +316,7 @@ public class BaseResponseAnalyzer {
 
 					@Override
 					public void run() {
-						del.didFinishRequestProcessing(list);
+						del.didFinishRequestProcessing(list,"");
 					}
 				});
 
