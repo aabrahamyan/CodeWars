@@ -385,87 +385,157 @@ public class BaseResponseAnalyzer {
 			del.didFinishRequestProcessing();
 		}
 
-		else if (serviceName.equals(Constants.COMPLETED_JOBS_ID)) {
+		else if(serviceName.equals(Constants.COMPLETED_JOBS_ID)) {
 			Log.i("Parser info", "Entered Completed Jobs sequence");
-
 			String responseString = "";
-			responseString = responseData;
-			final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+					responseString = responseData;
+					final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+					
+					try {
+						
+						JSONParser jParser = new JSONParser();
+						JSONObject jObject = (JSONObject) jParser.parse(responseString);
+						
+						
+						JSONArray jArray = (JSONArray) jObject.get("data");
+						
+						
+						for(int i=0; i<jArray.size();i++) {
+							JSONObject json_data = (JSONObject) jArray.get(i);
+							HashMap<String, String> map = new HashMap<String, String>();
+							map.put("label", json_data.get("label").toString());
+							map.put("value", json_data.get("value").toString());
+							map.put("real_value", json_data.get("real_value").toString());
+							list.add(map);
+						}
+						
+					for(int i=0; i<list.size();i++){ 
+						Log.w("Element", list.get(i).toString());
+					}
+					
+					final ActionDelegate del = (ActionDelegate) ViewTracker
+							.getInstance().getCurrentContext();
+					
+					Activity dashboardActivity = (Activity) ViewTracker.getInstance()
+							.getCurrentContext();
 
-			try {
+					dashboardActivity.runOnUiThread(new Runnable() {
 
-				JSONParser jParser = new JSONParser();
-				JSONObject jObject = (JSONObject) jParser.parse(responseString);
-
-				JSONArray jArray = (JSONArray) jObject.get("data");
-
-				for (int i = 0; i < jArray.size(); i++) {
-					JSONObject json_data = (JSONObject) jArray.get(i);
-					HashMap<String, String> map = new HashMap<String, String>();
-					map.put("label", json_data.get("label").toString());
-					map.put("value", json_data.get("value").toString());
-					map.put("real_value", json_data.get("real_value")
-							.toString());
-					list.add(map);
-				}
-
-				for (int i = 0; i < list.size(); i++) {
-					Log.w("Element", list.get(i).toString());
-				}
-
-			} catch (ParseException e) {
-				Log.e("Chart Parser error", "Error parsing Chart Data");
-
-				e.printStackTrace();
-			}
-
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
-					.getCurrentContext();
-			del.didFinishRequestProcessing(list);
+						@Override
+						public void run() {
+							synchronized(BaseResponseAnalyzer.class) {
+								del.didFinishRequestProcessing(list,"completed_jobs");
+							}
+						}
+					});
+					
+					
+					
+					} catch (ParseException e) {
+						Log.e("Chart Parser error", "Error parsing Chart Data");
+						
+						e.printStackTrace();
+					}
+					
+					
 		}
-
+		
 		else if (serviceName.equals(Constants.TERMINATED_JOBS_ID)) {
 			Log.i("Parser Info", "Entered Terminated Jobs sequence ");
 			String responseString = "";
 			responseString = responseData;
 			final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-
+			
 			try {
+					JSONParser jParser = new JSONParser();
+					JSONObject jObject = (JSONObject) jParser.parse(responseString);
+					
+					JSONArray jArray = (JSONArray) jObject.get("data");
+					for(int i=0; i<jArray.size();i++) {
+						
+						JSONObject json_data = (JSONObject) jArray.get(i);
+						HashMap<String, String> map = new HashMap<String, String>();
+						map.put("label", json_data.get("label").toString());
+						map.put("real_canceled_value", json_data.get("real_canceled_value").toString());
+						map.put("real_failed_value",json_data.get("real_failed_value").toString());
+						map.put("real_error_value",json_data.get("real_error_value").toString());
+						
+						list.add(map);
+						
+					}
+					
+					for(int i=0; i<list.size();i++){ 
+						Log.w("Element", list.get(i).toString());
+					}
+					
+					final ActionDelegate del = (ActionDelegate) ViewTracker
+							.getInstance().getCurrentContext();
+					
+					Activity dashboardActivity = (Activity) ViewTracker.getInstance()
+							.getCurrentContext();
+
+					dashboardActivity.runOnUiThread(new Runnable() {
+
+						@Override
+						public void run() {
+							del.didFinishRequestProcessing(list,"terminated_jobs");
+						}
+					});
+					
+					
+			}
+			catch (ParseException e) {
+				
+				Log.e("Chart Parser error", "Error parsing Chart Data");
+				
+				
+				e.printStackTrace();
+			}
+			
+			
+			
+		}
+		else if(serviceName.equals(Constants.SUBMITTED_JOBS_ID)) {
+			Log.i("Parser Info", "Entered Submitted Jobs sequence ");
+			String responseString = "";
+			responseString = responseData;
+			final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+			try {
+				
 				JSONParser jParser = new JSONParser();
 				JSONObject jObject = (JSONObject) jParser.parse(responseString);
-
 				JSONArray jArray = (JSONArray) jObject.get("data");
-				for (int i = 0; i < jArray.size(); i++) {
-
+				
+				for(int i=0;i<jArray.size();i++) {
 					JSONObject json_data = (JSONObject) jArray.get(i);
 					HashMap<String, String> map = new HashMap<String, String>();
 					map.put("label", json_data.get("label").toString());
-					map.put("real_canceled_value",
-							json_data.get("real_canceled_value").toString());
-					map.put("real_failed_value",
-							json_data.get("real_failed_value").toString());
-					map.put("real_error_value",
-							json_data.get("real_error_value").toString());
-
+					map.put("value", json_data.get("value").toString());
+					map.put("real_value", json_data.get("real_value").toString());
 					list.add(map);
-
 				}
-
-				for (int i = 0; i < list.size(); i++) {
-					Log.w("Element", list.get(i).toString());
+				
+				for(int i=0; i<list.size();i++){ 
+					Log.w("Submitted Job Elements", list.get(i).toString());
 				}
+				
+				final ActionDelegate del = (ActionDelegate) ViewTracker
+						.getInstance().getCurrentContext();
+				
+				Activity dashboardActivity = (Activity) ViewTracker.getInstance()
+						.getCurrentContext();
 
-			} catch (ParseException e) {
+				dashboardActivity.runOnUiThread(new Runnable() {
 
-				Log.e("Chart Parser error", "Error parsing Chart Data");
-
-				e.printStackTrace();
+					@Override
+					public void run() {
+						del.didFinishRequestProcessing(list,"submitted_jobs");
+					}
+				});
 			}
-
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
-					.getCurrentContext();
-			del.didFinishRequestProcessing(list);
-
+			catch(ParseException e) {
+				
+			}
 		}
 
 	}
