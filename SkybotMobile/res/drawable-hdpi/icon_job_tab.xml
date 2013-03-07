@@ -2,9 +2,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" android:background="#ffffff">
 
     <!-- When selected, use grey -->
-    <item android:drawable="@drawable/job_black" android:state_selected="true"/>
+    <item android:drawable="@drawable/job_black" android:state_selected="true"><item/>
 
-    <!-- When not selected, use white -->
-    <item android:drawable="@drawable/job_white"/>
+        <!-- When not selected, use white -->
+<item android:drawable="@drawable/job_white"/>
+    </item>
 
 </selector>

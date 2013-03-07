@@ -107,7 +107,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-		case R.id.menu_apikey:
+		case R.id.menu_refresh:
 
 			return true;
 		case R.id.menu_save:

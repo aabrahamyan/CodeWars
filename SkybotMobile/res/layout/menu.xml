@@ -3,8 +3,8 @@
 	<!-- Single menu item 
 		 Set id, icon and Title for each menu item
 	-->
-    <item android:id="@+id/menu_apikey"
-    	  android:icon="@drawable/icon_more"
+    <item android:id="@+id/menu_refresh"
+    	  android:icon="@drawable/arrow_refresh"
           android:title="API key" />
     <item android:id="@+id/menu_save"
     	  android:icon="@drawable/icon_more"

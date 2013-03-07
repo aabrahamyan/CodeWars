@@ -45,7 +45,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:layout_marginTop="1dip"        
+        android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Description"
         android:textColor="#343434"
@@ -58,49 +58,51 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:layout_marginTop="10dip"
         android:layout_marginRight="25dp"
+        android:layout_marginTop="10dip"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Agent"
         android:textColor="#343434"
-        android:textSize="10dip" />   
+        android:textSize="10dip" />
 
     <!-- Rightend Arrow -->
 
     <ImageView
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:id="@+id/details"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentRight="true"
-        android:id="@+id/details"         
         android:layout_centerVertical="true"
         android:src="@drawable/info_button" />
-    
-     <ImageButton
+
+    <ImageView
         android:id="@+id/btn1"
-     	android:layout_height="40dp"
-     	android:layout_width="40dp"
-     	android:layout_marginLeft="100dp" 
-     	android:layout_marginTop="10dp"    	
-     	android:src="@drawable/run"
-     	android:contentDescription="RUN" 
-     		 />
-      <ImageButton
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="RUN"
+        android:src="@drawable/run_job" />
+
+    <ImageView
         android:id="@+id/btn2"
-     	android:layout_height="40dp"
-     	android:layout_width="40dp"
-     	android:layout_marginLeft="150dp"
-     	android:layout_marginTop="10dp"  
-     	android:src="@drawable/hold"  
-     	android:contentDescription="HOLD" 
-     		 />        
-      <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="170dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="HOLD"
+        android:src="@drawable/hold_job" />
+
+    <ImageView
         android:id="@+id/btn3"
-     	android:layout_height="40dp"
-     	android:layout_width="40dp"
-     	android:layout_marginLeft="200dp"
-     	android:layout_marginTop="10dp"  
-     	android:src="@drawable/release"
-     	android:contentDescription="RELEASE"    
-     		 />  
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="220dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="RELEASE"
+        android:src="@drawable/release_job" />
 
 </RelativeLayout>

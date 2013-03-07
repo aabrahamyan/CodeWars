@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	
     <item android:id="@+id/menu_refresh"
-    	  android:icon="@drawable/icon_more"
+    	  android:icon="@drawable/arrow_refresh"
           android:title="Refresh" />
     
     <item android:id="@+id/menu_more"

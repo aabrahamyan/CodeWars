@@ -59,9 +59,9 @@ public class JobsAdapter extends BaseAdapter {
 		TextView description = (TextView) vi.findViewById(R.id.description); // description
 		TextView agent = (TextView) vi.findViewById(R.id.agent); // agent
 		ImageView image = (ImageView) vi.findViewById(R.id.list_image); // status
-		ImageButton runBtn = (ImageButton) vi.findViewById(R.id.btn1);
-		ImageButton holdBtn = (ImageButton) vi.findViewById(R.id.btn2);
-		ImageButton releaseBtn = (ImageButton) vi.findViewById(R.id.btn3);
+		ImageView runBtn = (ImageView) vi.findViewById(R.id.btn1);
+		ImageView holdBtn = (ImageView) vi.findViewById(R.id.btn2);
+		ImageView releaseBtn = (ImageView) vi.findViewById(R.id.btn3);
 		ImageView showDetails = (ImageView) vi.findViewById(R.id.details);
 
 		try {
@@ -140,6 +140,9 @@ public class JobsAdapter extends BaseAdapter {
 		vi.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);
 		vi.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
 		vi.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);
+		vi.findViewById(R.id.list_image).setVisibility(View.VISIBLE);
+		vi.findViewById(R.id.details).setVisibility(View.VISIBLE);
+		vi.findViewById(R.id.thumbnail).setVisibility(View.VISIBLE);
 
 		return vi;
 	}
