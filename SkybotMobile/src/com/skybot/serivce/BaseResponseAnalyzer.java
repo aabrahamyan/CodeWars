@@ -11,6 +11,12 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.skybot.activities.delegate.ActionDelegate;
+import com.skybot.serivce.parser.AgentsParser;
+import com.skybot.serivce.parser.BaseDashboardParser;
+import com.skybot.serivce.parser.JobHistoriesParser;
+import com.skybot.serivce.parser.JobsParser;
+import com.skybot.serivce.parser.ReportsParser;
+import com.skybot.serivce.parser.dataholder.DataHolder;
 import com.skybot.util.Constants;
 import com.skybot.util.ViewTracker;
 
@@ -36,74 +42,18 @@ public class BaseResponseAnalyzer {
 
 		if (serviceName.equals(Constants.LOGIN_SERVICE)) {
 
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance() 
+			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
 					.getCurrentContext();
 			del.didFinishRequestProcessing();
 		}
 		/******************************************* JOB **********************************************/
 		else if (serviceName.equals(Constants.JOB_SERVICE_URL)) {
-
-			String responseString = "";
-			responseString = responseData.replace("maxId:", "\"maxId\":");
-			responseString = responseString.replace("timestamp:",
-					"\"timestamp\":");
-			responseString = responseString.replace("growler_message:",
-					"\"growler_message\":");
-			responseString = responseString.replace("items:", "\"items\":");
-			responseString = responseString.replace("<span>", "");
-			responseString = responseString.replace("</span>", "");
-
 			try {
-				JSONParser jParser = new JSONParser();
-				JSONObject jObject = (JSONObject) jParser.parse(responseString);
+				/************** Parser: Start ******************/
+				JobsParser jobsParser = new JobsParser();
+				jobsParser.parseData(responseData);
+				/************** Parser: End ********************/
 
-				final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-
-				JSONArray jArray = (JSONArray) jObject.get("items");
-				for (int i = 0; i < jArray.size(); i++) {
-					JSONObject json_data = (JSONObject) jArray.get(i);
-					HashMap<String, String> map = new HashMap<String, String>();
-					map.put("name", json_data.get("name").toString());
-					map.put("runid", json_data.get("id").toString());
-					map.put("agent", json_data.get("agent").toString());
-					map.put("description", json_data.get("description")
-							.toString());
-					map.put("hold_status", json_data.get("hold_status")
-							.toString());
-					map.put("job_type", json_data.get("job_type").toString());
-					map.put("agent_name", json_data.get("agent_name")
-							.toString());
-					map.put("target_type", json_data.get("target_type")
-							.toString());
-					map.put("schedule_type", json_data.get("schedule_type")
-							.toString());
-					map.put("calendar", json_data.get("calendar").toString());
-					map.put("day_count_interval",
-							json_data.get("day_count_interval").toString());
-					map.put("timed_interval_minutes",
-							json_data.get("timed_interval_minutes").toString());
-					map.put("timed_interval_display_preference",
-							json_data.get("timed_interval_display_preference")
-									.toString());
-					map.put("day_type", json_data.get("day_type").toString());
-					map.put("timezone_type", json_data.get("timezone_type")
-							.toString());
-					map.put("update_counter", json_data.get("update_counter")
-							.toString());
-					map.put("default_priority",
-							json_data.get("default_priority").toString());
-					map.put("dependent_via_job_suite",
-							json_data.get("dependent_via_job_suite").toString());
-					map.put("prerequisite_members",
-							json_data.get("prerequisite_members").toString());
-					map.put("schedule_type", json_data.get("schedule_type")
-							.toString());
-					map.put("job_type", json_data.get("job_type").toString());
-					map.put("is_reactive", json_data.get("is_reactive")
-							.toString());
-
-					list.add(map);
-				}
 				final ActionDelegate del = (ActionDelegate) ViewTracker
 						.getInstance().getCurrentContext();
 				Activity jobsActivity = (Activity) ViewTracker.getInstance()
@@ -113,7 +63,8 @@ public class BaseResponseAnalyzer {
 
 					@Override
 					public void run() {
-						del.didFinishRequestProcessing(list, "");
+						del.didFinishRequestProcessing(
+								DataHolder.getInstance().jobsList, serviceName);
 					}
 				});
 
@@ -125,127 +76,12 @@ public class BaseResponseAnalyzer {
 		/******************************************* JOB HISTORY **********************************************/
 		else if (serviceName.equals(Constants.JOBHISTORY_SERVICE_URL)) {
 
-			String responseString = "";
-			responseString = responseData.replace("{totalResultsReturned:",
-					"{\"totalResultsReturned\":");
-			responseString = responseString.replace("totalResultsAvailable:",
-					"\"totalResultsAvailable\":");
-
-			responseString = responseString.replace("firstResultPosition:",
-					"\"firstResultPosition\":");
-			responseString = responseString.replace("maxId:", "\"maxId\":");
-
-			responseString = responseString.replace("timestamp:",
-					"\"timestamp\":");
-
-			responseString = responseString.replace("items:", "\"items\":");
-
-			responseString = responseString
-					.replace(
-							"\"<span><span class='icon-job-history-job-suite'></span>6408_suite_special</span>\"",
-							"\"6408_suite_special\"");
-
-			responseString = responseString
-					.replace(
-							"\"<span><span class='icon-job-individual-job'></span>6408_reactive</span>\"",
-							"\"6408_reactive\"");
-
-			responseString = responseString
-					.replace(
-							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_1</span>\"",
-							"\"Mobile_Job_Test_1\"");
-			responseString = responseString
-					.replace(
-							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_2</span>\"",
-							"\"Mobile_Job_Test_2\"");
-			responseString = responseString
-					.replace(
-							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_3</span>\"",
-							"\"Mobile_Job_Test_3\"");
-			responseString = responseString
-					.replace(
-							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_4</span>\"",
-							"\"Mobile_Job_Test_4\"");
-			responseString = responseString
-					.replace(
-							"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_5</span>\"",
-							"\"Mobile_Job_Test_5\"");
-			responseString = responseString
-					.replace(
-							"\"<span><span class='job-history-schedule-time job-history-server-time-zone'><span class='icon-job-history icon-job-history-server-time-zone'></span>",
-							"");
-			responseString = responseString.replace(
-					"<span><span class='icon-job-history-scheduled'></span>",
-					"");
-			responseString = responseString
-					.replace(
-							"<div class='job-history-agent-schedule-time job-history-server-time-zone'><span class='icon-job-history icon-job-history-server-time-zone'></span>",
-							"");
-			responseString = responseString
-					.replace(
-							"<div class='job-history-schedule-time job-history-server-time-zone'><span class='icon-job-history icon-job-history-server-time-zone'></span>",
-							"");
-			responseString = responseString
-					.replace(
-							"<div class='job-history-status job-history-complete'><span class='icon-job-history icon-job-history-complete'></span>",
-							"");
-			responseString = responseString.replace("</div>", "");
-			responseString = responseString.replace("</span>", "");
-
 			try {
-				JSONParser jParser = new JSONParser();
-				JSONObject jObject = (JSONObject) jParser.parse(responseString);
+				/************** Parser: Start ******************/
+				JobHistoriesParser jhParser = new JobHistoriesParser();
+				jhParser.parseData(responseData);
+				/************** Parser: End ******************/
 
-				final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-
-				JSONArray jArray = (JSONArray) jObject.get("items");
-
-				for (int i = 0; i < jArray.size(); i++) {
-					JSONObject json_data = (JSONObject) jArray.get(i);
-					HashMap<String, String> map = new HashMap<String, String>();
-					map.put("id", json_data.get("id").toString());
-					map.put("job", json_data.get("job").toString());
-					map.put("job_id", json_data.get("job_id").toString());
-					map.put("job_suite_run_id",
-							json_data.get("job_suite_run_id").toString());
-					map.put("job_status_raw", json_data.get("job_status_raw")
-							.toString());
-					map.put("job_suite_name", json_data.get("job_suite_name")
-							.toString());
-					map.put("agent", json_data.get("agent").toString());
-					map.put("agent_group_name",
-							json_data.get("agent_group_name").toString());
-					map.put("job_status", json_data.get("job_status")
-							.toString());
-					map.put("job_retry_number",
-							json_data.get("job_retry_number").toString());
-					map.put("job_retry_next_time",
-							json_data.get("job_retry_next_time").toString());
-					map.put("job_initiated_code",
-							json_data.get("job_initiated_code").toString());
-					map.put("scheduled_time_utc",
-							json_data.get("scheduled_time_utc").toString());
-					map.put("scheduled_time_agent",
-							json_data.get("scheduled_time_agent").toString());
-					map.put("server_initiated_time_utc",
-							json_data.get("server_initiated_time_utc")
-									.toString());
-					map.put("server_ended_time_utc",
-							json_data.get("server_ended_time_utc").toString());
-					map.put("queue_ended_time_utc",
-							json_data.get("queue_ended_time_utc").toString());
-					map.put("queued_duration", json_data.get("queued_duration")
-							.toString());
-					map.put("running_duration",
-							json_data.get("running_duration").toString());
-					map.put("duration", json_data.get("duration").toString());
-					map.put("restart_history", json_data.get("restart_history")
-							.toString());
-					map.put("job_priority", json_data.get("job_priority")
-							.toString());
-
-					list.add(map);
-				}
 				final ActionDelegate del = (ActionDelegate) ViewTracker
 						.getInstance().getCurrentContext();
 
@@ -257,7 +93,9 @@ public class BaseResponseAnalyzer {
 					@Override
 					public void run() {
 
-						del.didFinishRequestProcessing(list,"");
+						del.didFinishRequestProcessing(
+								DataHolder.getInstance().jobHistoriesList,
+								serviceName);
 					}
 				});
 
@@ -269,44 +107,12 @@ public class BaseResponseAnalyzer {
 		/******************************************* AGENT **********************************************/
 		else if (serviceName.equals(Constants.AGENT_SERVICE_URL)) {
 
-			String responseString = "";
-			responseString = responseData.replace("maxId:", "\"maxId\":");
-			responseString = responseString.replace("timestamp:",
-					"\"timestamp\":");
-			responseString = responseString.replace("growler_message:",
-					"\"growler_message\":");
-			responseString = responseString.replace("items:", "\"items\":");
-
-			responseString = responseString
-					.replace(
-							"\"<span><span class='icon-agent-active'></span>Active</span>\"",
-							"\"Active\"");
-			responseString = responseString
-					.replace(
-							"\"<span><span class='icon-agent-failed'></span>Failed</span>\"",
-							"\"Failed\"");
-
-			System.out.println(responseString);
-
 			try {
-				JSONParser jParser = new JSONParser();
-				JSONObject jObject = (JSONObject) jParser.parse(responseString);
+				/************** Parser: Start ******************/
+				AgentsParser aParser = new AgentsParser();
+				aParser.parseData(responseData);
+				/************** Parser: End ******************/
 
-				final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-
-				JSONArray jArray = (JSONArray) jObject.get("items");
-				for (int i = 0; i < jArray.size(); i++) {
-					JSONObject json_data = (JSONObject) jArray.get(i);
-					HashMap<String, String> map = new HashMap<String, String>();
-
-					map.put("id", json_data.get("id").toString());
-					map.put("status", json_data.get("status").toString());
-					map.put("name", json_data.get("name").toString());
-					map.put("description", json_data.get("description")
-							.toString());
-
-					list.add(map);
-				}
 				final ActionDelegate del = (ActionDelegate) ViewTracker
 						.getInstance().getCurrentContext();
 				Activity jobsActivity = (Activity) ViewTracker.getInstance()
@@ -316,7 +122,8 @@ public class BaseResponseAnalyzer {
 
 					@Override
 					public void run() {
-						del.didFinishRequestProcessing(list,"");
+						del.didFinishRequestProcessing(
+								DataHolder.getInstance().agentsList, "");
 					}
 				});
 
@@ -332,37 +139,12 @@ public class BaseResponseAnalyzer {
 		/******************************************* JOB HISTORY DATA REPORT **********************************************/
 		else if (serviceName.equals(Constants.JOBHISTORYREPORT_SERVICE_URL)) {
 
-			String responseString = "";
-
-			responseString = responseData.replace("items:", "\"items\":");
-			responseString = responseString.replace("timestamp:",
-					"\"timestamp\":");
-			responseString = responseString
-					.replace(
-							"\"<div class='job-history-status job-history-finished'><span class='icon-job-history icon-job-history-finished'></span>Finished</div>\"",
-							"\"Finished\"");
-
-			System.out.println(responseString);
-
 			try {
-				JSONParser jParser = new JSONParser();
-				JSONObject jObject = (JSONObject) jParser.parse(responseString);
+				/************** Parser: Start ******************/
+				ReportsParser rParser = new ReportsParser();
+				rParser.parseData(responseData);
+				/************** Parser: End ********************/
 
-				final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-
-				JSONArray jArray = (JSONArray) jObject.get("items");
-				for (int i = 0; i < jArray.size(); i++) {
-					JSONObject json_data = (JSONObject) jArray.get(i);
-					HashMap<String, String> map = new HashMap<String, String>();
-
-					map.put("id", json_data.get("id").toString());
-					map.put("status", json_data.get("status").toString());
-					map.put("file_name", json_data.get("file_name").toString());
-					map.put("copied_server_time_utc",
-							json_data.get("copied_server_time_utc").toString());
-
-					list.add(map);
-				}
 				final ActionDelegate del = (ActionDelegate) ViewTracker
 						.getInstance().getCurrentContext();
 				Activity jobsActivity = (Activity) ViewTracker.getInstance()
@@ -372,7 +154,7 @@ public class BaseResponseAnalyzer {
 
 					@Override
 					public void run() {
-						del.didFinishRequestProcessing(list);
+						del.didFinishRequestProcessing(DataHolder.getInstance().reportsList);
 					}
 				});
 
@@ -385,123 +167,109 @@ public class BaseResponseAnalyzer {
 			del.didFinishRequestProcessing();
 		}
 
-		else if(serviceName.equals(Constants.COMPLETED_JOBS_ID)) {
-			Log.i("Parser info", "Entered Completed Jobs sequence");
-			String responseString = "";
-					responseString = responseData;
-					final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-					
-					try {
-						
-						JSONParser jParser = new JSONParser();
-						JSONObject jObject = (JSONObject) jParser.parse(responseString);
-						
-						
-						JSONArray jArray = (JSONArray) jObject.get("data");
-						
-						
-						for(int i=0; i<jArray.size();i++) {
-							JSONObject json_data = (JSONObject) jArray.get(i);
-							HashMap<String, String> map = new HashMap<String, String>();
-							map.put("label", json_data.get("label").toString());
-							map.put("value", json_data.get("value").toString());
-							map.put("real_value", json_data.get("real_value").toString());
-							list.add(map);
-						}
-						
-					for(int i=0; i<list.size();i++){ 
-						Log.w("Element", list.get(i).toString());
-					}
-					
-					final ActionDelegate del = (ActionDelegate) ViewTracker
-							.getInstance().getCurrentContext();
-					
-					Activity dashboardActivity = (Activity) ViewTracker.getInstance()
-							.getCurrentContext();
+		else if (serviceName.equals(Constants.COMPLETED_JOBS_ID)) {
 
-					dashboardActivity.runOnUiThread(new Runnable() {
-
-						@Override
-						public void run() {
-							synchronized(BaseResponseAnalyzer.class) {
-								del.didFinishRequestProcessing(list,"completed_jobs");
-							}
-						}
-					});
-					
-					
-					
-					} catch (ParseException e) {
-						Log.e("Chart Parser error", "Error parsing Chart Data");
-						
-						e.printStackTrace();
-					}
-					
-					
-		}
-		
-		else if (serviceName.equals(Constants.TERMINATED_JOBS_ID)) {
-			Log.i("Parser Info", "Entered Terminated Jobs sequence ");
-			String responseString = "";
-			responseString = responseData;
-			final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-			
 			try {
-					JSONParser jParser = new JSONParser();
-					JSONObject jObject = (JSONObject) jParser.parse(responseString);
-					
-					JSONArray jArray = (JSONArray) jObject.get("data");
-					for(int i=0; i<jArray.size();i++) {
-						
-						JSONObject json_data = (JSONObject) jArray.get(i);
-						HashMap<String, String> map = new HashMap<String, String>();
-						map.put("label", json_data.get("label").toString());
-						map.put("real_canceled_value", json_data.get("real_canceled_value").toString());
-						map.put("real_failed_value",json_data.get("real_failed_value").toString());
-						map.put("real_error_value",json_data.get("real_error_value").toString());
-						
-						list.add(map);
-						
-					}
-					
-					for(int i=0; i<list.size();i++){ 
-						Log.w("Element", list.get(i).toString());
-					}
-					
-					final ActionDelegate del = (ActionDelegate) ViewTracker
-							.getInstance().getCurrentContext();
-					
-					Activity dashboardActivity = (Activity) ViewTracker.getInstance()
-							.getCurrentContext();
 
-					dashboardActivity.runOnUiThread(new Runnable() {
+				/************** Parser: Start ******************/
+				BaseDashboardParser bdParser = new BaseDashboardParser();
+				bdParser.parseCompletedJobsData(responseData);
+				/************** Parser: End ********************/
 
-						@Override
-						public void run() {
-							del.didFinishRequestProcessing(list,"terminated_jobs");
+				final ActionDelegate del = (ActionDelegate) ViewTracker
+						.getInstance().getCurrentContext();
+
+				Activity dashboardActivity = (Activity) ViewTracker
+						.getInstance().getCurrentContext();
+
+				dashboardActivity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						synchronized (BaseResponseAnalyzer.class) {
+							del.didFinishRequestProcessing(
+									DataHolder.getInstance().completedJobsList,
+									"completed_jobs");
 						}
-					});
-					
-					
-			}
-			catch (ParseException e) {
-				
+					}
+				});
+
+			} catch (ParseException e) {
 				Log.e("Chart Parser error", "Error parsing Chart Data");
-				
-				
+
 				e.printStackTrace();
 			}
-			
-			
-			
+
 		}
-		else if(serviceName.equals(Constants.SUBMITTED_JOBS_ID)) {
-			Log.i("Parser Info", "Entered Submitted Jobs sequence ");
+
+		else if (serviceName.equals(Constants.TERMINATED_JOBS_ID)) {
+
+			try {
+
+				/************** Parser: Start ******************/
+				BaseDashboardParser bdParser = new BaseDashboardParser();
+				bdParser.parseTerminatedJobsData(responseData);
+				/************** Parser: End ********************/
+
+				final ActionDelegate del = (ActionDelegate) ViewTracker
+						.getInstance().getCurrentContext();
+
+				Activity dashboardActivity = (Activity) ViewTracker
+						.getInstance().getCurrentContext();
+
+				dashboardActivity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						del.didFinishRequestProcessing(
+								DataHolder.getInstance().terminatedJobsList,
+								"terminated_jobs");
+					}
+				});
+
+			} catch (ParseException e) {
+
+				Log.e("Chart Parser error", "Error parsing Chart Data");
+
+				e.printStackTrace();
+			}
+
+		} else if (serviceName.equals(Constants.SUBMITTED_JOBS_ID)) {
+
+			try {
+
+				/************** Parser: Start ******************/ 
+				BaseDashboardParser bdParser = new BaseDashboardParser();
+				bdParser.parseSubmittedJobsData(responseData);
+				/************** Parser: End ********************/
+
+				final ActionDelegate del = (ActionDelegate) ViewTracker
+						.getInstance().getCurrentContext();
+
+				Activity dashboardActivity = (Activity) ViewTracker
+						.getInstance().getCurrentContext();
+
+				dashboardActivity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						del.didFinishRequestProcessing(
+								DataHolder.getInstance().submittedJobsList,
+								"submitted_jobs");
+					}
+				});
+			} catch (ParseException e) {
+				Log.e("Chart Parser error", "Error parsing Chart Data");
+				e.printStackTrace();
+			}
+		}
+		
+		else if(serviceName.equals(Constants.AGENT_EVENT_PROCESSED_ID)) {
+			Log.i("Parser Info", "Entered Agent Event Processed sequence ");
 			String responseString = "";
 			responseString = responseData;
 			final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 			try {
-				
 				JSONParser jParser = new JSONParser();
 				JSONObject jObject = (JSONObject) jParser.parse(responseString);
 				JSONArray jArray = (JSONArray) jObject.get("data");
@@ -510,13 +278,16 @@ public class BaseResponseAnalyzer {
 					JSONObject json_data = (JSONObject) jArray.get(i);
 					HashMap<String, String> map = new HashMap<String, String>();
 					map.put("label", json_data.get("label").toString());
-					map.put("value", json_data.get("value").toString());
-					map.put("real_value", json_data.get("real_value").toString());
+					map.put("manual_events", json_data.get("manual_events").toString());
+					map.put("file_events", json_data.get("file_events").toString());
+					map.put("directory_events", json_data.get("directory_events").toString());
+					map.put("process_events", json_data.get("process_events").toString());
+					
 					list.add(map);
 				}
 				
-				for(int i=0; i<list.size();i++){ 
-					Log.w("Submitted Job Elements", list.get(i).toString());
+				for(int i=0; i<list.size();i++){
+					Log.w("Agent Event Processed list", list.get(i).toString());
 				}
 				
 				final ActionDelegate del = (ActionDelegate) ViewTracker
@@ -529,7 +300,7 @@ public class BaseResponseAnalyzer {
 
 					@Override
 					public void run() {
-						del.didFinishRequestProcessing(list,"submitted_jobs");
+						del.didFinishRequestProcessing(list,"agent_event_processed_jobs");
 					}
 				});
 			}

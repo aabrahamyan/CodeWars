@@ -21,6 +21,7 @@ import com.skybot.adapters.JobsHistoryAdapter;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
+import com.skybot.serivce.parser.dataholder.DataHolder;
 import com.skybot.util.Constants;
 import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
@@ -53,7 +54,8 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 	}
 
 	private void getJobsHistoryResponse() {
-		Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(), 0, "Requesting Job Histories...");		
+		Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(),
+				0, "Requesting Job Histories...");
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 		String system_Time = Long.toString(System.currentTimeMillis());
@@ -90,7 +92,10 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 	public void onResume() {
 		super.onResume();
 		ViewTracker.getInstance().setCurrentContext(this);
-		getJobsHistoryResponse();
+
+		if (DataHolder.getInstance().jobHistoriesList.isEmpty()) {
+			getJobsHistoryResponse();
+		}
 
 		// listView = (ListView) findViewById(R.id.listView2);
 
@@ -114,7 +119,9 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 
 		listView = getListView();
 		if (jobsList != null) {
-			Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(), 1, "Requesting Job Histories...");
+			Util.showOrHideActivityIndicator(
+					JobsHistoryActivity.this.getParent(), 1,
+					"Requesting Job Histories...");
 			adapter.data = jobsList;
 			adapter.notifyDataSetChanged();
 		}
@@ -130,7 +137,7 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

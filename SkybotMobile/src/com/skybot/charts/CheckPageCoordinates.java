@@ -30,14 +30,14 @@ public class CheckPageCoordinates {
 			ChartView = new SubmittedJobsChart().getChart(context,chartSingleton.submittedArrayList);
 		}
 		else if(mCurrentPage == 4){
-			ChartView = new StartedJobsChart().getChart(context);
+			ChartView = new AgentEventProcessedChart().getChart(context,chartSingleton.agentEventProcessedArrayList);
 		}
-		else if (mCurrentPage == 5) {
-			ChartView = new EndedJobsChart().getChart(context);
-		}
-		else {
-			ChartView = new AgentEventProcessedChart().getChart(context);
-		}
+//		else if (mCurrentPage == 5) {
+//			ChartView = new EndedJobsChart().getChart(context);
+//		}
+//		else {
+//			ChartView = new AgentEventProcessedChart().getChart(context);
+//		}
 		return ChartView;
 	}
 }

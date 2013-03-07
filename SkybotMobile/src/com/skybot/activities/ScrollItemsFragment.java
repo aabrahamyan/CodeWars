@@ -31,10 +31,18 @@ public class ScrollItemsFragment extends Fragment {
 	CheckPageCoordinates cpCoord= new CheckPageCoordinates();
 	FragmentActivity context;
 	
+	
+	
 public ScrollItemsFragment() {
 		
 	}
-	
+
+//public static ScrollItemsFragment newInstance(String content) {
+//	ScrollItemsFragment fragment = new ScrollItemsFragment();
+//
+//    return fragment;
+//}
+//	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

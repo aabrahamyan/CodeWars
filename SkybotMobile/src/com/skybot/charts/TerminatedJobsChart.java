@@ -22,6 +22,7 @@ public class TerminatedJobsChart {
 		for(int i=0;i<data.size();i++) {
 			System.out.println(data.get(i));
 		}
+		String[] xLabel = getLabels(data);
 		
 		double[] y = getValue(data, "real_canceled_value");
 		
@@ -63,7 +64,7 @@ public class TerminatedJobsChart {
 		/** Adding text labels for x axis coordinates**/
 	    for(int i=0;i<y.length;i++) {
 	    	
-	    	mRenderer.addXTextLabel(i+1,"2" + "-" +i );
+	    	mRenderer.addXTextLabel(i+1,xLabel[i]);
 	    	
 	    }
 	    mRenderer.setXLabels(0);//Removing x axis values, only text labels are visible
@@ -88,7 +89,7 @@ public class TerminatedJobsChart {
 	    
 	    /**X axis settings**/
 	    
-	    mRenderer.setXAxisMax(7);
+	    mRenderer.setXAxisMax(8);
 	    mRenderer.setXAxisMin(0);
 	    mRenderer.setChartTitleTextSize(20);
 	    			
@@ -132,6 +133,18 @@ public class TerminatedJobsChart {
 			valueArray[i] = Double.parseDouble(data.get(i).get(key)) ;
 		}
 		return valueArray;
+	}
+	
+	public String[] getLabels(ArrayList<HashMap<String, String>> data) {
+		
+		String[] x = {"","","","","","",""};
+		
+		for(int i=0;i<data.size();i++) {
+			x[i] = data.get(i).get("label");
+			System.out.println(x[i]);
+		}
+		
+		return x;
 	}
 		
 }

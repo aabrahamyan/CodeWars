@@ -25,6 +25,7 @@ import com.skybot.adapters.JobsAdapter;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
+import com.skybot.serivce.parser.dataholder.DataHolder;
 import com.skybot.util.Constants;
 import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
@@ -85,7 +86,9 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void onResume() {
 		super.onResume();
 		ViewTracker.getInstance().setCurrentContext(this);
-		getJobsResponse();
+		if (DataHolder.getInstance().jobsList.isEmpty()) {
+			getJobsResponse();
+		}
 
 		listView = getListView();
 		if (jobsList != null) {

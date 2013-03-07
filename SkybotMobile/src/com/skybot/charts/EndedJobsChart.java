@@ -12,7 +12,7 @@ import android.content.Context;
 import android.graphics.Color;
 
 public class EndedJobsChart {
-	
+	String key = "ended_jobs";
 	public GraphicalView getChart(Object context) {
 		
 		
@@ -30,7 +30,7 @@ public class EndedJobsChart {
 		}
 		
 		GetMaxAxis getAxis = new GetMaxAxis();
-		double maxAxis = getAxis.getMax(values);
+		double maxAxis = getAxis.getMax(values,key);
 		
 		/**   Line Customization   **/
 		

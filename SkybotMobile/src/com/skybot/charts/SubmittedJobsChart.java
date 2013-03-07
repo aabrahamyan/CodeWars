@@ -17,6 +17,7 @@ import android.graphics.Paint.Align;
 import android.util.Log;
 
 public class SubmittedJobsChart {
+	String key = "terminated_jobs";
 	
 	public GraphicalView getChart(Object context, ArrayList<HashMap<String, String>> data) {
 		
@@ -37,8 +38,8 @@ public class SubmittedJobsChart {
 		int[] x = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 		double[] values = getArray(data, "real_value");
 		String[] xLabels = getLabels(data);
+		double maxAxis = getMax.getMax(values,key);
 		
-		double maxAxis = getMax.getMax(values);
 		//double[] values = {0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,6};
 		
 		for(int i=0; i<values.length;i++) {
@@ -76,7 +77,7 @@ public class SubmittedJobsChart {
 		/**Axis Value Limits**/
 		mRenderer.setXAxisMin(0);
 		mRenderer.setXAxisMax(17);
-		mRenderer.setYAxisMax(4.5); //y max +1 Important
+		mRenderer.setYAxisMax(maxAxis); //y max +1 Important
 		
 		mRenderer.setYLabelsAlign(Align.RIGHT);
 		/** Distance between Y axis and labels**/
