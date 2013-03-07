@@ -9,6 +9,7 @@ public class ChartSingleton {
 	public ArrayList<HashMap<String, String>> completedArayList;
 	public ArrayList<HashMap<String, String>> terminatedArrayLIst;
 	public ArrayList<HashMap<String, String>> submittedArrayList;
+	public ArrayList<HashMap<String, String>> agentEventProcessedArrayList;
 	
 	public int charts_reg_counter = 0;
 	

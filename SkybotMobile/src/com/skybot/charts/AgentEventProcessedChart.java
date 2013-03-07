@@ -1,5 +1,8 @@
 package com.skybot.charts;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.BarChart.Type;
@@ -15,19 +18,22 @@ import android.graphics.Paint.Align;
 
 public class AgentEventProcessedChart {
 	
-	public GraphicalView getChart(Object context) {
+	public GraphicalView getChart(Object context, ArrayList<HashMap<String, String>> data) {
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); 
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		
-		double[] y = {0.7,0.3,0.4,0.4,0.5,1};
+		//double[] y = {0.7,0.3,0.4,0.4,0.5,1};
+		double[] y = getValue(data,"manual_events");
 		CategorySeries series = new CategorySeries("Manual");	
+		
 		for(int i=0;i<y.length;i++) {
 			
 			series.add("Bar " + (i+1), y[i]);
 			
 		}
 		
-		double[] y1 = {0.68,0.25,0.35,0.35,0.45,0.95};
+		//double[] y1 = {0.68,0.25,0.35,0.35,0.45,0.95};
+		double[] y1 = getValue(data, "file_events");
 		CategorySeries series2 = new CategorySeries("File");
 		for(int i=0;i<y1.length;i++) {
 			
@@ -35,17 +41,23 @@ public class AgentEventProcessedChart {
 			
 		}
 		
-		double[] y3 = {0.6,0.2,0.3,0.3,0.4,0.9};
+		//double[] y3 = {0.6,0.2,0.3,0.3,0.4,0.9};
+		double[] y3 = getValue(data, "directory_events");
+		
 		CategorySeries series3 = new CategorySeries("Directory");
 		for(int i = 0; i <y3.length;i++) {
 			series3.add(y3[i]);
 		}
 		
-		double[] y4 = {0.55,0.15,0.25,0.25,0.35,0.85};
+		//double[] y4 = {0.55,0.15,0.25,0.25,0.35,0.85};
+		double[] y4 = getValue(data, "process_events");
+		
 		CategorySeries series4 = new CategorySeries("Process");
 		for(int i=0;i<y4.length;i++) {
 			series4.add(y4[i]);
 		}
+		
+		String[] xLabels = getLabels(data,"label");
 		
 		/** Adding Series to dataset**/
 		
@@ -57,7 +69,7 @@ public class AgentEventProcessedChart {
 		/** Adding text labels for x axis coordinates**/
 	    for(int i=0;i<y.length;i++) {
 	    	
-	    	mRenderer.addXTextLabel(i+1,"2" + "-" +i );
+	    	mRenderer.addXTextLabel(i+1,xLabels[i]);
 	    	
 	    }
 	    mRenderer.setXLabels(0);//Removing x axis values, only text labels are visible
@@ -83,7 +95,7 @@ public class AgentEventProcessedChart {
 	    
 	    /**X axis settings**/
 	    
-	    mRenderer.setXAxisMax(7);
+	    mRenderer.setXAxisMax(8);
 	    mRenderer.setXAxisMin(0);
 	   			
 	    /**Y axis settings **/
@@ -124,6 +136,29 @@ public class AgentEventProcessedChart {
 	    GraphicalView chartView = ChartFactory.getBarChartView((Context) context, dataset,mRenderer, Type.STACKED);
 		return chartView;
 		
+	}
+	
+	public double[] getValue(ArrayList<HashMap<String, String>> data,String key) {
+		
+		double[] y = {0,0,0,0,0,0,0};
+		for(int i=0;i<data.size();i++) {
+			y[i] =Double.parseDouble(data.get(i).get(key)) ;
+			System.out.println(y[i]);
+		}
+		
+		return y;
+	}
+
+	public String[] getLabels(ArrayList<HashMap<String, String>> data, String key) {
+	
+	String[] x = {"","","","","","",""};
+	
+	for(int i=0;i<data.size();i++) {
+		x[i] = data.get(i).get(key);
+		System.out.println(x[i]);
+	}
+	
+	return x;
 	}
 	
 }

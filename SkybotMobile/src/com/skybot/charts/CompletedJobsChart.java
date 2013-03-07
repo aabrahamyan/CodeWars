@@ -19,30 +19,8 @@ import android.util.Log;
 public class CompletedJobsChart {
 	//Context context;
 	ArrayList<HashMap<String, String>> data;
+	String key = "completed_jobs";
 	
-	
-	public double[] getValue(ArrayList<HashMap<String, String>> data) {
-		
-			double[] y = {0,0,0,0,0,0,0};
-			for(int i=0;i<data.size();i++) {
-				y[i] =Double.parseDouble(data.get(i).get("real_value")) ;
-				System.out.println(y[i]);
-			}
-			
-			return y;
-		}
-	
-	public String[] getLabels(ArrayList<HashMap<String, String>> data) {
-		
-		String[] x = {"","","","","","",""};
-		
-		for(int i=0;i<data.size();i++) {
-			x[i] = data.get(i).get("label");
-			System.out.println(x[i]);
-		}
-		
-		return x;
-	}
 	
 	public GraphicalView getChart(Object context, ArrayList<HashMap<String, String>> data) {
 		
@@ -69,7 +47,7 @@ public class CompletedJobsChart {
 		mRenderer.setXLabels(0);
 		
 		GetMaxAxis getAxis = new GetMaxAxis();
-		double maxAxis = getAxis.getMax(y);
+		double maxAxis = getAxis.getMax(y,"completed_jobs");
 		
 		XYSeriesRenderer renderer = new XYSeriesRenderer();
 		dataset.addSeries(series.toXYSeries());
@@ -110,7 +88,7 @@ public class CompletedJobsChart {
 		
 		/** Y axis customisation Settings**/
 		
-		//mRenderer.setYAxisMax(1);
+		mRenderer.setYAxisMax(maxAxis);
 		mRenderer.setYAxisMin(0);
 		
 		mRenderer.setShowLegend(false);
@@ -119,6 +97,29 @@ public class CompletedJobsChart {
 	    Log.i("CompletedJobs", "CompletedJobs");
 		return chartView;
 		
+	}
+
+	public double[] getValue(ArrayList<HashMap<String, String>> data) {
+		
+			double[] y = {0,0,0,0,0,0,0};
+			for(int i=0;i<data.size();i++) {
+				y[i] =Double.parseDouble(data.get(i).get("real_value")) ;
+				System.out.println(y[i]);
+			}
+			
+			return y;
+		}
+	
+	public String[] getLabels(ArrayList<HashMap<String, String>> data) {
+		
+		String[] x = {"","","","","","",""};
+		
+		for(int i=0;i<data.size();i++) {
+			x[i] = data.get(i).get("label");
+			System.out.println(x[i]);
+		}
+		
+		return x;
 	}
 	
 	
