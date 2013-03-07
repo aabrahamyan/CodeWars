@@ -16,6 +16,7 @@ import com.skybot.adapters.JobHistoryReportAdapter;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
+import com.skybot.serivce.parser.dataholder.DataHolder;
 import com.skybot.util.Constants;
 import com.skybot.util.ViewTracker;
 
@@ -63,14 +64,14 @@ public class JobHistoryReportActivity extends ListActivity implements
 				Constants.JOBHISTORYREPORT_SERVICE_URL);
 
 	}
-	
-	
 
 	@Override
 	public void onResume() {
 		super.onResume();
 		ViewTracker.getInstance().setCurrentContext(this);
-		getJobHistoryReportResponse();
+		if (DataHolder.getInstance().reportsList.isEmpty()) {
+			getJobHistoryReportResponse();
+		}
 
 		listView = getListView();
 		if (jobHistoryReportList != null) {
@@ -107,7 +108,7 @@ public class JobHistoryReportActivity extends ListActivity implements
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -24,6 +24,7 @@ import com.skybot.adapters.JobsAdapter;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
+import com.skybot.serivce.parser.dataholder.DataHolder;
 import com.skybot.util.Constants;
 import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
@@ -51,18 +52,16 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.jobs_list);
-		
-		
 
 		listView = (ListView) findViewById(R.id.listView1);
 		adapter = new JobsAdapter(this, jobsList);
 		listView.setAdapter(adapter);
-		
-		
+
 	}
 
 	private void getJobsResponse() {
-		Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 0, "Requesting Jobs List...");
+		Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 0,
+				"Requesting Jobs List...");
 		String system_Time = Long.toString(System.currentTimeMillis());
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
@@ -86,7 +85,9 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void onResume() {
 		super.onResume();
 		ViewTracker.getInstance().setCurrentContext(this);
-		getJobsResponse();
+		if (DataHolder.getInstance().jobsList.isEmpty()) {
+			getJobsResponse();
+		}
 
 		listView = getListView();
 		if (jobsList != null) {
@@ -210,7 +211,8 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list, String service) {
 		if (list != null) {
-			Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 1, "Requesting Jobs List...");
+			Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 1,
+					"Requesting Jobs List...");
 			jobsList = list;
 			adapter.data = jobsList;
 			adapter.notifyDataSetChanged();
@@ -313,8 +315,8 @@ public class JobsActivity extends SwipeListViewActivity implements
 		}
 	}
 
-	//---------------------------------- Menu Callbacks
-	//-------------------------------//
+	// ---------------------------------- Menu Callbacks
+	// -------------------------------//
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater menuInflater = getMenuInflater();
@@ -326,13 +328,13 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-			case R.id.menu_refresh:
-				getJobsResponse();
-				return true;
-			case R.id.menu_more:
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
+		case R.id.menu_refresh:
+			getJobsResponse();
+			return true;
+		case R.id.menu_more:
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -340,7 +342,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
