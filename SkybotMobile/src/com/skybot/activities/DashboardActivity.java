@@ -8,20 +8,18 @@ import java.util.Map;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.ScrollItemsFragmentAdapter;
+import com.skybot.charts.singleton.ChartSingleton;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.util.Constants;
 import com.skybot.util.ViewTracker;
-import com.skybot.charts.singleton.*;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
