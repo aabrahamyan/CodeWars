@@ -236,13 +236,25 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 		View rowView = listView.getChildAt(position);
 		if (isRight) {
-			directionRight = true;
-			rowView.startAnimation(getDeleteAnimation(0, rowView.getWidth(),
-					position));
+			if (!directionRight) {
+				rowView.startAnimation(getDeleteAnimation(0,
+						rowView.getWidth(), position));
+				directionRight = true;
+			} else {
+				rowView.startAnimation(getDeleteAnimation(rowView.getWidth(),
+						0, position));
+				directionRight = false;
+			}
 		} else {
-			directionRight = false;
-			rowView.startAnimation(getDeleteAnimation(rowView.getWidth(), 0,
-					position));
+			if (directionRight) {
+				rowView.startAnimation(getDeleteAnimation(rowView.getWidth(),
+						0, position));
+				directionRight = false;
+			} else {
+				rowView.startAnimation(getDeleteAnimation(0,
+						rowView.getWidth(), position));
+				directionRight = true;
+			}
 		}
 
 	}
@@ -288,10 +300,9 @@ public class JobsActivity extends SwipeListViewActivity implements
 						View.INVISIBLE);
 
 				rowView.findViewById(R.id.details)
-				.setVisibility(View.INVISIBLE);
-				rowView.findViewById(R.id.thumbnail)
-				.setVisibility(View.INVISIBLE);
-				
+						.setVisibility(View.INVISIBLE);
+				rowView.findViewById(R.id.thumbnail).setVisibility(
+						View.INVISIBLE);
 
 			} else {
 
@@ -307,7 +318,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 						View.VISIBLE);
 				rowView.findViewById(R.id.details).setVisibility(View.VISIBLE);
 				rowView.findViewById(R.id.thumbnail)
-				.setVisibility(View.VISIBLE);
+						.setVisibility(View.VISIBLE);
 
 			}
 		}

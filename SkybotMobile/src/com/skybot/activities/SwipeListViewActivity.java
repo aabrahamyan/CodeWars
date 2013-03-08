@@ -19,7 +19,7 @@ public abstract class SwipeListViewActivity extends Activity {
 	private int REL_SWIPE_THRESHOLD_VELOCITY;
 
 	/**
-	 *
+	 * 
 	 * @return ListView
 	 */
 	public abstract ListView getListView();
@@ -112,15 +112,27 @@ public abstract class SwipeListViewActivity extends Activity {
 					int pos = list.pointToPosition((int) e1.getX(),
 							(int) e2.getY());
 
-					if (pos >= 0 && temp_position == pos)
+					if (pos >= 0 && temp_position == pos) {
+						int listItemPosition = list.pointToPosition(
+								(int) e1.getX(), (int) e2.getY());
+						int firstVisiblePosition = list
+								.getFirstVisiblePosition();
+						pos = listItemPosition - firstVisiblePosition;
 						getSwipeItem(false, pos);
+					}
 				} else if (e2.getX() - e1.getX() > REL_SWIPE_MIN_DISTANCE
 						&& Math.abs(velocityX) > REL_SWIPE_THRESHOLD_VELOCITY) {
 
 					int pos = list.pointToPosition((int) e1.getX(),
 							(int) e2.getY());
-					if (pos >= 0 && temp_position == pos)
+					if (pos >= 0 && temp_position == pos) {
+						int listItemPosition = list.pointToPosition(
+								(int) e1.getX(), (int) e2.getY());
+						int firstVisiblePosition = list
+								.getFirstVisiblePosition();
+						pos = listItemPosition - firstVisiblePosition;
 						getSwipeItem(true, pos);
+					}
 				}
 			}
 
