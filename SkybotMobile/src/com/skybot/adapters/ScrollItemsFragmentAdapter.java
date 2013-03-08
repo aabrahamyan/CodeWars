@@ -2,14 +2,13 @@ package com.skybot.adapters;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import com.skybot.activities.ScrollItemsFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.skybot.activities.ScrollItemsFragment;
 
 /**
  * Fulfilling Fragment with Chart objects to have a scroll control

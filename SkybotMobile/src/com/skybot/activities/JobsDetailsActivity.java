@@ -2,10 +2,12 @@ package com.skybot.activities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
+
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.JobDetailsAdapter;
 

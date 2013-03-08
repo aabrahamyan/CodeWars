@@ -1,6 +1,7 @@
 package com.skybot.adapters;
 
 import java.util.HashMap;
+
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;

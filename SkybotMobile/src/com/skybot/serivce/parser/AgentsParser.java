@@ -1,6 +1,5 @@
 package com.skybot.serivce.parser;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.simple.JSONArray;

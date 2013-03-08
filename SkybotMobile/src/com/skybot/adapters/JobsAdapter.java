@@ -2,12 +2,6 @@ package com.skybot.adapters;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import com.skybot.activities.JobsActivity;
-import com.skybot.activities.JobsDetailsActivity;
-import com.skybot.activities.R;
-import com.skybot.activities.R.drawable;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,11 +12,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.skybot.activities.JobsActivity;
+import com.skybot.activities.JobsDetailsActivity;
+import com.skybot.activities.R;
 
 public class JobsAdapter extends BaseAdapter {
 

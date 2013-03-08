@@ -7,8 +7,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import android.util.Log;
-
 import com.skybot.serivce.parser.dataholder.DataHolder;
 
 /**

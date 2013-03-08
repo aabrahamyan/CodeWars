@@ -17,6 +17,7 @@ import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
 import com.skybot.serivce.parser.dataholder.DataHolder;
 import com.skybot.util.Constants;
+import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
 
 /**
@@ -43,6 +44,9 @@ public class AgentActivity extends ListActivity implements ActionDelegate {
 	}
 
 	private void getAgentResponse() {
+		
+		Util.showOrHideActivityIndicator(AgentActivity.this.getParent(), 0,
+		"Getting Agents list...");
 	
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
@@ -113,6 +117,10 @@ public class AgentActivity extends ListActivity implements ActionDelegate {
 		listView = getListView();
 		if (agentList != null) {
 			adapter.data = agentList;
+			
+			Util.showOrHideActivityIndicator(AgentActivity.this.getParent(), 1,
+			"Getting Agents list...");
+			
 			adapter.notifyDataSetChanged();
 		}
 	}

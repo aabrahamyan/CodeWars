@@ -5,10 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.app.ListActivity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ListView;
 
 import com.skybot.activities.delegate.ActionDelegate;
@@ -18,6 +15,7 @@ import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.connection.connection.helper.RequestHelper;
 import com.skybot.serivce.parser.dataholder.DataHolder;
 import com.skybot.util.Constants;
+import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
 
 public class JobHistoryReportActivity extends ListActivity implements
@@ -40,6 +38,9 @@ public class JobHistoryReportActivity extends ListActivity implements
 
 	private void getJobHistoryReportResponse() {
 
+		Util.showOrHideActivityIndicator(JobHistoryReportActivity.this.getParent(), 0,
+		"Getting Job History Reports...");
+		
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
@@ -88,6 +89,11 @@ public class JobHistoryReportActivity extends ListActivity implements
 		listView = getListView();
 		if (jobHistoryReportList != null) {
 			adapter.data = jobHistoryReportList;
+			
+			Util.showOrHideActivityIndicator(JobHistoryReportActivity.this.getParent(), 0,
+			"Getting Job History Reports...");
+			
+			
 			adapter.notifyDataSetChanged();
 		}
 	}

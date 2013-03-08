@@ -1,15 +1,15 @@
 package com.skybot.connection.connection;
 
-import com.skybot.util.ViewTracker;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.skybot.util.ViewTracker;
+
 /**
  * This class is responsible to provide network status and connection type.
  * 
- * @author Gor Asatryan
+ * @author Armen Abrahamyan
  * 
  */
 public class NetworkReachability {

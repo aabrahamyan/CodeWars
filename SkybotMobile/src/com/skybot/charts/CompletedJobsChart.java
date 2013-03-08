@@ -11,7 +11,6 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-import android.R.string;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -103,7 +102,7 @@ public class CompletedJobsChart {
 		
 			double[] y = {0,0,0,0,0,0,0};
 			for(int i=0;i<data.size();i++) {
-				y[i] =Double.parseDouble(data.get(i).get("real_value")) ;
+				y[i] =Double.parseDouble(data.get(i).get("real_value"));
 				System.out.println(y[i]);
 			}
 			

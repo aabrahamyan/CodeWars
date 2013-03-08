@@ -19,7 +19,8 @@ import com.skybot.charts.singleton.ChartSingleton;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.util.Constants;
-import com.skybot.util.ViewTracker;
+import com.skybot.util.Util;
+import com.skybot.util.ViewTracker; 
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
@@ -165,7 +166,8 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 	}
 	
 	public void sendAndGetCharts() {
-		
+		Util.showOrHideActivityIndicator(DashboardActivity.this.getParent(), 0,
+		"Getting Dashboard info...");
 		
 		chartSingleton.charts_reg_counter = 4;
 		
@@ -242,6 +244,8 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 			        indicator.setStrokeWidth(1);
 				}
 				
+				Util.showOrHideActivityIndicator(DashboardActivity.this.getParent(), 1,
+				"Getting Dashboard info...");
 				pager.getAdapter().notifyDataSetChanged();
 				
 			}

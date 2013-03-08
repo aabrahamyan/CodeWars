@@ -5,10 +5,10 @@ import java.util.HashMap;
 
 import org.achartengine.GraphicalView;
 
-import com.skybot.charts.singleton.ChartSingleton;
-
 import android.content.Context;
 import android.view.View;
+
+import com.skybot.charts.singleton.ChartSingleton;
 	
 public class CheckPageCoordinates {
 	

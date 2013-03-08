@@ -4,17 +4,12 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 
-import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.skybot.activities.JobsActivity;
-import com.skybot.activities.LoginActivity;
 import com.skybot.serivce.BackgroundResponseAnalizer;
 import com.skybot.util.Constants;
-import com.skybot.util.Util;
-import com.skybot.util.ViewTracker;
 
 /**
  * 
