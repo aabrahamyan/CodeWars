@@ -12,7 +12,7 @@ public class Util {
 
 	public static final String LOGIN = "LOGIN";
 	public static final String PASSWORD = "PASSWORD";
-	
+
 	private static ProgressDialog mDialog;
 
 	public static void writeBoolean(Context context, String key, boolean value) {
@@ -65,12 +65,15 @@ public class Util {
 	public static Editor getEditor(Context context) {
 		return getPreferences(context).edit();
 	}
-	
-	//----------------------- Progress/Activity Indicator -----------------------//
-	
-	public static void showOrHideActivityIndicator(Context ctx, final int hide, final String message) {
-		if(mDialog != null && hide == 1) {
-			mDialog.dismiss();
+
+	// ----------------------- Progress/Activity Indicator
+	// -----------------------//
+
+	public static void showOrHideActivityIndicator(Context ctx, final int hide,
+			final String message) {
+		if (mDialog != null && hide == 1) {
+			if (mDialog.isShowing())
+				mDialog.dismiss();
 		} else {
 			mDialog = new ProgressDialog(ctx);
 			mDialog.setMessage(message);

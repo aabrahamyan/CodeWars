@@ -127,7 +127,8 @@ public class AgentActivity extends ListActivity implements ActionDelegate {
 
 	@Override
 	public void didFailRequestProcessing() {
-		// TODO Auto-generated method stub
+		Util.showOrHideActivityIndicator(AgentActivity.this.getParent(), 1,
+				"Getting Agents list...");
 
 	}
 
