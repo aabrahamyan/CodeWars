@@ -21,13 +21,6 @@ public class SubmittedJobsChart {
 	
 	public GraphicalView getChart(Object context, ArrayList<HashMap<String, String>> data) {
 		
-		if(data == null) {
-			Log.e("Null", "Data is null");
-		}
-		else {
-			Log.e("Null", "Data exist");
-		}
-		
 		XYMultipleSeriesDataset dataset= new XYMultipleSeriesDataset();
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
 		XYSeriesRenderer renderer = new XYSeriesRenderer();
@@ -38,7 +31,8 @@ public class SubmittedJobsChart {
 		int[] x = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 		double[] values = getArray(data, "real_value");
 		String[] xLabels = getLabels(data);
-		double maxAxis = getMax.getMax(values,key);
+		int labelCount = 0;
+		double maxAxis = getMax.getMax(values,1);
 		
 		//double[] values = {0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,6};
 		
@@ -47,11 +41,13 @@ public class SubmittedJobsChart {
 		}
 		
 		for(int i=0;i<values.length;i++) {
-			
-		    	mRenderer.addXTextLabel(i+1,xLabels[i] );
+				if(i%2 == 0) {
+					mRenderer.addXTextLabel(i+1,xLabels[i] );
+				}
+		    	
 		}
 		
-		mRenderer.setXLabelsAngle(-30);
+		//mRenderer.setXLabelsAngle(-25);
 		/**   Line Customization   **/
 		
 		renderer.setPointStyle(PointStyle.CIRCLE);
@@ -70,11 +66,13 @@ public class SubmittedJobsChart {
 		mRenderer.setZoomEnabled(false);
 		mRenderer.setShowGridX(true);
 		mRenderer.setShowLegend(false); //Disable legend in Chart
-		mRenderer.setLabelsTextSize(15);
+		mRenderer.setLabelsTextSize(20);
 		mRenderer.setChartTitle("Submitted Jobs");
 		mRenderer.setChartTitleTextSize(20);
 		mRenderer.setXLabels(0);
+		//mRenderer.setBarSpacing(-0.7f);
 		/**Axis Value Limits**/
+		
 		mRenderer.setXAxisMin(0);
 		mRenderer.setXAxisMax(17);
 		mRenderer.setYAxisMax(maxAxis); //y max +1 Important
