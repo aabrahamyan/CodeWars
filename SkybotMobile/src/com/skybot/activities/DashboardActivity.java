@@ -236,6 +236,7 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 			        mIndicator.setViewPager(pager);
 			        
 			        final float density = getResources().getDisplayMetrics().density;
+			        
 			        indicator.setBackgroundColor(Color.parseColor("#FFFFFF"));
 			        indicator.setRadius(5 * density);
 			        indicator.setPageColor(Color.WHITE);

@@ -46,7 +46,7 @@ public class CompletedJobsChart {
 		mRenderer.setXLabels(0);
 		
 		GetMaxAxis getAxis = new GetMaxAxis();
-		double maxAxis = getAxis.getMax(y,"completed_jobs");
+		double maxAxis = getAxis.getMax(y,1);
 		
 		XYSeriesRenderer renderer = new XYSeriesRenderer();
 		dataset.addSeries(series.toXYSeries());
@@ -71,8 +71,10 @@ public class CompletedJobsChart {
 	    mRenderer.setChartTitleTextSize(20);
 		
 		mRenderer.setBarSpacing(0.5);
-		mRenderer.setLabelsTextSize(15);
+		mRenderer.setLabelsTextSize(20);
+		
 		mRenderer.setInScroll(true);
+		//mRenderer.setMargins(new int[] {10,10,10,10});
 		 
 		mRenderer.addSeriesRenderer(renderer);
 		/**Distance between y axis and labels**/
