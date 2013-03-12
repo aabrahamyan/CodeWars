@@ -13,16 +13,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
-
 @SuppressLint("NewApi")
 public final class TestFragment extends Fragment {
 	int mCurrentPage;
 	private static final String KEY_CONTENT = "TestFragment:Content";
-	protected static final String[] CONTENT = new String[] { "This", "Is", "A",
-			"Test", };
-	protected static final int[] ICONS = new int[] {
-			R.drawable.help1, R.drawable.help2,
-			R.drawable.blank_badge_green, R.drawable.blank_badge_orange };
+	protected static final int[] ICONS = new int[] { R.drawable.help1,
+			R.drawable.help2, R.drawable.help3, R.drawable.help4,
+			R.drawable.help5, R.drawable.help6, R.drawable.help7 };
 
 	public static TestFragment newInstance(String content) {
 		TestFragment fragment = new TestFragment();
@@ -59,14 +56,14 @@ public final class TestFragment extends Fragment {
 		layout.setGravity(Gravity.CENTER);
 
 		ImageView img = new ImageView(getActivity());
-		//TODO: ------------ In this case we need to check OS version Manually Aram.
 		int sdk = android.os.Build.VERSION.SDK_INT;
-		if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-			img.setBackgroundDrawable(getResources().getDrawable(ICONS[mCurrentPage]));
+		if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+			img.setBackgroundDrawable(getResources().getDrawable(
+					ICONS[mCurrentPage]));
 		} else {
 			img.setBackground(getResources().getDrawable(ICONS[mCurrentPage]));
 		}
-				
+
 		layout.addView(img);
 
 		return layout;
