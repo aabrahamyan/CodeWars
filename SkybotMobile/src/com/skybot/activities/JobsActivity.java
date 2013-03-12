@@ -205,7 +205,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 	@Override
 	public void didFinishRequestProcessing() {
-		
+
 	}
 
 	@Override
@@ -224,7 +224,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void didFailRequestProcessing() {
 		Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 1,
 				"Requesting Jobs List...");
-		
+
 		Toast.makeText(getApplicationContext(), "Request Failed",
 				Toast.LENGTH_SHORT).show();
 	}
@@ -244,8 +244,8 @@ public class JobsActivity extends SwipeListViewActivity implements
 						rowView.getWidth(), position));
 				directionRight = true;
 			} else {
-				rowView.startAnimation(getDeleteAnimation(rowView.getWidth(),
-						0, position));
+				rowView.startAnimation(getDeleteAnimation(0,
+						rowView.getWidth(), position));
 				directionRight = false;
 			}
 		} else {
@@ -254,8 +254,8 @@ public class JobsActivity extends SwipeListViewActivity implements
 						0, position));
 				directionRight = false;
 			} else {
-				rowView.startAnimation(getDeleteAnimation(0,
-						rowView.getWidth(), position));
+				rowView.startAnimation(getDeleteAnimation(rowView.getWidth(),
+						0, position));
 				directionRight = true;
 			}
 		}
@@ -337,13 +337,13 @@ public class JobsActivity extends SwipeListViewActivity implements
 			if (directionRight) {
 
 			} else {
-				rowView.findViewById(R.id.title).setVisibility(View.VISIBLE);
+				/*rowView.findViewById(R.id.title).setVisibility(View.VISIBLE);
 				rowView.findViewById(R.id.description).setVisibility(
 						View.VISIBLE);
 				rowView.findViewById(R.id.agent).setVisibility(View.VISIBLE);
 				rowView.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);
 				rowView.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
-				rowView.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);
+				rowView.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);*/
 			}
 		}
 	}

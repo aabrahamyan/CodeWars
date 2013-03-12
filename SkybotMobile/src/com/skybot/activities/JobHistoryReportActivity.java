@@ -97,10 +97,11 @@ public class JobHistoryReportActivity extends ListActivity implements
 			
 			
 
-
-			Util.showOrHideActivityIndicator(
-					JobHistoryReportActivity.this.getParent(), 0,
-					"Getting Job History Reports...");
+			/*
+			 * Util.showOrHideActivityIndicator(
+			 * JobHistoryReportActivity.this.getParent(), 0,
+			 * "Getting Job History Reports...");
+			 */
 
 
 			adapter.notifyDataSetChanged();
