@@ -90,7 +90,6 @@ public class JobHistoryReportActivity extends ListActivity implements
 		listView = getListView();
 		if (jobHistoryReportList != null) {
 			adapter.data = jobHistoryReportList;
-<<<<<<< HEAD
 
 			Util.showOrHideActivityIndicator(
 					JobHistoryReportActivity.this.getParent(), 1,
@@ -99,20 +98,16 @@ public class JobHistoryReportActivity extends ListActivity implements
 			Util.showOrHideActivityIndicator(
 					JobHistoryReportActivity.this.getParent(), 1,
 					"Getting Job History Reports...");
-=======
 
-			
-			Util.showOrHideActivityIndicator(JobHistoryReportActivity.this.getParent(), 1,
-			"Getting Job History Reports...");
-			
-			
+			Util.showOrHideActivityIndicator(
+					JobHistoryReportActivity.this.getParent(), 1,
+					"Getting Job History Reports...");
 
 			/*
 			 * Util.showOrHideActivityIndicator(
 			 * JobHistoryReportActivity.this.getParent(), 0,
 			 * "Getting Job History Reports...");
 			 */
->>>>>>> 564f325c4c2d80ab8cebfbe57368dc5602611e60
 
 			adapter.notifyDataSetChanged();
 		}
