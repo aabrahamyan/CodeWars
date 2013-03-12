@@ -2,7 +2,10 @@ package com.skybot.activities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.apache.http.NameValuePair;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -38,26 +41,23 @@ public class AgentActivity extends ListActivity implements ActionDelegate {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		listView = getListView(); 
+		listView = getListView();
 		adapter = new AgentAdapter(this, agentList);
 		listView.setAdapter(adapter);
 	}
 
 	private void getAgentResponse() {
-		
+
 		Util.showOrHideActivityIndicator(AgentActivity.this.getParent(), 0,
-		"Getting Agents list...");
-	
+				"Getting Agents list...");
+
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
 		Map<String, String> job_params = creator.createAppropriateMapRequest(
-				Constants.DATE, "1362126843029",
-				Constants.RESULTS, "5",
-				Constants.SORT, "id",
-				Constants.DIRECTION, "ASC",
-				Constants.TAG, "",
-				Constants.TAG_MATCH_ANY, "false",
+				Constants.DATE, "1362126843029", Constants.RESULTS, "5",
+				Constants.SORT, "id", Constants.DIRECTION, "ASC",
+				Constants.TAG, "", Constants.TAG_MATCH_ANY, "false",
 				Constants.LIMIT, "3"
 		// Additional constants for job history
 				/*
@@ -73,23 +73,58 @@ public class AgentActivity extends ListActivity implements ActionDelegate {
 
 		final RequestHelper reqHelper = new RequestHelper();
 		String urlStringWithParams = reqHelper.constructGetRequestString(
-				job_params, Constants.SERVER_URL,
-				Constants.AGENT_SERVICE_URL);
+				job_params, Constants.SERVER_URL, Constants.AGENT_SERVICE_URL);
 
-		baseNetworkManager.constructConnectionAndHitGET(
-				"Agent data Recieved", "Agent Data Request Started",
-				urlStringWithParams, this, Constants.AGENT_VIEW,
-				Constants.AGENT_SERVICE_URL);
+		baseNetworkManager.constructConnectionAndHitGET("Agent data Recieved",
+				"Agent Data Request Started", urlStringWithParams, this,
+				Constants.AGENT_VIEW, Constants.AGENT_SERVICE_URL);
+	}
+
+	public void restartAgent(View v, String agentId) {
+
+		String system_Time = Long.toString(System.currentTimeMillis());
+		RequestCreator creator = new RequestCreator();
+		final RequestHelper reqHelper = new RequestHelper();
+		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
+
+		Map<String, String> restart_agent_params = creator
+				.createAppropriateMapRequest("authenticity_token",
+						LoginActivity.authToken);
+
+		final List<NameValuePair> paramsList = reqHelper
+				.createPostDataWithKeyValuePair(restart_agent_params);
+		String service_url = Constants.AGENT_SERVICE + Constants.RIGHT_SLASH
+				+ agentId + Constants.RIGHT_SLASH + "restart";
+
+		baseNetworkManager.constructConnectionAndHitPOST("Restart Successful",
+				"Restart Agent Request Started", paramsList, this,
+				Constants.AGENT_VIEW, service_url);
+
+		Map<String, String> agent_params = creator.createAppropriateMapRequest(
+				Constants.DATE, system_Time, Constants.RESULTS, "300",
+				Constants.SORT, "id", Constants.DIRECTION, "ASC",
+				Constants.TAG, "", Constants.TAG_MATCH_ANY, "false",
+				Constants.LIMIT, "3", Constants.START, "0"
+
+		);
+
+		String urlStringWithParams = reqHelper
+				.constructGetRequestString(agent_params, Constants.SERVER_URL,
+						Constants.AGENT_SERVICE_URL);
+
+		baseNetworkManager.constructConnectionAndHitGET("Agent data Recieved",
+				"Agent Data Request Started", urlStringWithParams, this,
+				Constants.AGENT_VIEW, Constants.AGENT_SERVICE_URL);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
 		ViewTracker.getInstance().setCurrentContext(this);
-		if(DataHolder.getInstance().agentsList.isEmpty()) {
+		if (DataHolder.getInstance().agentsList.isEmpty()) {
 			getAgentResponse();
 		}
-		
+
 		listView = getListView();
 		if (agentList != null) {
 			adapter.data = agentList;
@@ -117,17 +152,18 @@ public class AgentActivity extends ListActivity implements ActionDelegate {
 		listView = getListView();
 		if (agentList != null) {
 			adapter.data = agentList;
-			
+
 			Util.showOrHideActivityIndicator(AgentActivity.this.getParent(), 1,
-			"Getting Agents list...");
-			
+					"Getting Agents list...");
+
 			adapter.notifyDataSetChanged();
 		}
 	}
 
 	@Override
 	public void didFailRequestProcessing() {
-		// TODO Auto-generated method stub
+		Util.showOrHideActivityIndicator(AgentActivity.this.getParent(), 1,
+				"Getting Agents list...");
 
 	}
 
@@ -135,7 +171,7 @@ public class AgentActivity extends ListActivity implements ActionDelegate {
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

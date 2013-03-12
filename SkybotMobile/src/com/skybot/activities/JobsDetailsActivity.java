@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.JobDetailsAdapter;
+import com.skybot.util.Util;
 
 public class JobsDetailsActivity extends Activity implements ActionDelegate {
 

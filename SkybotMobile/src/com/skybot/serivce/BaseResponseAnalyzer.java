@@ -155,7 +155,7 @@ public class BaseResponseAnalyzer {
 
 					@Override
 					public void run() {
-						del.didFinishRequestProcessing(DataHolder.getInstance().reportsList);
+						del.didFinishRequestProcessing(DataHolder.getInstance().reportsList,"");
 					}
 				});
 

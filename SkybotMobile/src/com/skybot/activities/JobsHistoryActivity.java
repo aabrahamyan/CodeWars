@@ -121,7 +121,8 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 
 	@Override
 	public void didFailRequestProcessing() {
-		// TODO Auto-generated method stub
+		Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(), 1,
+				"Requesting Job Histories...");
 
 	}
 

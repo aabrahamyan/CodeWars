@@ -9,10 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.skybot.activities.AgentActivity;
+import com.skybot.activities.JobsActivity;
 import com.skybot.activities.R;
 
 public class AgentAdapter extends BaseAdapter {
@@ -52,6 +55,7 @@ public class AgentAdapter extends BaseAdapter {
 		TextView description = (TextView) vi.findViewById(R.id.description);
 		TextView id = (TextView) vi.findViewById(R.id.agent_id);
 		ImageView image = (ImageView) vi.findViewById(R.id.list_image);
+		ImageView restartBtn = (ImageView) vi.findViewById(R.id.restart_agent);
 		try {
 			if (data != null && !data.isEmpty()) {
 
@@ -59,10 +63,9 @@ public class AgentAdapter extends BaseAdapter {
 
 				if (m.get("status").toString().equals("Active")) {
 					image.setImageResource(R.drawable.blank_badge_green);
-				} /*
-				 * else if (m.get("status").toString().equals("S")) {
-				 * image.setImageResource(R.drawable.blank_badge_orange); }
-				 */
+				} else if (m.get("status").toString().equals("Stopped")) {
+					image.setImageResource(R.drawable.blank_badge_orange);
+				}
 
 				else if (m.get("status").toString().equals("Failed")) {
 					image.setImageResource(R.drawable.blank_badge_red);
@@ -73,12 +76,25 @@ public class AgentAdapter extends BaseAdapter {
 				description.setText("Description: "
 						+ m.get("description").toString());
 
+				String runid = m.get("id");
+				restartBtn.setTag(runid);
+
 			}
 
 			name.setText(m.get("name").toString());
 			id.setText("ID: " + m.get("id").toString());
 			description.setText("Description: "
 					+ m.get("description").toString());
+
+			restartBtn.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					String id = v.getTag().toString();
+					AgentActivity agentActivity = new AgentActivity();
+					agentActivity.restartAgent(v, id);
+				}
+			});
 
 		} catch (Exception e) {
 			Log.e("Exception occured", e.toString());

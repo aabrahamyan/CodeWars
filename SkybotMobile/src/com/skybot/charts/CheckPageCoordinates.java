@@ -18,7 +18,7 @@ public class CheckPageCoordinates {
 	
 	public View getChart(Context context,int mCurrentPage,ArrayList<HashMap<String, String>> data) {
 		
-		this.data = data;
+//		this.data = data;
 		
 		if(mCurrentPage == 1) {
 			ChartView = new CompletedJobsChart().getChart(context,chartSingleton.completedArayList);

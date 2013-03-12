@@ -26,6 +26,7 @@ public class Constants {
 	public static final String JOBHISTORYREPORT_SERVICE_URL = "user_files.json";
 	public static final String JOBHISTORY_SERVICE_URL = "job_histories.json";
 	public static final String AGENT_SERVICE_URL = "agents.json";
+	public static final String AGENT_SERVICE = "agents";
 	public static final String JOB_SERVICE_URL = "jobs.json";
 	public static final String DASHBOARD_SERVICE_URL = "show.json";
 	public static final String DATE = "_dc";

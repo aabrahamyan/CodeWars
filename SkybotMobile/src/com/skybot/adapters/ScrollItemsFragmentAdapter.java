@@ -19,7 +19,7 @@ import com.skybot.activities.ScrollItemsFragment;
 public class ScrollItemsFragmentAdapter extends FragmentPagerAdapter {
 
 	final int PAGE_COUNT = 4;
-	public ArrayList<HashMap<String, String>> data;
+	/*public ArrayList<HashMap<String, String>> data;*/
 
 	/** Constructor of the class */
 	public ScrollItemsFragmentAdapter(FragmentManager fm) {
@@ -31,7 +31,7 @@ public class ScrollItemsFragmentAdapter extends FragmentPagerAdapter {
 	public Fragment getItem(int arg0) {
 		
 		ScrollItemsFragment myFragment = new ScrollItemsFragment();
-		myFragment.data = data;
+		//myFragment.data = data;
 		Bundle data = new Bundle();
 		data.putInt("current_page", arg0 + 1);
 		myFragment.setArguments(data);

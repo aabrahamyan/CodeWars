@@ -30,7 +30,7 @@ public class EndedJobsChart {
 		}
 		
 		GetMaxAxis getAxis = new GetMaxAxis();
-		double maxAxis = getAxis.getMax(values,key);
+		double maxAxis = getAxis.getMax(values,1);
 		
 		/**   Line Customization   **/
 		

@@ -79,10 +79,10 @@
         android:id="@+id/btn2"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="HOLD"
         android:src="@drawable/hold_job" />
 
@@ -99,6 +99,8 @@
         android:id="@+id/btn3"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="200dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/btn2"
         android:contentDescription="RELEASE"

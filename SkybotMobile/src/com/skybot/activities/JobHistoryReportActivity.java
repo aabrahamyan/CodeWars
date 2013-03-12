@@ -38,9 +38,10 @@ public class JobHistoryReportActivity extends ListActivity implements
 
 	private void getJobHistoryReportResponse() {
 
-		Util.showOrHideActivityIndicator(JobHistoryReportActivity.this.getParent(), 0,
-		"Getting Job History Reports...");
-		
+		Util.showOrHideActivityIndicator(
+				JobHistoryReportActivity.this.getParent(), 0,
+				"Getting Job History Reports...");
+
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
@@ -89,11 +90,19 @@ public class JobHistoryReportActivity extends ListActivity implements
 		listView = getListView();
 		if (jobHistoryReportList != null) {
 			adapter.data = jobHistoryReportList;
+
 			
-			Util.showOrHideActivityIndicator(JobHistoryReportActivity.this.getParent(), 0,
+			Util.showOrHideActivityIndicator(JobHistoryReportActivity.this.getParent(), 1,
 			"Getting Job History Reports...");
 			
 			
+
+
+			Util.showOrHideActivityIndicator(
+					JobHistoryReportActivity.this.getParent(), 0,
+					"Getting Job History Reports...");
+
+
 			adapter.notifyDataSetChanged();
 		}
 	}
@@ -106,14 +115,17 @@ public class JobHistoryReportActivity extends ListActivity implements
 
 	@Override
 	public void didFailRequestProcessing() {
-		// TODO Auto-generated method stub
+		Util.showOrHideActivityIndicator(JobHistoryReportActivity.this.getParent(), 1,
+				"Getting Job History Reports...");
 
 	}
 
 	@Override
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list) {
-		// TODO Auto-generated method stub
+		
+		Util.showOrHideActivityIndicator(JobHistoryReportActivity.this.getParent(), 1,
+				"Getting Job History Reports...");
 
 	}
 

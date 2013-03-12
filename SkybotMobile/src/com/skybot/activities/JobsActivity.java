@@ -205,7 +205,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 	@Override
 	public void didFinishRequestProcessing() {
-
+		
 	}
 
 	@Override
@@ -222,6 +222,9 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 	@Override
 	public void didFailRequestProcessing() {
+		Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 1,
+				"Requesting Jobs List...");
+		
 		Toast.makeText(getApplicationContext(), "Request Failed",
 				Toast.LENGTH_SHORT).show();
 	}

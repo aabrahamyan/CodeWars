@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.connection.connection.BaseNetworkManager;
@@ -25,19 +26,20 @@ import com.skybot.util.ViewTracker;
 
 public class LoginActivity extends Activity implements ActionDelegate {
 	public static String authToken;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().setSoftInputMode(
-			    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		setContentView(R.layout.login);
 		init();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+
 		ViewTracker.getInstance().setCurrentContext(this);
 		ViewTracker.getInstance().setCurrentViewName(Constants.LOGIN_VIEW);
 	}
@@ -63,21 +65,28 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 	public void loginAction(View v) {
 		
-		Util.showOrHideActivityIndicator(LoginActivity.this, 0, "Logging into Skybot...");
-		// ------------------- Setting up login request here
-		// ------------------//
-		authToken = Base64Coder.encodeRandomBase64(); // "td7b4DquQScIPx9jqs0WSy07YX+AvCjRu/WzdyaCyi0=";
+		// ------------------- Setting up login request here -------------- //
+		authToken = Base64Coder.encodeRandomBase64();
 
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
 		RequestCreator creator = new RequestCreator();
-		if ((username.getText().toString()).equals(password.getText()
-				.toString())) {
+		// TODO: Gor es icnh es gre, ova ase vor partadira username-@ passi het
+		// nuyne lni ???
+		// if ((username.getText().toString()).equals(password.getText()
+		// .toString())) {
+		final String uname = username.getText().toString().trim();
+		final String pass = password.getText().toString().trim();
 
+		if (!uname.isEmpty() && !pass.isEmpty()) {
+			Util.showOrHideActivityIndicator(LoginActivity.this, 0,
+					"Logging into Skybot...");
+			
 			Map<String, String> params = creator.createAppropriateMapRequest(
 
-			Constants.AUTH_TOKEN, authToken, Constants.USERNAME, Constants.ADMIN,
-					Constants.PASSWORD, Constants.ADMIN, Constants.COMMIT, "Log In");
+			Constants.AUTH_TOKEN, authToken, Constants.USERNAME,
+					Constants.ADMIN, Constants.PASSWORD, Constants.ADMIN,
+					Constants.COMMIT, "Log In");
 
 			// ----------------------- Construct POST DATA
 			// ---------------------------//
@@ -89,15 +98,10 @@ public class LoginActivity extends Activity implements ActionDelegate {
 					"Login Successful", "Login Request Started", paramsList,
 
 					this, Constants.LOGIN_VIEW, Constants.LOGIN_SERVICE);
-		} 
-	
-
-		else {
-
-			/*
-			 * Toast.makeText(LoginActivity.this, "Invalid Login",
-			 * Toast.LENGTH_LONG).show();
-			 */
+		} else {
+			Toast.makeText(LoginActivity.this,
+					"Username or Password can not be empty", Toast.LENGTH_LONG)
+					.show();
 		}
 
 	}
@@ -116,20 +120,25 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 		Intent skybottablayoutIntent = new Intent(getApplicationContext(),
 				SkybotTabLayoutActivity.class);
-		
-		Util.showOrHideActivityIndicator(LoginActivity.this, 1, "Logging into Skybot...");
+
+		Util.showOrHideActivityIndicator(LoginActivity.this, 1,
+				"Logging into Skybot...");
 
 		startActivity(skybottablayoutIntent);
 	}
-	
+
 	@Override
-	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list,String service) {
-		
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list, String service) {
+
+		Util.showOrHideActivityIndicator(LoginActivity.this, 1,
+				"Logging into Skybot...");
 	}
 
 	@Override
 	public void didFailRequestProcessing() {
-		// TODO Auto-generated method stub
+		Util.showOrHideActivityIndicator(LoginActivity.this, 1,
+				"Logging into Skybot...");
 
 	}
 
@@ -137,7 +146,7 @@ public class LoginActivity extends Activity implements ActionDelegate {
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }

@@ -19,25 +19,27 @@ import android.graphics.Paint.Align;
 public class AgentEventProcessedChart {
 	
 	public GraphicalView getChart(Object context, ArrayList<HashMap<String, String>> data) {
+		
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); 
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+		GetMaxAxis getMax = new GetMaxAxis();
 		
 		//double[] y = {0.7,0.3,0.4,0.4,0.5,1};
-		double[] y = getValue(data,"manual_events");
+		double[] y1 = getValue(data,"manual_events");
 		CategorySeries series = new CategorySeries("Manual");	
 		
-		for(int i=0;i<y.length;i++) {
+		for(int i=0;i<y1.length;i++) {
 			
-			series.add("Bar " + (i+1), y[i]);
+			series.add("Bar " + (i+1), y1[i]);
 			
 		}
 		
 		//double[] y1 = {0.68,0.25,0.35,0.35,0.45,0.95};
-		double[] y1 = getValue(data, "file_events");
+		double[] y2 = getValue(data, "file_events");
 		CategorySeries series2 = new CategorySeries("File");
-		for(int i=0;i<y1.length;i++) {
+		for(int i=0;i<y2.length;i++) {
 			
-			series2.add(y1[i]);
+			series2.add(y2[i]);
 			
 		}
 		
@@ -57,6 +59,8 @@ public class AgentEventProcessedChart {
 			series4.add(y4[i]);
 		}
 		
+		double maxAxis = getMax.getMax(y1,y2,y3,y4);
+		
 		String[] xLabels = getLabels(data,"label");
 		
 		/** Adding Series to dataset**/
@@ -67,7 +71,7 @@ public class AgentEventProcessedChart {
 		dataset.addSeries(series4.toXYSeries());
 		
 		/** Adding text labels for x axis coordinates**/
-	    for(int i=0;i<y.length;i++) {
+	    for(int i=0;i<y1.length;i++) {
 	    	
 	    	mRenderer.addXTextLabel(i+1,xLabels[i]);
 	    	
@@ -103,6 +107,7 @@ public class AgentEventProcessedChart {
 	    mRenderer.setShowGridX(true);//Shows gridlines for Y axis
 	    mRenderer.setLegendTextSize(15);
 	    mRenderer.setYLabelsAlign(Align.RIGHT);
+	    mRenderer.setYAxisMax(maxAxis);
 	   // mRenderer.setYLabelsPadding(10);   
 	    
 	    /** Multiple BarcHart customization **/
