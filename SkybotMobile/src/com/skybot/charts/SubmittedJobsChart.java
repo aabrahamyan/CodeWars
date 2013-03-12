@@ -13,8 +13,6 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Paint.Align;
-import android.util.Log;
 
 public class SubmittedJobsChart {
 	String key = "terminated_jobs";
@@ -31,7 +29,6 @@ public class SubmittedJobsChart {
 		int[] x = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 		double[] values = getArray(data, "real_value");
 		String[] xLabels = getLabels(data);
-		int labelCount = 0;
 		double maxAxis = getMax.getMax(values,1);
 		
 		//double[] values = {0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,6};
@@ -77,7 +74,8 @@ public class SubmittedJobsChart {
 		mRenderer.setXAxisMax(17);
 		mRenderer.setYAxisMax(maxAxis); //y max +1 Important
 		
-		mRenderer.setYLabelsAlign(Align.RIGHT);
+		//mRenderer.setYLabelsAlign(Align.RIGHT);
+		mRenderer.setYLabelsPadding(20);
 		/** Distance between Y axis and labels**/
 		
 		dataset.addSeries(series);

@@ -3,24 +3,22 @@ package com.skybot.activities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.ScrollItemsFragmentAdapter;
 import com.skybot.charts.singleton.ChartSingleton;
 import com.skybot.connection.connection.BaseNetworkManager;
-import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.util.Constants;
 import com.skybot.util.Util;
-import com.skybot.util.ViewTracker; 
+import com.skybot.util.ViewTracker;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
@@ -35,14 +33,15 @@ import com.viewpagerindicator.PageIndicator;
  */
 public class DashboardActivity extends FragmentActivity implements ActionDelegate{
 	
-	private List<ArrayList<HashMap<String, String>>> dataList;
 	private ScrollItemsFragmentAdapter pagerAdapter;
 	private ViewPager pager;
 	private ChartSingleton chartSingleton = ChartSingleton.getInstance();
 	private PageIndicator mIndicator;
+	private DisplayMetrics dm;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.dashboard_layout);	
+		setContentView(R.layout.dashboard_layout);
 		
 		
 		/** Getting a reference to the ViewPager defined the layout file */
@@ -56,15 +55,16 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 			
 		sendAndGetCharts();
 		
+		dm = new DisplayMetrics();
+		
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+		
 	}
 	
 	private void getCompletedJobsResponse() {
 		
 		String system_time = Long.toString(System.currentTimeMillis());
-		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
-		
-		Map <String,String> dashboard_params = creator.createAppropriateMapRequest(Constants.DATE,system_time);
 		
 		StringBuilder stringBuilder = new StringBuilder(Constants.SERVER_URL);
 		stringBuilder.append(Constants.RIGHT_SLASH)
@@ -89,10 +89,7 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 	
 	public void getTerminatedJobsResponse() {
 		String system_time = Long.toString(System.currentTimeMillis());
-		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
-		
-		Map <String,String> dashboard_params = creator.createAppropriateMapRequest(Constants.DATE,system_time);
 		
 		StringBuilder stringBuilder = new StringBuilder(Constants.SERVER_URL);
 		stringBuilder.append(Constants.RIGHT_SLASH)
@@ -115,10 +112,7 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 	
 	public void getSubmittedJobResponse() {
 		String system_time = Long.toString(System.currentTimeMillis());
-		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
-		
-		Map <String,String> dashboard_params = creator.createAppropriateMapRequest(Constants.DATE,system_time);
 		
 		StringBuilder stringBuilder = new StringBuilder(Constants.SERVER_URL);
 		stringBuilder.append(Constants.RIGHT_SLASH)
@@ -141,10 +135,7 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 	
 	public void getAgentEventsProcessedResponse() {
 		String system_time = Long.toString(System.currentTimeMillis());
-		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
-		
-		Map <String,String> dashboard_params = creator.createAppropriateMapRequest(Constants.DATE,system_time);
 		
 		StringBuilder stringBuilder = new StringBuilder(Constants.SERVER_URL);
 		stringBuilder.append(Constants.RIGHT_SLASH)
@@ -199,12 +190,6 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 	
 	@Override
 	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list, String service) {						
-		
-		for(int i=0;i<list.size();i++) {
-			Log.e("Thread", list.get(i).toString());
-		}
-		
-		
 		
 		if(chartSingleton.charts_reg_counter>0) {
 			

@@ -76,24 +76,24 @@
         android:src="@drawable/info_button" />
 
     <ImageView
-        android:id="@+id/btn1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="10dp"
-        android:contentDescription="RUN"
-        android:src="@drawable/run_job" />
-
-    <ImageView
         android:id="@+id/btn2"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="150dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:contentDescription="HOLD"
         android:src="@drawable/hold_job" />
+
+    <ImageView
+        android:id="@+id/btn1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8.5dp"
+        android:layout_toLeftOf="@id/btn2"
+        android:contentDescription="RUN"
+        android:src="@drawable/run_job" />
 
     <ImageView
         android:id="@+id/btn3"
@@ -102,6 +102,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="200dp"
         android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/btn2"
         android:contentDescription="RELEASE"
         android:src="@drawable/release_job" />
 
