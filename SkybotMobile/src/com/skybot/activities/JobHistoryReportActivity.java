@@ -91,17 +91,13 @@ public class JobHistoryReportActivity extends ListActivity implements
 		if (jobHistoryReportList != null) {
 			adapter.data = jobHistoryReportList;
 
-			
-			Util.showOrHideActivityIndicator(JobHistoryReportActivity.this.getParent(), 1,
-			"Getting Job History Reports...");
-			
-			
-
-
 			Util.showOrHideActivityIndicator(
-					JobHistoryReportActivity.this.getParent(), 0,
+					JobHistoryReportActivity.this.getParent(), 1,
 					"Getting Job History Reports...");
 
+			Util.showOrHideActivityIndicator(
+					JobHistoryReportActivity.this.getParent(), 1,
+					"Getting Job History Reports...");
 
 			adapter.notifyDataSetChanged();
 		}
@@ -115,7 +111,8 @@ public class JobHistoryReportActivity extends ListActivity implements
 
 	@Override
 	public void didFailRequestProcessing() {
-		Util.showOrHideActivityIndicator(JobHistoryReportActivity.this.getParent(), 1,
+		Util.showOrHideActivityIndicator(
+				JobHistoryReportActivity.this.getParent(), 1,
 				"Getting Job History Reports...");
 
 	}
@@ -123,8 +120,9 @@ public class JobHistoryReportActivity extends ListActivity implements
 	@Override
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list) {
-		
-		Util.showOrHideActivityIndicator(JobHistoryReportActivity.this.getParent(), 1,
+
+		Util.showOrHideActivityIndicator(
+				JobHistoryReportActivity.this.getParent(), 1,
 				"Getting Job History Reports...");
 
 	}

@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.skybot.activities.delegate.ActionDelegate;
+import com.skybot.adapters.TestFragmentAdapter;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 /**
