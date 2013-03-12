@@ -230,6 +230,13 @@ public class JobsActivity extends SwipeListViewActivity implements
 	}
 
 	@Override
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public ListView getListView() {
 		return listView;
 	}
@@ -333,18 +340,19 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 		@Override
 		public void onAnimationStart(Animation animation) {
-			View rowView = listView.getChildAt(position);
-			if (directionRight) {
-
-			} else {
-				/*rowView.findViewById(R.id.title).setVisibility(View.VISIBLE);
-				rowView.findViewById(R.id.description).setVisibility(
-						View.VISIBLE);
-				rowView.findViewById(R.id.agent).setVisibility(View.VISIBLE);
-				rowView.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);
-				rowView.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
-				rowView.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);*/
-			}
+			/*
+			 * View rowView = listView.getChildAt(position); if (directionRight)
+			 * {
+			 * 
+			 * } else {
+			 * rowView.findViewById(R.id.title).setVisibility(View.VISIBLE);
+			 * rowView.findViewById(R.id.description).setVisibility(
+			 * View.VISIBLE);
+			 * rowView.findViewById(R.id.agent).setVisibility(View.VISIBLE);
+			 * rowView.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);
+			 * rowView.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
+			 * rowView.findViewById(R.id.btn3).setVisibility(View.INVISIBLE); }
+			 */
 		}
 	}
 
@@ -369,13 +377,6 @@ public class JobsActivity extends SwipeListViewActivity implements
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-	}
-
-	@Override
-	public void didFinishRequestProcessing(
-			ArrayList<HashMap<String, String>> list) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

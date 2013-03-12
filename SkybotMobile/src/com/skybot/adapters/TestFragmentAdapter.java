@@ -7,10 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.skybot.activities.TestFragment;
 
 public class TestFragmentAdapter extends FragmentPagerAdapter {
-	protected static final String[] CONTENT = new String[] { "This", "Is", "A",
-			"Test", };
 
-	private int mCount = CONTENT.length;
+	private int mCount = 7;
 
 	public TestFragmentAdapter(FragmentManager fm) {
 		super(fm);
