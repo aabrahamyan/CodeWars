@@ -64,9 +64,7 @@ public class LoginActivity extends Activity implements ActionDelegate {
 	}
 
 	public void loginAction(View v) {
-
-		Util.showOrHideActivityIndicator(LoginActivity.this, 0,
-				"Logging into Skybot...");
+		
 		// ------------------- Setting up login request here -------------- //
 		authToken = Base64Coder.encodeRandomBase64();
 
@@ -81,7 +79,9 @@ public class LoginActivity extends Activity implements ActionDelegate {
 		final String pass = password.getText().toString().trim();
 
 		if (!uname.isEmpty() && !pass.isEmpty()) {
-
+			Util.showOrHideActivityIndicator(LoginActivity.this, 0,
+					"Logging into Skybot...");
+			
 			Map<String, String> params = creator.createAppropriateMapRequest(
 
 			Constants.AUTH_TOKEN, authToken, Constants.USERNAME,

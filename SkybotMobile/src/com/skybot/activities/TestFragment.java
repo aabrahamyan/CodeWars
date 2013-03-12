@@ -1,5 +1,8 @@
 package com.skybot.activities;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -10,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
+
+@SuppressLint("NewApi")
 public final class TestFragment extends Fragment {
 	int mCurrentPage;
 	private static final String KEY_CONTENT = "TestFragment:Content";
@@ -54,7 +59,14 @@ public final class TestFragment extends Fragment {
 		layout.setGravity(Gravity.CENTER);
 
 		ImageView img = new ImageView(getActivity());
-		img.setBackground(getResources().getDrawable(ICONS[mCurrentPage]));
+		//TODO: ------------ In this case we need to check OS version Manually Aram.
+		int sdk = android.os.Build.VERSION.SDK_INT;
+		if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+			img.setBackgroundDrawable(getResources().getDrawable(ICONS[mCurrentPage]));
+		} else {
+			img.setBackground(getResources().getDrawable(ICONS[mCurrentPage]));
+		}
+				
 		layout.addView(img);
 
 		return layout;
