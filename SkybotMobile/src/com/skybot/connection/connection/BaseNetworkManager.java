@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.serivce.BackgroundResponseAnalizer;
@@ -119,8 +120,15 @@ public class BaseNetworkManager {
 						break;
 					case HttpConnection.DID_ERROR:
 						Exception ex = (Exception) msg.obj;
-						Log.d("Exception occured while hitting response",
+
+						handleProblematicResponse();
+
+						Log.d("Exception occured while hitting response, please try again later",
 								ex.getMessage());
+						Toast.makeText(
+								ViewTracker.getInstance().getCurrentContext(),
+								"Exception occured while hitting response, please try again later",
+								Toast.LENGTH_LONG).show();
 						break;
 
 					}
@@ -152,6 +160,16 @@ public class BaseNetworkManager {
 			backgroundRespAnalyzer.start();
 		}
 
+	}
+
+	/**
+	 * Hides Activity Indicator
+	 */
+	private void handleProblematicResponse() {
+		ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
+				.getCurrentContext();
+
+		del.didFailRequestProcessing();
 	}
 
 }
