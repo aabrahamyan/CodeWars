@@ -21,108 +21,51 @@ public class TerminatedJobsChart {
 		
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-		String[] xLabel = getLabels(data);
-		double[] y1 = getValue(data, "real_canceled_value");
-		DisplayMetrics metrics = new DisplayMetrics();
-		
+		ChartSettings chartSettings = new ChartSettings();
+		XYSeriesRenderer renderer = new XYSeriesRenderer();	 
+		XYSeriesRenderer renderer2 = new XYSeriesRenderer();
+		XYSeriesRenderer renderer3 = new XYSeriesRenderer();
 		GetMaxAxis getMax = new GetMaxAxis();
 		
-		CategorySeries series = new CategorySeries("Canceled");	
-		for(int i=0;i<y1.length;i++) {
-			
-			series.add("Bar " + (i+1), y1[i]);
-			
-		}
-		
+		double[] y1 = getValue(data, "real_canceled_value");
 		double[] y2 = getValue(data, "real_failed_value");
-		CategorySeries series2 = new CategorySeries("Failed");
-		for(int i=0;i<y2.length;i++) {
-			
-			series2.add(y2[i]);
-			
-		}
-		
 		double[] y3 = getValue(data, "real_error_value");
+		String[] xLabels = getLabels(data);
+		
+		double maxAxis = getMax.getMax(y1,y2,y3);
+		
+		CategorySeries series = new CategorySeries("Canceled");	
+		CategorySeries series2 = new CategorySeries("Failed");
 		CategorySeries series3 = new CategorySeries("Error");
 		
-		for(int i = 0; i <y3.length;i++) {
-			series3.add(y3[i]);
-		}
+		chartSettings.setBarChartSetting(mRenderer, maxAxis);
+	
+		chartSettings.addBarChartSeries(dataset, series, y1);
+		chartSettings.addBarChartSeries(dataset, series2, y2);
+		chartSettings.addBarChartSeries(dataset, series3, y3);
 		
+		chartSettings.addBarChartXLabels(mRenderer, xLabels);
 		
-	    double maxAxis = getMax.getMax(y1, y2, y3);
-		/** Adding Series to dataset**/
+		mRenderer.setChartTitle("Terminated Jobs");
 		
-		dataset.addSeries(series.toXYSeries());
-		dataset.addSeries(series2.toXYSeries());
-		dataset.addSeries(series3.toXYSeries());
+		renderer.setColor( Color.parseColor("#65BDE3"));
+	    renderer2.setColor(Color.parseColor("#FCCA76"));
+	    renderer3.setColor(Color.parseColor("#BADC8C"));
 		
-		/** Adding text labels for x axis coordinates**/
-	    for(int i=0;i<y1.length;i++) {
-	    	
-	    	mRenderer.addXTextLabel(i+1,xLabel[i]);
-	    	
-	    }
-	    
-	    mRenderer.setXLabels(0);//Removing x axis values, only text labels are visible
-		
-		/** Settings for whole layout **/
-		
-		mRenderer.setApplyBackgroundColor(true);
-		
-		mRenderer.setBackgroundColor(Color.WHITE);
-		mRenderer.setMarginsColor(Color.WHITE);
-		mRenderer.setLabelsColor(Color.parseColor("#ACADAA"));
-		
-	    mRenderer.setPanEnabled(false, false);
-	    mRenderer.setZoomEnabled(false,false); //Zoom disable
-	    
-	    mRenderer.setBarSpacing(0.3); // Distance between bar groups
-	    mRenderer.setShowGrid(true);
-	    
-	    mRenderer.setChartTitle("Terminated Jobs");
-	    mRenderer.setLabelsTextSize(20); 
-	    mRenderer.setLabelsColor(Color.parseColor("#ACADAA"));
-	    
+	    mRenderer.setShowLegend(true);
 	    mRenderer.setLegendHeight(40);
+	    mRenderer.setLegendTextSize(20);	
 	    
 	    mRenderer.setMargins(new int[] {30,40,30,0});
 	    
-	    /**X axis settings**/
-	    
 	    mRenderer.setXAxisMax(8);
 	    mRenderer.setXAxisMin(0);
-	    mRenderer.setChartTitleTextSize(20);
-	    mRenderer.setXLabelsColor(Color.parseColor("#ACADAA"));
-	    			
-	    /**Y axis settings **/
 	    
-	    mRenderer.setYLabelsPadding(10);
-	    mRenderer.setYAxisMax(maxAxis);
-	    mRenderer.setYAxisMin(0);
-	    mRenderer.setShowGridX(true);//Shows gridlines for Y axis
-	    
-//	    for(int i=0;i<maxAxis;i++) {
-//			mRenderer.setYLabelsColor(i,Color.parseColor("#ACADAA"));
-//		}
-	    
-	    mRenderer.setLegendTextSize(20);	
 	    mRenderer.setYLabelsAlign(Align.RIGHT);
-	    //mRenderer.setYLabelsPadding(-20);
-	    
-	    /** Multiple BarcHart customization **/
-	    //Cancelled
-	    
-	    XYSeriesRenderer renderer = new XYSeriesRenderer();	    
-	    renderer.setColor( Color.parseColor("#65BDE3"));
-	 
-	    XYSeriesRenderer renderer2 = new XYSeriesRenderer();
-	    renderer2.setColor(Color.parseColor("#FCCA76"));
-	    
-	    XYSeriesRenderer renderer3 = new XYSeriesRenderer();
-	    renderer3.setColor(Color.parseColor("#BADC8C"));
-	    
-	   /** Adding Single renderers to multiple renderer **/
+	  
+	    dataset.addSeries(series.toXYSeries());
+		dataset.addSeries(series2.toXYSeries());
+		dataset.addSeries(series3.toXYSeries());
 	    
 	    mRenderer.addSeriesRenderer(renderer);
 	    mRenderer.addSeriesRenderer(renderer2);
