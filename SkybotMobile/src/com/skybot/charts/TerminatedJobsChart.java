@@ -13,19 +13,19 @@ import org.achartengine.renderer.XYSeriesRenderer;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
-import android.util.Log;
-
+import 	android.util.DisplayMetrics;
 
 public class TerminatedJobsChart {
 	
 	public GraphicalView getChart(Object context, ArrayList<HashMap<String, String>> data) {
 		
-		String[] xLabel = getLabels(data);
-		
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-		
+		String[] xLabel = getLabels(data);
 		double[] y1 = getValue(data, "real_canceled_value");
+		DisplayMetrics metrics = new DisplayMetrics();
+		
+		GetMaxAxis getMax = new GetMaxAxis();
 		
 		CategorySeries series = new CategorySeries("Canceled");	
 		for(int i=0;i<y1.length;i++) {
@@ -49,8 +49,6 @@ public class TerminatedJobsChart {
 			series3.add(y3[i]);
 		}
 		
-		GetMaxAxis getMax = new GetMaxAxis();
-		
 		
 	    double maxAxis = getMax.getMax(y1, y2, y3);
 		/** Adding Series to dataset**/
@@ -65,6 +63,7 @@ public class TerminatedJobsChart {
 	    	mRenderer.addXTextLabel(i+1,xLabel[i]);
 	    	
 	    }
+	    
 	    mRenderer.setXLabels(0);//Removing x axis values, only text labels are visible
 		
 		/** Settings for whole layout **/
@@ -73,6 +72,7 @@ public class TerminatedJobsChart {
 		
 		mRenderer.setBackgroundColor(Color.WHITE);
 		mRenderer.setMarginsColor(Color.WHITE);
+		mRenderer.setLabelsColor(Color.parseColor("#ACADAA"));
 		
 	    mRenderer.setPanEnabled(false, false);
 	    mRenderer.setZoomEnabled(false,false); //Zoom disable
@@ -82,21 +82,30 @@ public class TerminatedJobsChart {
 	    
 	    mRenderer.setChartTitle("Terminated Jobs");
 	    mRenderer.setLabelsTextSize(20); 
+	    mRenderer.setLabelsColor(Color.parseColor("#ACADAA"));
 	    
-	    mRenderer.setLegendHeight(50);
+	    mRenderer.setLegendHeight(40);
 	    
-	    //mRenderer.setMargins(new int[] {0,10,10,0});
+	    mRenderer.setMargins(new int[] {30,40,30,0});
+	    
 	    /**X axis settings**/
 	    
 	    mRenderer.setXAxisMax(8);
 	    mRenderer.setXAxisMin(0);
 	    mRenderer.setChartTitleTextSize(20);
+	    mRenderer.setXLabelsColor(Color.parseColor("#ACADAA"));
 	    			
 	    /**Y axis settings **/
+	    
 	    mRenderer.setYLabelsPadding(10);
 	    mRenderer.setYAxisMax(maxAxis);
 	    mRenderer.setYAxisMin(0);
 	    mRenderer.setShowGridX(true);//Shows gridlines for Y axis
+	    
+//	    for(int i=0;i<maxAxis;i++) {
+//			mRenderer.setYLabelsColor(i,Color.parseColor("#ACADAA"));
+//		}
+	    
 	    mRenderer.setLegendTextSize(20);	
 	    mRenderer.setYLabelsAlign(Align.RIGHT);
 	    //mRenderer.setYLabelsPadding(-20);

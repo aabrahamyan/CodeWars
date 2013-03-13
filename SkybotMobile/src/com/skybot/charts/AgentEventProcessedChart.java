@@ -13,7 +13,6 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Paint.Align;
 
 
 public class AgentEventProcessedChart {
@@ -37,6 +36,7 @@ public class AgentEventProcessedChart {
 		//double[] y1 = {0.68,0.25,0.35,0.35,0.45,0.95};
 		double[] y2 = getValue(data, "file_events");
 		CategorySeries series2 = new CategorySeries("File");
+		
 		for(int i=0;i<y2.length;i++) {
 			
 			series2.add(y2[i]);
@@ -94,7 +94,7 @@ public class AgentEventProcessedChart {
 	    mRenderer.setChartTitle("Agent Events Processed");
 	    mRenderer.setChartTitleTextSize(20);
 	    
-	    mRenderer.setLabelsTextSize(15); 
+	    mRenderer.setLabelsTextSize(20); 
 	    mRenderer.setLegendHeight(60);
 	    
 	    /**X axis settings**/
@@ -106,7 +106,7 @@ public class AgentEventProcessedChart {
 	    
 	    mRenderer.setShowGridX(true);//Shows gridlines for Y axis
 	    mRenderer.setLegendTextSize(15);
-	    mRenderer.setYLabelsAlign(Align.RIGHT);
+	    mRenderer.setYLabelsPadding(20);
 	    mRenderer.setYAxisMax(maxAxis);
 	   // mRenderer.setYLabelsPadding(10);   
 	    

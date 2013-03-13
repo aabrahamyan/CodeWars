@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.achartengine.GraphicalView;
-import org.achartengine.model.SeriesSelection;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.skybot.charts.CheckPageCoordinates;
 
