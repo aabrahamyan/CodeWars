@@ -11,6 +11,8 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import com.skybot.activities.DashboardActivity;
+
 import android.content.Context;
 import android.graphics.Color;
 
@@ -21,84 +23,40 @@ public class CompletedJobsChart {
 
 	public GraphicalView getChart(Object context,
 			ArrayList<HashMap<String, String>> data) {
-
 		
-
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
-		double[] y = getValue(data);
-		String[] xLabels = getLabels(data);
-		GetMaxAxis getAxis = new GetMaxAxis();
-		
-		// double[] y = {0.2,0.3,0.4,0.5,0.9,0,0.3};
-		CategorySeries series = new CategorySeries("Completed Jobs");
-
-		for (int i = 0; i < y.length; i++) {
-			series.add(y[i]);
-		}
-
-		/** Setting Labels For X Axis **/
-
-		for (int i = 0; i < xLabels.length; i++) {
-			mRenderer.addXTextLabel(i + 1, xLabels[i]);
-		}
-		mRenderer.setXLabels(0);
-
-		
-		double maxAxis = getAxis.getMax(y, 1);
-
 		XYSeriesRenderer renderer = new XYSeriesRenderer();
-		dataset.addSeries(series.toXYSeries());
-
-		/** Single BarChart customisation **/
-		//renderer.setDisplayChartValues(true);
+		ChartSettings chartSettings = new ChartSettings();
+		GetMaxAxis getMax = new GetMaxAxis();
+		
+		double[] y = getValue(data);
+		double maxAxis = getMax.getMax(y, 1);
+		String[] xLabels = getLabels(data);
+		
+		
+		CategorySeries series = new CategorySeries("Completed Jobs");
+		
+		chartSettings.setBarChartSetting(mRenderer, maxAxis);
+		
+		chartSettings.addBarChartSeries(dataset, series, y);
+		
+		chartSettings.addBarChartXLabels(mRenderer, xLabels);
+		
 		renderer.setColor(Color.parseColor("#65BDE3"));
-
-		/** Layout Settings **/
-
-		mRenderer.setApplyBackgroundColor(true);
-		mRenderer.setBackgroundColor(Color.WHITE);
-		mRenderer.setMarginsColor(Color.WHITE);
-
-		mRenderer.setPanEnabled(false, false);
-		mRenderer.setZoomEnabled(false, false); // Zoom disable
-
-		mRenderer.setShowGrid(true);
-
+		
 		mRenderer.setChartTitle("Completed Jobs");
-		mRenderer.setChartTitleTextSize(25);
-		mRenderer.setLabelsColor(Color.parseColor("#ACADAA"));
-
-		mRenderer.setBarSpacing(0.3);
-		mRenderer.setLabelsTextSize(20);
-
-		mRenderer.setInScroll(true);
-		mRenderer.addSeriesRenderer(renderer);
-		mRenderer.setMargins(new int[] { 40, 40, 0, 0 });
-		mRenderer.setAxesColor(Color.parseColor("#ACADAA"));
 		
+		mRenderer.setMargins(new int[] { 40, 40, 0, 0 });//
 		
-		/** Distance between y axis and labels **/
-
-		/** X axis customisation settings **/
-
 		mRenderer.setXAxisMax(8);
 		mRenderer.setXAxisMin(0);
-		mRenderer.setXLabelsPadding(20);
-		mRenderer.setXLabelsColor(Color.parseColor("#ACADAA"));
 		
-		/** Y axis customisation Settings **/
-
-		mRenderer.setYAxisMax(maxAxis);
-		mRenderer.setYAxisMin(0);
-		mRenderer.setYLabelsPadding(20);
+		dataset.addSeries(series.toXYSeries());
+		mRenderer.addSeriesRenderer(renderer);
 		
-		for(int i=0;i<maxAxis;i++) {
-			mRenderer.setYLabelsColor(i,Color.parseColor("#ACADAA"));
-		}
+		chartSettings.addYlabelsColor(mRenderer, maxAxis);
 		
-		mRenderer.setShowLegend(false);
-
 		GraphicalView chartView = ChartFactory.getBarChartView(
 				(Context) context, dataset, mRenderer, Type.DEFAULT);
 		return chartView;
