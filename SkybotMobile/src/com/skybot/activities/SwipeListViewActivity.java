@@ -75,7 +75,10 @@ public abstract class SwipeListViewActivity extends Activity {
 	private void myOnItemClick(int position) {
 		if (position < 0)
 			return;
-		onItemClickListener(list.getAdapter(), position);
+
+		int firstVisiblePosition = list.getFirstVisiblePosition();
+		int pos = position - firstVisiblePosition;
+		onItemClickListener(list.getAdapter(), pos);
 
 	}
 

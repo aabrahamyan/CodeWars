@@ -130,6 +130,10 @@ public class BaseNetworkManager {
 								"Exception occured while hitting response, please try again later",
 								Toast.LENGTH_LONG).show();
 						break;
+					
+					case HttpConnection.PUBLISH_SUCCESS:
+						
+						break;
 
 					}
 				}

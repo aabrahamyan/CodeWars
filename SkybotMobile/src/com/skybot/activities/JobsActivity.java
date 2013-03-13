@@ -7,6 +7,10 @@ import java.util.Map;
 
 import org.apache.http.NameValuePair;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -80,6 +84,16 @@ public class JobsActivity extends SwipeListViewActivity implements
 		baseNetworkManager.constructConnectionAndHitGET("Login Successful",
 				"Jobs Request Started", urlStringWithParams, this,
 				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
+	}
+
+	public void signOutRequest() {
+		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
+		String urlStringWithParams = Constants.SERVER_URL
+				+ Constants.RIGHT_SLASH + Constants.SIGN_OUT;
+
+		baseNetworkManager.constructConnectionAndHitGET("Log out Successful",
+				"Log out Request Started", urlStringWithParams, this,
+				Constants.LOGOUT_VIEW, Constants.SIGN_OUT);
 	}
 
 	@Override
@@ -304,7 +318,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 						View.INVISIBLE);
 				rowView.findViewById(R.id.agent).setVisibility(View.INVISIBLE);
 				rowView.findViewById(R.id.btn1).setVisibility(View.VISIBLE);
-				rowView.findViewById(R.id.btn2).setVisibility(View.VISIBLE);
+				// rowView.findViewById(R.id.btn2).setVisibility(View.VISIBLE);
 				rowView.findViewById(R.id.btn3).setVisibility(View.VISIBLE);
 				rowView.findViewById(R.id.list_image).setVisibility(
 						View.INVISIBLE);
@@ -322,7 +336,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 						View.VISIBLE);
 				rowView.findViewById(R.id.agent).setVisibility(View.VISIBLE);
 				rowView.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);
-				rowView.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
+				// rowView.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
 				rowView.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);
 				rowView.findViewById(R.id.list_image).setVisibility(
 						View.VISIBLE);
@@ -379,4 +393,43 @@ public class JobsActivity extends SwipeListViewActivity implements
 		}
 	}
 
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onBackPressed() {
+		showDialog(10);
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case 10:
+			// Create out AlterDialog
+			Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Do you want to log out?");
+			builder.setCancelable(true);
+			builder.setPositiveButton("Yes", new OkOnClickListener());
+			builder.setNegativeButton("No", new CancelOnClickListener());
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
+		return super.onCreateDialog(id);
+	}
+
+	private final class CancelOnClickListener implements
+			DialogInterface.OnClickListener {
+		public void onClick(DialogInterface dialog, int which) {
+
+		}
+	}
+
+	private final class OkOnClickListener implements
+			DialogInterface.OnClickListener {
+		public void onClick(DialogInterface dialog, int which) {
+			signOutRequest();
+			JobsActivity.this.finish();
+			Toast.makeText(getApplicationContext(), "Log out",
+					Toast.LENGTH_LONG).show();
+		}
+	}
 }

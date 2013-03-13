@@ -4,6 +4,10 @@ package com.skybot.activities;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -11,7 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.Log;
-
+import android.widget.Toast;
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.ScrollItemsFragmentAdapter;
 import com.skybot.charts.singleton.ChartSingleton;
@@ -264,7 +268,46 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 		// TODO Auto-generated method stub
 		
 	}
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onBackPressed() {
+		showDialog(10);
+	}
 
+	@SuppressWarnings("deprecation")
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case 10:
+			// Create out AlterDialog
+			Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Do you want to log out?");
+			builder.setCancelable(true);
+			builder.setPositiveButton("Yes", new OkOnClickListener());
+			builder.setNegativeButton("No", new CancelOnClickListener());
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
+		return super.onCreateDialog(id);
+	}
+
+	private final class CancelOnClickListener implements
+			DialogInterface.OnClickListener {
+		public void onClick(DialogInterface dialog, int which) {
+
+		}
+	}
+
+	private final class OkOnClickListener implements
+			DialogInterface.OnClickListener {
+		public void onClick(DialogInterface dialog, int which) {
+			JobsActivity jobsActivity = new JobsActivity();
+			jobsActivity.signOutRequest();
+			DashboardActivity.this.finish();
+			Toast.makeText(getApplicationContext(), "Log out",
+					Toast.LENGTH_LONG).show();
+		}
+	}
 
 	}
 	/*

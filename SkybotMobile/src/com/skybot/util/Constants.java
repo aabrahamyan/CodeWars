@@ -4,7 +4,7 @@ public class Constants {
 
 	// ---------------------------- General HTTP Request Information
 	// ----------------//
-	public static String SERVER_URL = "http://192.168.0.5:8008/skybot-scheduler"; // "http://192.168.0.152:3000";
+	public static String SERVER_URL = "http://212.34.250.251:8008/skybot-scheduler";//"http://192.168.0.5:8008/skybot-scheduler"; // "http://192.168.0.152:3000";
 	public static String API_KEY = "";
 	public static final String EQUAL = "=";
 	public static final String FIRST_PARAM_SEPARATOR = "?";
@@ -28,6 +28,7 @@ public class Constants {
 	public static final String AGENT_SERVICE_URL = "agents.json";
 	public static final String AGENT_SERVICE = "agents";
 	public static final String JOB_SERVICE_URL = "jobs.json";
+	public static final String SIGN_OUT = "signout";
 	public static final String DASHBOARD_SERVICE_URL = "show.json";
 	public static final String DATE = "_dc";
 	public static final String USERID="user_id";
@@ -71,6 +72,7 @@ public class Constants {
 	// ---------------------------- Views ----------------------------------//
 
 	public static final String LOGIN_VIEW = "LoginView";
+	public static final String LOGOUT_VIEW = "LogoutView";
 	public static final String JOBS_VIEW = "JobsView";
 	public static final String DASHBOARD_VIEW = "DashboardView";
 	public static final String JOBSHISTORY_VIEW = "JobsHistoryView";

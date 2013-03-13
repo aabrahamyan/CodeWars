@@ -1,6 +1,5 @@
 package com.skybot.activities;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -78,7 +77,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		TabSpec apikeyspec = tabHost.newTabSpec("Help");
 		apikeyspec.setIndicator("Help",
 				getResources().getDrawable(R.drawable.icon_help_tab));
-		Intent apikeyIntent = new Intent(this, SettingsActivity.class);
+		Intent apikeyIntent = new Intent(this, HelpActivity.class);
 		apikeyspec.setContent(apikeyIntent);
 
 		// Adding all TabSpec to TabHost
@@ -91,9 +90,6 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 
 	}
 
-	
-
-	
 	// ---------------------------------- Menu Callbacks
 	// -------------------------------//
 	@Override
@@ -128,25 +124,24 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		// TODO Auto-generated method stub
 
 	}
+
 	@Override
-	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list, String service) {
-		
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list, String service) {
+
 	}
+
 	@Override
 	public void didFailRequestProcessing() {
 		// TODO Auto-generated method stub
 
 	}
 
-
-
-
 	@Override
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }
