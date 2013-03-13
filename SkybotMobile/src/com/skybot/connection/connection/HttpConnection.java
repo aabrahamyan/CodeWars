@@ -1,8 +1,12 @@
 package com.skybot.connection.connection;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -44,12 +48,14 @@ public class HttpConnection implements Runnable {
 	public static final int DID_START = 0;
 	public static final int DID_ERROR = 1;
 	public static final int DID_SUCCEED = 2;
+	public static final int PUBLISH_SUCCESS = 3;
 
 	private static final int GET = 0;
 	private static final int POST = 1;
 	private static final int PUT = 2;
 	private static final int DELETE = 3;
 	private static final int BITMAP = 4;
+	private static final int FILE = 5;
 
 	private String cookieString = "";
 	private String url;
@@ -118,7 +124,7 @@ public class HttpConnection implements Runnable {
 				if (cookieString != null) {
 					httpGet.setHeader("Cookie", cookieString);
 				}
-				response = httpClient.execute(httpGet);				
+				response = httpClient.execute(httpGet);
 				break;
 			case POST:
 				httpClient.getParams().setParameter(ClientPNames.COOKIE_POLICY,
@@ -145,7 +151,7 @@ public class HttpConnection implements Runnable {
 						"text/html,application/xml,"
 								+ "application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");
 				httpPost.setHeader("Content-Type",
-						"application/x-www-form-urlencoded");				
+						"application/x-www-form-urlencoded");
 
 				// httpPost.addHeader("Cookie",
 				// "_SchEnt2_session=740c8dc090d32826155e8eb8b8e63f37");
@@ -163,6 +169,14 @@ public class HttpConnection implements Runnable {
 			case BITMAP:
 				response = httpClient.execute(new HttpGet(url));
 				processBitmapEntity(response.getEntity());
+				break;
+			case FILE:
+				HttpGet httpFile = new HttpGet(url);
+				if (cookieString != null) {
+					httpFile.setHeader("Cookie", cookieString);
+				}
+				response = httpClient.execute(httpFile);
+
 				break;
 			}
 			if (method < BITMAP)
@@ -194,8 +208,12 @@ public class HttpConnection implements Runnable {
 
 		if (CookieStorage.getInstance().getArrayList().isEmpty()
 				&& cookieString != null) {
-			CookieStorage.getInstance().getArrayList().add(cookieString+"; ys-job_historiesGrid=o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253A"
-					+"; ys-job_start_job_new = o%3Awidth%3Dn%253A530%5Eheight%3Dn%253A540");
+			CookieStorage
+					.getInstance()
+					.getArrayList()
+					.add(cookieString
+							+ "; ys-job_historiesGrid=o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253A"
+							+ "; ys-job_start_job_new = o%3Awidth%3Dn%253A530%5Eheight%3Dn%253A540");
 		}
 
 		// -------------------- Analyze Content ------------------------//
@@ -214,6 +232,38 @@ public class HttpConnection implements Runnable {
 		BufferedHttpEntity bufHttpEntity = new BufferedHttpEntity(entity);
 		Bitmap bm = BitmapFactory.decodeStream(bufHttpEntity.getContent());
 		handler.sendMessage(Message.obtain(handler, DID_SUCCEED, bm));
+	}
+
+	private void processFileEntity(HttpEntity entity) {
+		final long fileLength = entity.getContentLength();
+
+		try {
+			InputStream input = new BufferedInputStream(entity.getContent());
+			OutputStream output = new FileOutputStream(
+					"/sdcard/CURRENT_REPORT.pdf");
+
+			byte data[] = new byte[1024];
+			long total = 0;
+			int count;
+			while ((count = input.read(data)) != -1) {
+				total += count;
+				// publishing the progress....
+				// TODO:publishProgress((int) (total * 100 / fileLength));
+				output.write(data, 0, count);
+			}
+
+			output.flush();
+			output.close();
+			input.close();
+
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

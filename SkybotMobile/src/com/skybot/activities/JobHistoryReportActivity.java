@@ -69,8 +69,9 @@ public class JobHistoryReportActivity extends ListActivity implements
 
 	@Override
 	public void onResume() {
-		super.onResume();
+		super.onResume();		
 		ViewTracker.getInstance().setCurrentContext(this);
+		
 		if (DataHolder.getInstance().reportsList.isEmpty()) {
 			getJobHistoryReportResponse();
 		}
@@ -103,6 +104,9 @@ public class JobHistoryReportActivity extends ListActivity implements
 					"Getting Job History Reports...");
 
 
+			Util.showOrHideActivityIndicator(JobHistoryReportActivity.this.getParent(), 1,
+					"Getting Job History Reports...");
+			
 			adapter.notifyDataSetChanged();
 		}
 	}
