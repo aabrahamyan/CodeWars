@@ -75,6 +75,7 @@ public class JobHistoryReportActivity extends ListActivity implements
 	public void onResume() {
 		super.onResume();
 		ViewTracker.getInstance().setCurrentContext(this);
+
 		if (DataHolder.getInstance().reportsList.isEmpty()) {
 			getJobHistoryReportResponse();
 		}
@@ -98,20 +99,6 @@ public class JobHistoryReportActivity extends ListActivity implements
 			Util.showOrHideActivityIndicator(
 					JobHistoryReportActivity.this.getParent(), 1,
 					"Getting Job History Reports...");
-
-			Util.showOrHideActivityIndicator(
-					JobHistoryReportActivity.this.getParent(), 1,
-					"Getting Job History Reports...");
-
-			Util.showOrHideActivityIndicator(
-					JobHistoryReportActivity.this.getParent(), 1,
-					"Getting Job History Reports...");
-
-			/*
-			 * Util.showOrHideActivityIndicator(
-			 * JobHistoryReportActivity.this.getParent(), 0,
-			 * "Getting Job History Reports...");
-			 */
 
 			adapter.notifyDataSetChanged();
 		}
