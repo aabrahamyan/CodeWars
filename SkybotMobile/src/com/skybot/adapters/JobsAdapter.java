@@ -169,7 +169,7 @@ public class JobsAdapter extends BaseAdapter {
 		vi.findViewById(R.id.description).setVisibility(View.VISIBLE);
 		vi.findViewById(R.id.agent).setVisibility(View.VISIBLE);
 		vi.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);
-		// vi.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
+		 vi.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
 		vi.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);
 		vi.findViewById(R.id.list_image).setVisibility(View.VISIBLE);
 		vi.findViewById(R.id.details).setVisibility(View.VISIBLE);
