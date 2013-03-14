@@ -63,7 +63,6 @@ public class JobsAdapter extends BaseAdapter {
 		TextView agent = (TextView) vi.findViewById(R.id.agent); // agent
 		ImageView image = (ImageView) vi.findViewById(R.id.list_image); // status
 		final ImageView runBtn = (ImageView) vi.findViewById(R.id.btn1);
-		// ImageView holdBtn = (ImageView) vi.findViewById(R.id.btn2);
 		ImageView releaseBtn = (ImageView) vi.findViewById(R.id.btn3);
 		ImageView showDetails = (ImageView) vi.findViewById(R.id.details);
 
@@ -92,7 +91,6 @@ public class JobsAdapter extends BaseAdapter {
 				runid[0] = m.get("runid");
 				runid[1] = status;
 				runBtn.setTag(runid);
-				// holdBtn.setTag(runid);
 				releaseBtn.setTag(runid);
 				final HashMap<String, String> detailMap;
 				detailMap = m;
@@ -127,8 +125,7 @@ public class JobsAdapter extends BaseAdapter {
 							} else {
 								runBtn.setBackground(hold);
 							}
-						} else if (rid[1].equals("Running")
-								|| rid[1].equals("Released")) {
+						} else if (rid[1].equals("Running")) {
 							jobsActivity.holdJob(v, rid[0]);
 							int sdk = android.os.Build.VERSION.SDK_INT;
 							if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -139,13 +136,7 @@ public class JobsAdapter extends BaseAdapter {
 						}
 					}
 				});
-				/*
-				 * holdBtn.setOnClickListener(new OnClickListener() {
-				 * 
-				 * @Override public void onClick(View v) { String id =
-				 * v.getTag().toString(); JobsActivity jobsActivity = new
-				 * JobsActivity(); jobsActivity.holdJob(v, id); } });
-				 */
+
 				releaseBtn.setOnClickListener(new OnClickListener() {
 
 					@Override
