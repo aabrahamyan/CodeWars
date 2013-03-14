@@ -51,7 +51,7 @@ public class AgentEventProcessedChart {
 		chartSettings.addBarChartXLabels(mRenderer, xLabels);
 
 	    mRenderer.setChartTitle("Agent Events Processed");
-	    mRenderer.setMargins(new int[] { 40, 40, 0, 0 });
+	   // mRenderer.setMargins(new int[] { 40, 40, 0, 0 });
 		
 	    mRenderer.setShowLegend(true);
 	    mRenderer.setLabelsTextSize(20); 

@@ -86,4 +86,19 @@ public class Constants {
 	public static final String TERMINATED_JOBS_ID = "5";
 	public static final String SUBMITTED_JOBS_ID = "1";
 	public static final String AGENT_EVENT_PROCESSED_ID = "10";
+	
+	// ---------------- Chart sizes ------------------------------------------//
+	public static final int TEXT_SIZE_WWW = 50;
+	public static final int TEXT_SIZE_XXHDPI = 26;
+	public static final int TEXT_SIZE_XHDPI = 24;
+	public static final int TEXT_SIZE_HDPI = 22;
+	public static final int TEXT_SIZE_MDPI = 20;
+	public static final int TEXT_SIZE_LDPI = 20;
+	
+	// ---------------- Chart sizes ------------------------------------------//
+	public static final int TITLE_TEXT_SIZE = 40;
+	public static final int LABELS_TEXT_SIZE = 40;
+	public static final int X_LABELS_PADDING = 40;
+	public static final int Y_LABELS_PADDING = 40;
+	
 }
