@@ -59,44 +59,4 @@ public class JobsDetailsActivity extends Activity implements ActionDelegate {
 			ArrayList<HashMap<String, String>> list, String service) {
 
 	}
-	@SuppressWarnings("deprecation")
-	@Override
-	public void onBackPressed() {
-		showDialog(10);
-	}
-
-	@SuppressWarnings("deprecation")
-	@Override
-	protected Dialog onCreateDialog(int id) {
-		switch (id) {
-		case 10:
-			// Create out AlterDialog
-			Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Do you want to log out?");
-			builder.setCancelable(true);
-			builder.setPositiveButton("Yes", new OkOnClickListener());
-			builder.setNegativeButton("No", new CancelOnClickListener());
-			AlertDialog dialog = builder.create();
-			dialog.show();
-		}
-		return super.onCreateDialog(id);
-	}
-
-	private final class CancelOnClickListener implements
-			DialogInterface.OnClickListener {
-		public void onClick(DialogInterface dialog, int which) {
-
-		}
-	}
-
-	private final class OkOnClickListener implements
-			DialogInterface.OnClickListener {
-		public void onClick(DialogInterface dialog, int which) {
-			JobsActivity jobsActivity = new JobsActivity();
-			jobsActivity.signOutRequest();
-			JobsDetailsActivity.this.finish();
-			Toast.makeText(getApplicationContext(), "Log out",
-					Toast.LENGTH_LONG).show();
-		}
-	}
 }
