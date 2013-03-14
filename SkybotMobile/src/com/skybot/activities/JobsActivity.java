@@ -317,8 +317,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 				rowView.findViewById(R.id.description).setVisibility(
 						View.INVISIBLE);
 				rowView.findViewById(R.id.agent).setVisibility(View.INVISIBLE);
-				rowView.findViewById(R.id.btn1).setVisibility(View.VISIBLE);
-				 rowView.findViewById(R.id.btn2).setVisibility(View.VISIBLE);
+				rowView.findViewById(R.id.btn1).setVisibility(View.VISIBLE);				
 				rowView.findViewById(R.id.btn3).setVisibility(View.VISIBLE);
 				rowView.findViewById(R.id.list_image).setVisibility(
 						View.INVISIBLE);
@@ -335,8 +334,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 				rowView.findViewById(R.id.description).setVisibility(
 						View.VISIBLE);
 				rowView.findViewById(R.id.agent).setVisibility(View.VISIBLE);
-				rowView.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);
-			 rowView.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
+				rowView.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);			
 				rowView.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);
 				rowView.findViewById(R.id.list_image).setVisibility(
 						View.VISIBLE);
