@@ -76,23 +76,23 @@
         android:src="@drawable/info_button" />
 
     <ImageView
+        android:id="@+id/btn3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/btn1"
+        android:contentDescription="RELEASE"
+        android:src="@drawable/release_job" />
+
+    <ImageView
         android:id="@+id/btn1"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:contentDescription="HOLD"
         android:src="@drawable/run_job" />
-
-    <ImageView
-        android:id="@+id/btn3"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:contentDescription="RELEASE"
-        android:src="@drawable/release_job" />
 
 </RelativeLayout>
