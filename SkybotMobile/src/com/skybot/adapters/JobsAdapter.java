@@ -57,6 +57,8 @@ public class JobsAdapter extends BaseAdapter {
 		View vi = convertView;
 		if (convertView == null)
 			vi = inflater.inflate(R.layout.jobs_layout, null);
+		if (vi.getTag() == null)
+			vi.setTag("left");
 
 		TextView title = (TextView) vi.findViewById(R.id.title); // title
 		TextView description = (TextView) vi.findViewById(R.id.description); // description

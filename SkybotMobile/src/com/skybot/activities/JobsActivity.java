@@ -45,7 +45,6 @@ public class JobsActivity extends SwipeListViewActivity implements
 		ActionDelegate {
 
 	private ListView listView;
-	private boolean directionRight = false;
 	private JobsAdapter adapter;
 	public static ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
 
@@ -260,24 +259,24 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 		View rowView = listView.getChildAt(position);
 		if (isRight) {
-			if (!directionRight) {
+			if (rowView.getTag().toString() == "left") {
 				rowView.startAnimation(getDeleteAnimation(0,
 						rowView.getWidth(), position));
-				directionRight = true;
+				rowView.setTag("right");
 			} else {
 				rowView.startAnimation(getDeleteAnimation(0,
 						rowView.getWidth(), position));
-				directionRight = false;
+				rowView.setTag("left");
 			}
 		} else {
-			if (directionRight) {
+			if (rowView.getTag().toString() == "left") {
 				rowView.startAnimation(getDeleteAnimation(rowView.getWidth(),
 						0, position));
-				directionRight = false;
+				rowView.setTag("right");
 			} else {
 				rowView.startAnimation(getDeleteAnimation(rowView.getWidth(),
 						0, position));
-				directionRight = true;
+				rowView.setTag("left");
 			}
 		}
 
@@ -285,8 +284,8 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 	@Override
 	public void onItemClickListener(ListAdapter adapter, int position) {
-
-		if (directionRight)
+		View rowView = listView.getChildAt(position);
+		if (rowView.getTag().toString() == "right")
 			getSwipeItem(false, position);
 	}
 
@@ -311,13 +310,13 @@ public class JobsActivity extends SwipeListViewActivity implements
 		@Override
 		public void onAnimationEnd(Animation arg0) {
 			View rowView = listView.getChildAt(position);
-			if (directionRight) {
+			if (rowView.getTag().toString() == "right") {
 				rowView.setBackgroundColor(Color.GRAY);
 				rowView.findViewById(R.id.title).setVisibility(View.INVISIBLE);
 				rowView.findViewById(R.id.description).setVisibility(
 						View.INVISIBLE);
 				rowView.findViewById(R.id.agent).setVisibility(View.INVISIBLE);
-				rowView.findViewById(R.id.btn1).setVisibility(View.VISIBLE);				
+				rowView.findViewById(R.id.btn1).setVisibility(View.VISIBLE);
 				rowView.findViewById(R.id.btn3).setVisibility(View.VISIBLE);
 				rowView.findViewById(R.id.list_image).setVisibility(
 						View.INVISIBLE);
@@ -334,7 +333,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 				rowView.findViewById(R.id.description).setVisibility(
 						View.VISIBLE);
 				rowView.findViewById(R.id.agent).setVisibility(View.VISIBLE);
-				rowView.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);			
+				rowView.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);
 				rowView.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);
 				rowView.findViewById(R.id.list_image).setVisibility(
 						View.VISIBLE);

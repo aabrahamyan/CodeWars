@@ -104,7 +104,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 	// -------------------------------------------Push------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------
 
-	@Override
+/*	@Override
 	protected void onDestroy() {
 		if (mRegisterTask != null) {
 			mRegisterTask.cancel(true);
@@ -112,7 +112,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		unregisterReceiver(mHandleMessageReceiver);
 		GCMRegistrar.onDestroy(this);
 		super.onDestroy();
-	}
+	}*/
 
 	private void checkNotNull(Object reference, String name) {
 		if (reference == null) {
