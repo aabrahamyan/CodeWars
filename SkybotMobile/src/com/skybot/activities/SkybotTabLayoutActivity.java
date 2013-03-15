@@ -114,6 +114,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		super.onDestroy();
 	}*/
 
+
 	private void checkNotNull(Object reference, String name) {
 		if (reference == null) {
 			throw new NullPointerException(getString(R.string.error_config,
