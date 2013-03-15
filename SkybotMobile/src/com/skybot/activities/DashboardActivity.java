@@ -43,6 +43,7 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 	private ChartSingleton chartSingleton = ChartSingleton.getInstance();
 	private PageIndicator mIndicator;
 	
+	
 	public  DisplayMetrics metrics = new DisplayMetrics();
 	
 //	public DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -50,8 +51,6 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard_layout);
-		
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		
 		/** Getting a reference to the ViewPager defined the layout file */
 		pager = (ViewPager) findViewById(R.id.pager);				
@@ -62,6 +61,9 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 		/** Instantiating FragmentPagerAdapter */
 		pagerAdapter = new ScrollItemsFragmentAdapter(fm);
 				
+		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		chartSingleton.metrics = metrics;
+		
 		sendAndGetCharts();
 		
 		

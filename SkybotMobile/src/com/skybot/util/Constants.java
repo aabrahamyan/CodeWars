@@ -88,17 +88,26 @@ public class Constants {
 	public static final String AGENT_EVENT_PROCESSED_ID = "10";
 	
 	// ---------------- Chart sizes ------------------------------------------//
-	public static final int TEXT_SIZE_WWW = 50;
+	
 	public static final int TEXT_SIZE_XXHDPI = 26;
-	public static final int TEXT_SIZE_XHDPI = 24;
-	public static final int TEXT_SIZE_HDPI = 22;
-	public static final int TEXT_SIZE_MDPI = 20;
-	public static final int TEXT_SIZE_LDPI = 20;
+	public static final int TITLE_TEXT_SIZE_XXHDPI = 30;
+	
+	public static final int TEXT_SIZE_XHDPI = 23;
+	public static final int TITLE_TEXT_SIZE_XHDPI = 27;
+	
+	public static final int TEXT_SIZE_HDPI = 20;
+	public static final int TITLE_TEXT_SIZE_HDPI = 24;
+	
+	public static final int TEXT_SIZE_MDPI = 15;
+	public static final int TITLE_TEXT_SIZE_MDPI = 19;
+	
+	public static final int TEXT_SIZE_LDPI = 11;
+	public static final int TITLE_TEXT_SIZE_LDPI = 15;
 	
 	// ---------------- Chart sizes ------------------------------------------//
-	public static final int TITLE_TEXT_SIZE = 40;
-	public static final int LABELS_TEXT_SIZE = 40;
-	public static final int X_LABELS_PADDING = 40;
-	public static final int Y_LABELS_PADDING = 40;
+	public static final int TITLE_TEXT_SIZE = 20;
+	public static final int LABELS_TEXT_SIZE = 20;
+	public static final int X_LABELS_PADDING = 20;
+	public static final int Y_LABELS_PADDING = 20;
 	
 }

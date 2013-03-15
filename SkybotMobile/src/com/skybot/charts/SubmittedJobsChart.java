@@ -35,7 +35,9 @@ public class SubmittedJobsChart {
 		
 		chartSettings.addLineChartSeries(series, values);
 		
-		chartSettings.addLineChartXLabels(mRenderer, values, xLabels);
+		chartSettings.addLineChartXLabels(mRenderer, values, xLabels); 
+		
+		//mRenderer.setMargins(new int[] { 40, 30, 0, 0 });//
 		
 		mRenderer.setChartTitle("Submitted Jobs");
 		

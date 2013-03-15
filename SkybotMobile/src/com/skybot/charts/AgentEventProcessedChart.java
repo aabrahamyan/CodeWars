@@ -54,26 +54,24 @@ public class AgentEventProcessedChart {
 	   // mRenderer.setMargins(new int[] { 40, 40, 0, 0 });
 		
 	    mRenderer.setShowLegend(true);
-	    mRenderer.setLabelsTextSize(20); 
-	    
-	    mRenderer.setMargins(new int[] {30,40,30,0});
+	   // mRenderer.setLabelsTextSize(20); 
 	    
 	    mRenderer.setLegendHeight(40);
-	    mRenderer.setLegendTextSize(20);
+	  //  mRenderer.setLegendTextSize(20);
 	    
-	    mRenderer.setXAxisMax(8);
+	    mRenderer.setXAxisMax(7.5);
 	    mRenderer.setXAxisMin(0);
 	    
-	    renderer.setChartValuesTextSize(20);
+//	    renderer.setChartValuesTextSize(20);
 	    renderer.setColor( Color.parseColor("#65BDE3"));
 	    
-	    renderer2.setChartValuesTextSize(20);
+//	    renderer2.setChartValuesTextSize(20);
 	    renderer2.setColor(Color.parseColor("#FCCA76"));
 	    
-	    renderer3.setChartValuesTextSize(20);
+//	    renderer3.setChartValuesTextSize(20);
 	    renderer3.setColor(Color.parseColor("#BADC8C"));
 	    
-	    renderer4.setChartValuesTextSize(20);
+//	    renderer4.setChartValuesTextSize(20);
 	    renderer4.setColor(Color.parseColor("#C0C0C0"));
 	    
 	    dataset.addSeries(series.toXYSeries());

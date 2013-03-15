@@ -52,8 +52,9 @@ public class TerminatedJobsChart {
 		
 	    mRenderer.setShowLegend(true);
 	    mRenderer.setLegendHeight(40);
-	    mRenderer.setLegendTextSize(20);	
 	    
+	    //mRenderer.setLegendTextSize(20);	
+	   // mRenderer.setMargins(new int[] { 40, 20, 0, 0 });
 	   // mRenderer.setMargins(new int[] {30,40,30,0});
 	    
 	    mRenderer.setXAxisMax(8);

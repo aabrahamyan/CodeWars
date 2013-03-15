@@ -47,7 +47,7 @@ public class CompletedJobsChart {
 		
 		mRenderer.setChartTitle("Completed Jobs");
 		
-		mRenderer.setMargins(new int[] { 40, 40, 0, 0 });//
+//		mRenderer.setMargins(new int[] { 40, 20, 0, 0 });//
 		
 		mRenderer.setXAxisMax(8);
 		mRenderer.setXAxisMin(0);

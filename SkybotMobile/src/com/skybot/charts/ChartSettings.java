@@ -8,6 +8,7 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 import com.skybot.activities.DashboardActivity;
+import com.skybot.charts.singleton.ChartSingleton;
 import com.skybot.util.Constants;
 
 import android.graphics.Color;
@@ -17,67 +18,52 @@ import android.util.Log;
 
 public class ChartSettings {
 	
-	DashboardActivity da = new DashboardActivity();
-	
-	float density = da.metrics.densityDpi;
+	ChartSingleton chartSingleton = ChartSingleton.getInstance();
+	float density = chartSingleton.metrics.densityDpi;
 
-	private float titleSize = (Constants.TITLE_TEXT_SIZE*density)/160;
-	private float labelSize = (Constants.LABELS_TEXT_SIZE*density)/160;
-	private float xLabelsPaddingSize = (Constants.X_LABELS_PADDING*density)/160;
-	private float yLabelsPaddingSize = (Constants.Y_LABELS_PADDING*density)/160;
+	private float titleSize = (Constants.TITLE_TEXT_SIZE*160)/density;
+	private float labelSize = (Constants.LABELS_TEXT_SIZE*160)/density;
+	private float xLabelsPaddingSize = (Constants.X_LABELS_PADDING*160)/density;
+	private float yLabelsPaddingSize = (Constants.Y_LABELS_PADDING*160)/density;
 	
 	
-	public void checkScreenResolution(XYMultipleSeriesRenderer mRenderer) {
+	public void checkScreenResolution(XYMultipleSeriesRenderer mRenderer, String chartType) {
 		
 		Log.e("density ", " " +density);
 		
 		if(density == DisplayMetrics.DENSITY_XXHIGH) {
 			
-			mRenderer.setMargins(new int[] { 40, 90, 25, 10 });
-        	mRenderer.setAxisTitleTextSize(Constants.TEXT_SIZE_XXHDPI);
-        	mRenderer.setChartTitleTextSize(Constants.TEXT_SIZE_XXHDPI);
-        	mRenderer.setLabelsTextSize(Constants.TEXT_SIZE_XXHDPI);
-        	mRenderer.setLegendTextSize(Constants.TEXT_SIZE_XXHDPI);
+			setChartSizeParams(Constants.TEXT_SIZE_XXHDPI, Constants.TITLE_TEXT_SIZE_XXHDPI, mRenderer);
+			
         	Log.e("Density", "XXHigh");
 		}
 		
 		else if(density == DisplayMetrics.DENSITY_XHIGH) {
 			
-			mRenderer.setMargins(new int[] { 40, 90, 25, 10 });
-        	mRenderer.setAxisTitleTextSize(Constants.TEXT_SIZE_XHDPI);
-        	mRenderer.setChartTitleTextSize(Constants.TEXT_SIZE_XHDPI);
-        	mRenderer.setLabelsTextSize(Constants.TEXT_SIZE_XHDPI);
-        	mRenderer.setLegendTextSize(Constants.TEXT_SIZE_XHDPI);
+			setChartSizeParams(Constants.TEXT_SIZE_XHDPI,Constants.TITLE_TEXT_SIZE_XHDPI, mRenderer);
+			
         	Log.e("Density", "XHigh");
 		}
 		
 		else if(density == DisplayMetrics.DENSITY_HIGH) {
 			
-			mRenderer.setMargins(new int[] { 30, 50, 20, 10 });
-        	mRenderer.setAxisTitleTextSize(Constants.TEXT_SIZE_HDPI);
-        	mRenderer.setChartTitleTextSize(Constants.TEXT_SIZE_HDPI);
-        	mRenderer.setLabelsTextSize(Constants.TEXT_SIZE_HDPI);
-        	mRenderer.setLegendTextSize(Constants.TEXT_SIZE_HDPI);
+			mRenderer.setMargins(new int[] {40,30,0,30});
+			setChartSizeParams(Constants.TEXT_SIZE_HDPI,Constants.TITLE_TEXT_SIZE_HDPI, mRenderer);
+			
+			
         	Log.e("Density", "High");
 		}
 		
 		else if(density == DisplayMetrics.DENSITY_MEDIUM) {
 			
-			mRenderer.setMargins(new int[] { 30, 50, 20, 10 });
-        	mRenderer.setAxisTitleTextSize(Constants.TEXT_SIZE_MDPI);
-        	mRenderer.setChartTitleTextSize(Constants.TEXT_SIZE_MDPI);
-        	mRenderer.setLabelsTextSize(Constants.TEXT_SIZE_MDPI);
-        	mRenderer.setLegendTextSize(Constants.TEXT_SIZE_MDPI);
+			setChartSizeParams(Constants.TEXT_SIZE_MDPI,Constants.TITLE_TEXT_SIZE_MDPI, mRenderer);
+			
         	Log.e("Density", "Medium");
 		}
 		
-		else {
+		else if(density == DisplayMetrics.DENSITY_LOW) {
 			
-			mRenderer.setMargins(new int[] { 30, 50, 20, 10 });
-        	mRenderer.setAxisTitleTextSize(Constants.TEXT_SIZE_LDPI);
-        	mRenderer.setChartTitleTextSize(Constants.TEXT_SIZE_LDPI);
-        	mRenderer.setLabelsTextSize(Constants.TEXT_SIZE_LDPI);
-        	mRenderer.setLegendTextSize(Constants.TEXT_SIZE_LDPI);
+			setChartSizeParams(Constants.TEXT_SIZE_LDPI,Constants.TITLE_TEXT_SIZE_LDPI, mRenderer);
         	
         	Log.e("Density", "Low");
 		}
@@ -86,7 +72,7 @@ public class ChartSettings {
 	
 	public void setBarChartSetting(XYMultipleSeriesRenderer mRenderer, double maxAxis) {
 		
-		checkScreenResolution(mRenderer);
+		checkScreenResolution(mRenderer,"");
 		
 		mRenderer.setApplyBackgroundColor(true); 
 		mRenderer.setBackgroundColor(Color.WHITE); 
@@ -103,10 +89,14 @@ public class ChartSettings {
 		
 		mRenderer.setInScroll(true);
 		mRenderer.setShowLegend(false);
+		
 		mRenderer.setYLabelsAlign(Align.RIGHT);
+		mRenderer.setYLabelsPadding(5);
+		
 		mRenderer.setYAxisMin(0);
 		mRenderer.setYAxisMax(maxAxis);
 		
+		//mRenderer.setMargins(new int[] { 40, 30, 0, 30 });
 //		mRenderer.setChartTitleTextSize(titleSize);
 //		mRenderer.setLabelsTextSize(labelSize);
 //		mRenderer.setXLabelsPadding(xLabelsPaddingSize);
@@ -117,6 +107,8 @@ public class ChartSettings {
 	}
 	
 	public void setLineChartSettings(XYMultipleSeriesRenderer mRenderer, XYSeriesRenderer renderer, double maxAxis) {
+		
+		checkScreenResolution(mRenderer,"");
 		
 		renderer.setPointStyle(PointStyle.CIRCLE);
 		renderer.setColor(Color.parseColor("#65BDE3"));
@@ -133,20 +125,31 @@ public class ChartSettings {
 		
 		mRenderer.setShowGridX(true);
 		mRenderer.setShowLegend(false); 
-		mRenderer.setLabelsTextSize(20);
+		//mRenderer.setLabelsTextSize(20);
 		
-		mRenderer.setChartTitleTextSize(20);
+		//mRenderer.setChartTitleTextSize(20);
 		mRenderer.setXLabels(0);
 		
 		mRenderer.setXAxisMin(0);
-		mRenderer.setXAxisMax(17);
+		mRenderer.setXAxisMax(16.5);
+		mRenderer.setYAxisMin(0);
 		mRenderer.setYAxisMax(maxAxis);
 		
-		mRenderer.setYLabelsPadding(20);
+		mRenderer.setYLabelsAlign(Align.RIGHT);
+		mRenderer.setYLabelsPadding(5);
+		//mRenderer.setMargins(new int[] { 40, 30, 0, 30 });
+		//
 		mRenderer.setInScroll(true);
 	}
 	
-	
+	public void setChartSizeParams(int textSize, int titleTextSize, XYMultipleSeriesRenderer mRenderer){ 
+		
+		mRenderer.setAxisTitleTextSize(textSize);
+    	mRenderer.setChartTitleTextSize(titleTextSize);
+    	mRenderer.setLabelsTextSize(textSize);
+    	mRenderer.setLegendTextSize(textSize);
+    	
+	}
 	
 	public void addBarChartSeries(XYMultipleSeriesDataset dataset, CategorySeries series, double[] value ) {
 
@@ -178,11 +181,7 @@ public class ChartSettings {
 				mRenderer.addXTextLabel(i+1,xLabels[i] );
 			}
 	    	
-	}
-	}
-	
-	public void addYLabels() {
-		
+		}
 	}
 	
 	public void addYlabelsColor(XYMultipleSeriesRenderer mRenderer, double maxAxis) {

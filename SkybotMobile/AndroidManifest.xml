@@ -3,13 +3,18 @@
     package="com.skybot.activities"
     android:versionCode="1"
     android:versionName="1.0" >
-	
-     <supports-screens 
+	<!--
+	<supports-screens 
 	    android:anyDensity="true"
 	    android:resizeable="true"
 	    android:largeScreens="true"
 	    android:normalScreens="true"
 	/>
+	 
+	 -->
+     
+     
+     
     <uses-sdk android:minSdkVersion="9" />
 
     <uses-permission android:name="android.permission.INTERNET" >
