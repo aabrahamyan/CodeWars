@@ -12,8 +12,6 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Paint.Align;
-import 	android.util.DisplayMetrics;
 
 public class TerminatedJobsChart {
 	
@@ -56,12 +54,12 @@ public class TerminatedJobsChart {
 	    mRenderer.setLegendHeight(40);
 	    mRenderer.setLegendTextSize(20);	
 	    
-	    mRenderer.setMargins(new int[] {30,40,30,0});
+	   // mRenderer.setMargins(new int[] {30,40,30,0});
 	    
 	    mRenderer.setXAxisMax(8);
 	    mRenderer.setXAxisMin(0);
 	    
-	    mRenderer.setYLabelsAlign(Align.RIGHT);
+//	    mRenderer.setYLabelsAlign(Align.RIGHT);
 	  
 	    dataset.addSeries(series.toXYSeries());
 		dataset.addSeries(series2.toXYSeries());

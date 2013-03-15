@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Toast;
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.ScrollItemsFragmentAdapter;
@@ -41,12 +42,16 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 	private ViewPager pager;
 	private ChartSingleton chartSingleton = ChartSingleton.getInstance();
 	private PageIndicator mIndicator;
-	private DisplayMetrics dm;
+	
+	public  DisplayMetrics metrics = new DisplayMetrics();
+	
+//	public DisplayMetrics metrics = getResources().getDisplayMetrics();
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard_layout);
 		
+		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		
 		/** Getting a reference to the ViewPager defined the layout file */
 		pager = (ViewPager) findViewById(R.id.pager);				
@@ -56,12 +61,9 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 		
 		/** Instantiating FragmentPagerAdapter */
 		pagerAdapter = new ScrollItemsFragmentAdapter(fm);
-			
+				
 		sendAndGetCharts();
 		
-		dm = new DisplayMetrics();
-		
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
 		
 	}
 	
