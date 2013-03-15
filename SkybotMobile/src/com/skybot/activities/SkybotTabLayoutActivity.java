@@ -111,7 +111,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		}
 		unregisterReceiver(mHandleMessageReceiver);
 		GCMRegistrar.onDestroy(this);
-		super.onDestroy();
+		// super.onDestroy();
 	}
 
 	private void checkNotNull(Object reference, String name) {
