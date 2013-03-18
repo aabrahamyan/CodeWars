@@ -36,6 +36,7 @@ public class AgentEventProcessedChart {
 		double[] y2 = getValue(data, "file_events");
 		double[] y3 = getValue(data, "directory_events");
 		double[] y4 = getValue(data, "process_events");
+		
 		String[] xLabels = getLabels(data,"label");
 		
 		GetMaxAxis getMax = new GetMaxAxis();
@@ -56,7 +57,7 @@ public class AgentEventProcessedChart {
 	    mRenderer.setShowLegend(true);
 	   // mRenderer.setLabelsTextSize(20); 
 	    
-	    mRenderer.setLegendHeight(40);
+//	    mRenderer.setLegendHeight(40);
 	  //  mRenderer.setLegendTextSize(20);
 	    
 	    mRenderer.setXAxisMax(7.5);
@@ -73,6 +74,8 @@ public class AgentEventProcessedChart {
 	    
 //	    renderer4.setChartValuesTextSize(20);
 	    renderer4.setColor(Color.parseColor("#C0C0C0"));
+	    
+	    chartSettings.addYlabelsColor(mRenderer, maxAxis);
 	    
 	    dataset.addSeries(series.toXYSeries());
 		dataset.addSeries(series2.toXYSeries());

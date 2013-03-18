@@ -110,4 +110,16 @@ public class Constants {
 	public static final int X_LABELS_PADDING = 20;
 	public static final int Y_LABELS_PADDING = 20;
 	
+	public static final int TEXT_SIZE_DIP = 13;
+	public static final int TITLE_TEXT_SIZE_DIP = 19;
+	public static final int Y_LABELS_PADDING_DIP = 6;
+	public static final int X_LABELS_PADDING_DIP = 8;
+	
+	// ---------------- Chart Margins ------------------------------------------//
+	public static final int MARGIN_TOP_DPI = 30;
+	public static final int MARGIN_LEFT_DPI = 25;
+	public static final int MARGIN_RIGHT_DPI = 15;
+	public static final int MARGIN_BOTTOM_DPI = 10;
+	public static final int LEGEND_HEIGHT_DPI = 40;
+	
 }

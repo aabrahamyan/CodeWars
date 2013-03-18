@@ -20,11 +20,17 @@ public class ChartSettings {
 	
 	ChartSingleton chartSingleton = ChartSingleton.getInstance();
 	float density = chartSingleton.metrics.densityDpi;
-
-	private float titleSize = (Constants.TITLE_TEXT_SIZE*160)/density;
-	private float labelSize = (Constants.LABELS_TEXT_SIZE*160)/density;
-	private float xLabelsPaddingSize = (Constants.X_LABELS_PADDING*160)/density;
-	private float yLabelsPaddingSize = (Constants.Y_LABELS_PADDING*160)/density;
+	
+	private float titleSize = (Constants.TITLE_TEXT_SIZE_DIP*density)/160;
+	private float labelSize = (Constants.TEXT_SIZE_DIP*density)/160;
+	private float legendTextSize = (Constants.TEXT_SIZE_DIP*density)/160;
+	private float xLabelsPaddingSize = (Constants.X_LABELS_PADDING_DIP*density)/160;
+	private float yLabelsPaddingSize = (Constants.Y_LABELS_PADDING_DIP*density)/160;
+	private int marginTop = (int) ((Constants.MARGIN_TOP_DPI*density)/160);
+	private int marginBottom = (int) ((Constants.MARGIN_BOTTOM_DPI*density)/160);
+	private int marginLeft = (int) ((Constants.MARGIN_LEFT_DPI*density)/160);
+	private int marginRight = (int) ((Constants.MARGIN_RIGHT_DPI*density)/160);
+	private int legendHeight = (int) ((Constants.LEGEND_HEIGHT_DPI*density)/160);
 	
 	
 	public void checkScreenResolution(XYMultipleSeriesRenderer mRenderer, String chartType) {
@@ -72,11 +78,11 @@ public class ChartSettings {
 	
 	public void setBarChartSetting(XYMultipleSeriesRenderer mRenderer, double maxAxis) {
 		
-		checkScreenResolution(mRenderer,"");
+		//checkScreenResolution(mRenderer,"");
 		
-		mRenderer.setApplyBackgroundColor(true); 
-		mRenderer.setBackgroundColor(Color.WHITE); 
-		mRenderer.setMarginsColor(Color.WHITE); 
+		mRenderer.setApplyBackgroundColor(true);
+		mRenderer.setBackgroundColor(Color.WHITE);
+		mRenderer.setMarginsColor(Color.WHITE);
 		
 		mRenderer.setPanEnabled(false, false);
 		mRenderer.setZoomEnabled(false, false); // Zoom disable
@@ -95,12 +101,16 @@ public class ChartSettings {
 		
 		mRenderer.setYAxisMin(0);
 		mRenderer.setYAxisMax(maxAxis);
-		
 		//mRenderer.setMargins(new int[] { 40, 30, 0, 30 });
-//		mRenderer.setChartTitleTextSize(titleSize);
-//		mRenderer.setLabelsTextSize(labelSize);
-//		mRenderer.setXLabelsPadding(xLabelsPaddingSize);
-//		mRenderer.setYLabelsPadding(yLabelsPaddingSize);
+		
+		mRenderer.setChartTitleTextSize(titleSize);
+		mRenderer.setLabelsTextSize(labelSize);
+		mRenderer.setLegendTextSize(legendTextSize);
+		mRenderer.setXLabelsPadding(xLabelsPaddingSize);
+		mRenderer.setYLabelsPadding(yLabelsPaddingSize);
+		
+		mRenderer.setMargins(new int[] {marginTop,marginLeft,marginBottom,marginRight});
+		mRenderer.setLegendHeight(legendHeight);
 		
 		mRenderer.setBarSpacing(0.3);
 		
@@ -108,7 +118,7 @@ public class ChartSettings {
 	
 	public void setLineChartSettings(XYMultipleSeriesRenderer mRenderer, XYSeriesRenderer renderer, double maxAxis) {
 		
-		checkScreenResolution(mRenderer,"");
+		//checkScreenResolution(mRenderer,"");
 		
 		renderer.setPointStyle(PointStyle.CIRCLE);
 		renderer.setColor(Color.parseColor("#65BDE3"));
@@ -137,8 +147,16 @@ public class ChartSettings {
 		
 		mRenderer.setYLabelsAlign(Align.RIGHT);
 		mRenderer.setYLabelsPadding(5);
-		//mRenderer.setMargins(new int[] { 40, 30, 0, 30 });
-		//
+		
+		mRenderer.setChartTitleTextSize(titleSize);
+		mRenderer.setLabelsTextSize(labelSize);
+		mRenderer.setLegendTextSize(legendTextSize);
+		mRenderer.setXLabelsPadding(xLabelsPaddingSize);
+		mRenderer.setYLabelsPadding(yLabelsPaddingSize);
+		
+		mRenderer.setMargins(new int[] {marginTop,marginLeft,marginBottom,marginRight});
+		mRenderer.setLegendHeight(legendHeight);
+		
 		mRenderer.setInScroll(true);
 	}
 	
@@ -170,7 +188,9 @@ public class ChartSettings {
 	}
 	
 	public void addBarChartXLabels(XYMultipleSeriesRenderer mRenderer,String[] xLabels) {
+		
 		for (int i = 0; i < xLabels.length; i++) {
+			
 			mRenderer.addXTextLabel(i + 1, xLabels[i]);
 		}
 	}
@@ -185,8 +205,11 @@ public class ChartSettings {
 	}
 	
 	public void addYlabelsColor(XYMultipleSeriesRenderer mRenderer, double maxAxis) {
+		
 		for(int i=0;i<maxAxis;i++) {
+			
 			mRenderer.setYLabelsColor(i,Color.parseColor("#ACADAA"));
+			
 		}
 	}
 	
