@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -158,6 +159,7 @@ public class JobsAdapter extends BaseAdapter {
 		} catch (Exception e) {
 			Log.e("Exception occured", e.toString());
 		}
+		vi.setBackgroundColor(Color.parseColor("#e0f2f9"));
 		vi.findViewById(R.id.title).setVisibility(View.VISIBLE);
 		vi.findViewById(R.id.description).setVisibility(View.VISIBLE);
 		vi.findViewById(R.id.agent).setVisibility(View.VISIBLE);
