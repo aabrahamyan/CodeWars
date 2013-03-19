@@ -49,8 +49,8 @@ public class CompletedJobsChart {
 		
 //		mRenderer.setMargins(new int[] { 40, 20, 0, 0 });//
 		
-		mRenderer.setXAxisMax(8);
-		mRenderer.setXAxisMin(0);
+		mRenderer.setXAxisMax(7.3);
+		mRenderer.setXAxisMin(0.6);
 		
 		dataset.addSeries(series.toXYSeries());
 		mRenderer.addSeriesRenderer(renderer);

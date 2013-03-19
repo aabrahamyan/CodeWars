@@ -49,16 +49,16 @@ public class TerminatedJobsChart {
 		renderer.setColor( Color.parseColor("#65BDE3"));
 	    renderer2.setColor(Color.parseColor("#FCCA76"));
 	    renderer3.setColor(Color.parseColor("#BADC8C"));
-		
+	    
 	    mRenderer.setShowLegend(true);
-	    mRenderer.setLegendHeight(40);
+//	    mRenderer.setLegendHeight(40);
 	    
 	    //mRenderer.setLegendTextSize(20);	
 	   // mRenderer.setMargins(new int[] { 40, 20, 0, 0 });
 	   // mRenderer.setMargins(new int[] {30,40,30,0});
 	    
-	    mRenderer.setXAxisMax(8);
-	    mRenderer.setXAxisMin(0);
+	    mRenderer.setXAxisMax(7.5);
+		mRenderer.setXAxisMin(0.5);
 	    
 //	    mRenderer.setYLabelsAlign(Align.RIGHT);
 	  
