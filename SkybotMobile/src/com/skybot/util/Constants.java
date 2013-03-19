@@ -4,7 +4,9 @@ public class Constants {
 
 	// ---------------------------- General HTTP Request Information
 	// ----------------//
-	public static String SERVER_URL = "http://192.168.0.5:8008/skybot-scheduler"; //"http://212.34.250.251:8008/skybot-scheduler";// "http://192.168.0.152:3000";
+
+	public static String SERVER_URL = "http://192.168.0.5:8008/skybot-scheduler";//"http://192.168.0.5:8008/skybot-scheduler"; // "http://192.168.0.152:3000";
+
 	public static String API_KEY = "";
 	public static final String EQUAL = "=";
 	public static final String FIRST_PARAM_SEPARATOR = "?";
@@ -28,6 +30,7 @@ public class Constants {
 	public static final String AGENT_SERVICE_URL = "agents.json";
 	public static final String AGENT_SERVICE = "agents";
 	public static final String JOB_SERVICE_URL = "jobs.json";
+	public static final String SIGN_OUT = "signout";
 	public static final String DASHBOARD_SERVICE_URL = "show.json";
 	public static final String DATE = "_dc";
 	public static final String USERID="user_id";
@@ -71,6 +74,7 @@ public class Constants {
 	// ---------------------------- Views ----------------------------------//
 
 	public static final String LOGIN_VIEW = "LoginView";
+	public static final String LOGOUT_VIEW = "LogoutView";
 	public static final String JOBS_VIEW = "JobsView";
 	public static final String DASHBOARD_VIEW = "DashboardView";
 	public static final String JOBSHISTORY_VIEW = "JobsHistoryView";
@@ -82,4 +86,40 @@ public class Constants {
 	public static final String TERMINATED_JOBS_ID = "5";
 	public static final String SUBMITTED_JOBS_ID = "1";
 	public static final String AGENT_EVENT_PROCESSED_ID = "10";
+	
+	// ---------------- Chart sizes ------------------------------------------//
+	
+	public static final int TEXT_SIZE_XXHDPI = 26;
+	public static final int TITLE_TEXT_SIZE_XXHDPI = 30;
+	
+	public static final int TEXT_SIZE_XHDPI = 23;
+	public static final int TITLE_TEXT_SIZE_XHDPI = 27;
+	
+	public static final int TEXT_SIZE_HDPI = 20;
+	public static final int TITLE_TEXT_SIZE_HDPI = 24;
+	
+	public static final int TEXT_SIZE_MDPI = 15;
+	public static final int TITLE_TEXT_SIZE_MDPI = 19;
+	
+	public static final int TEXT_SIZE_LDPI = 11;
+	public static final int TITLE_TEXT_SIZE_LDPI = 15;
+	
+	// ---------------- Chart sizes ------------------------------------------//
+	public static final int TITLE_TEXT_SIZE = 20;
+	public static final int LABELS_TEXT_SIZE = 20;
+	public static final int X_LABELS_PADDING = 20;
+	public static final int Y_LABELS_PADDING = 20;
+	
+	public static final int TEXT_SIZE_DIP = 13;
+	public static final int TITLE_TEXT_SIZE_DIP = 19;
+	public static final int Y_LABELS_PADDING_DIP = 6;
+	public static final int X_LABELS_PADDING_DIP = 8;
+	
+	// ---------------- Chart Margins ------------------------------------------//
+	public static final int MARGIN_TOP_DPI = 30;
+	public static final int MARGIN_LEFT_DPI = 25;
+	public static final int MARGIN_RIGHT_DPI = 15;
+	public static final int MARGIN_BOTTOM_DPI = 10;
+	public static final int LEGEND_HEIGHT_DPI = 40;
+	
 }

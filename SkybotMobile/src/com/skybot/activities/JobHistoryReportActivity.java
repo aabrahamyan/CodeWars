@@ -5,13 +5,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.ListView;
-
+import android.widget.Toast;
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.JobHistoryReportAdapter;
 import com.skybot.connection.connection.BaseNetworkManager;
@@ -22,6 +26,12 @@ import com.skybot.util.Constants;
 import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
 
+/**
+ * Job History Report Activity
+ * 
+ * @author armenabrahamyan
+ * 
+ */
 public class JobHistoryReportActivity extends ListActivity implements
 		ActionDelegate {
 
@@ -41,6 +51,9 @@ public class JobHistoryReportActivity extends ListActivity implements
 
 	}
 
+	/**
+	 * Getting Job History Reports...
+	 */
 	private void getJobHistoryReportResponse() {
 
 		Util.showOrHideActivityIndicator(
@@ -129,8 +142,34 @@ public class JobHistoryReportActivity extends ListActivity implements
 
 	}
 
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onBackPressed() {
+		showDialog(10);
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case 10:
+			// Create out AlterDialog
+			Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Do you want to log out?");
+			builder.setCancelable(true);
+			builder.setPositiveButton("Yes", new OkOnClickListener());
+			builder.setNegativeButton("No", new CancelOnClickListener());
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
+		return super.onCreateDialog(id);
+	}
+
 	// --------------------------- Progress Dialog Part ---------------------//
 
+	/**
+	 * 
+	 */
 	public void showProgressDialog() {
 
 		// instantiate it within the onCreate method
@@ -143,21 +182,28 @@ public class JobHistoryReportActivity extends ListActivity implements
 		mProgressDialog.show();
 	}
 
+	/**
+	 * Integer progress
+	 * 
+	 * @param progress
+	 */
 	public void updateProgressDialog(final Integer progress) {
 		mProgressDialog.setProgress(progress);
 
-		
 		if (progress == 100) {
 			mProgressDialog.dismiss();
 			readAndViewReport();
 		}
 	}
 
+	/**
+	 * Read report
+	 */
 	private void readAndViewReport() {
 		String path = "/sdcard/CURRENT_REPORT.pdf";
 		File targetFile = new File(path);
 		Uri targetUri = Uri.fromFile(targetFile);
-		
+
 		Intent intent;
 		intent = new Intent(Intent.ACTION_VIEW);
 		intent.setDataAndType(targetUri, "application/pdf");
@@ -165,4 +211,33 @@ public class JobHistoryReportActivity extends ListActivity implements
 		startActivity(intent);
 	}
 
+	/**
+	 * 
+	 * @author armenabrahamyan
+	 * 
+	 */
+	private final class CancelOnClickListener implements
+			DialogInterface.OnClickListener {
+		public void onClick(DialogInterface dialog, int which) {
+
+		}
+	}
+
+	/**
+	 * 
+	 * @author armenabrahamyan
+	 * 
+	 */
+	private final class OkOnClickListener implements
+			DialogInterface.OnClickListener {
+
+		public void onClick(DialogInterface dialog, int which) {
+			JobsActivity jobsActivity = new JobsActivity();
+			jobsActivity.signOutRequest();
+			JobHistoryReportActivity.this.finish();
+			Toast.makeText(getApplicationContext(), "Log out",
+					Toast.LENGTH_LONG).show();
+		}
+
+	}
 }

@@ -4,6 +4,10 @@ package com.skybot.activities;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -11,7 +15,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.Log;
-
+import android.view.WindowManager;
+import android.widget.Toast;
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.ScrollItemsFragmentAdapter;
 import com.skybot.charts.singleton.ChartSingleton;
@@ -37,12 +42,15 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 	private ViewPager pager;
 	private ChartSingleton chartSingleton = ChartSingleton.getInstance();
 	private PageIndicator mIndicator;
-	private DisplayMetrics dm;
+	
+	
+	public  DisplayMetrics metrics = new DisplayMetrics();
+	
+//	public DisplayMetrics metrics = getResources().getDisplayMetrics();
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard_layout);
-		
 		
 		/** Getting a reference to the ViewPager defined the layout file */
 		pager = (ViewPager) findViewById(R.id.pager);				
@@ -52,12 +60,12 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 		
 		/** Instantiating FragmentPagerAdapter */
 		pagerAdapter = new ScrollItemsFragmentAdapter(fm);
-			
+				
+		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		chartSingleton.metrics = metrics;
+		
 		sendAndGetCharts();
 		
-		dm = new DisplayMetrics();
-		
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
 		
 	}
 	
@@ -264,7 +272,46 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 		// TODO Auto-generated method stub
 		
 	}
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onBackPressed() {
+		showDialog(10);
+	}
 
+	@SuppressWarnings("deprecation")
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case 10:
+			// Create out AlterDialog
+			Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Do you want to log out?");
+			builder.setCancelable(true);
+			builder.setPositiveButton("Yes", new OkOnClickListener());
+			builder.setNegativeButton("No", new CancelOnClickListener());
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
+		return super.onCreateDialog(id);
+	}
+
+	private final class CancelOnClickListener implements
+			DialogInterface.OnClickListener {
+		public void onClick(DialogInterface dialog, int which) {
+
+		}
+	}
+
+	private final class OkOnClickListener implements
+			DialogInterface.OnClickListener {
+		public void onClick(DialogInterface dialog, int which) {
+			JobsActivity jobsActivity = new JobsActivity();
+			jobsActivity.signOutRequest();
+			DashboardActivity.this.finish();
+			Toast.makeText(getApplicationContext(), "Log out",
+					Toast.LENGTH_LONG).show();
+		}
+	}
 
 	}
 	/*

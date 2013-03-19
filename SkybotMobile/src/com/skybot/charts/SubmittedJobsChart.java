@@ -22,67 +22,27 @@ public class SubmittedJobsChart {
 		XYMultipleSeriesDataset dataset= new XYMultipleSeriesDataset();
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
 		XYSeriesRenderer renderer = new XYSeriesRenderer();
+		ChartSettings chartSettings = new ChartSettings();
 		GetMaxAxis getMax = new GetMaxAxis();
+		
+		double[] values = getArray(data, "real_value");
+		double maxAxis = getMax.getMax(values,1);
+		String[] xLabels = getLabels(data);
 		
 		TimeSeries series = new TimeSeries("Jobs Submitted");
 		
-		int[] x = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
-		double[] values = getArray(data, "real_value");
-		String[] xLabels = getLabels(data);
-		double maxAxis = getMax.getMax(values,1);
+		chartSettings.setLineChartSettings(mRenderer, renderer, maxAxis);
 		
-		//double[] values = {0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,6};
+		chartSettings.addLineChartSeries(series, values);
 		
-		for(int i=0; i<values.length;i++) {
-			series.add(x[i],values[i]);
-		}
+		chartSettings.addLineChartXLabels(mRenderer, values, xLabels); 
 		
-		for(int i=0;i<values.length;i++) {
-				if(i%2 == 0) {
-					mRenderer.addXTextLabel(i+1,xLabels[i] );
-				}
-		    	
-		}
+		//mRenderer.setMargins(new int[] { 40, 30, 0, 0 });//
 		
-		//mRenderer.setXLabelsAngle(-25);
-		/**   Line Customization   **/
-		
-		renderer.setPointStyle(PointStyle.CIRCLE);
-		renderer.setColor(Color.parseColor("#65BDE3"));
-		renderer.setFillPoints(true);
-		renderer.setLineWidth(5);
-		
-		/**Layout Customisation**/
-		
-		mRenderer.addSeriesRenderer(renderer);
-		mRenderer.setApplyBackgroundColor(true);
-		mRenderer.setBackgroundColor(Color.WHITE);
-		mRenderer.setMarginsColor(Color.WHITE);
-		mRenderer.setPointSize(10);
-		mRenderer.setPanEnabled(false);
-		mRenderer.setZoomEnabled(false);
-		mRenderer.setShowGridX(true);
-		mRenderer.setShowLegend(false); //Disable legend in Chart
-		mRenderer.setLabelsTextSize(20);
 		mRenderer.setChartTitle("Submitted Jobs");
-		mRenderer.setChartTitleTextSize(20);
-		mRenderer.setXLabels(0);
-		//mRenderer.setBarSpacing(-0.7f);
-		/**Axis Value Limits**/
-		
-		mRenderer.setXAxisMin(0);
-		mRenderer.setXAxisMax(17);
-		mRenderer.setYAxisMax(maxAxis); //y max +1 Important
-		
-		//mRenderer.setYLabelsAlign(Align.RIGHT);
-		mRenderer.setYLabelsPadding(20);
-		/** Distance between Y axis and labels**/
 		
 		dataset.addSeries(series);
-		
-		/** Layout Customisation**/
-		mRenderer.setInScroll(true); //Disable fetch animation
-		
+		mRenderer.addSeriesRenderer(renderer);
 		GraphicalView chartView = ChartFactory.getLineChartView((Context) context, dataset, mRenderer);
 		return chartView;
 		

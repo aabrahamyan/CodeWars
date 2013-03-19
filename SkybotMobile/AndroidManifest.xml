@@ -4,12 +4,47 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <!--
+	<supports-screens 
+	    android:anyDensity="true"
+	    android:resizeable="true"
+	    android:largeScreens="true"
+	    android:normalScreens="true"
+	/>
+    -->
+    <!-- GCM requires Android SDK version 2.2 (API level 8) or above. -->
+    <!--
+         The targetSdkVersion is optional, but it's always a good practice
+         to target higher versions.
+    -->
     <uses-sdk android:minSdkVersion="9" />
 
-    <uses-permission android:name="android.permission.INTERNET" >
-    </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- GCM connects to Google Services. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!--
+     Creates a custom permission so only this app can receive its messages.
+
+     NOTE: the permission *must* be called PACKAGE.permission.C2D_MESSAGE,
+           where PACKAGE is the application's package name.
+    -->
+    <permission
+        android:name="com.skybot.activities.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.skybot.activities.permission.C2D_MESSAGE" />
+
+    <!-- This app has permission to register and receive data message. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <!-- SkybotTab Layout Activity -->
     <application
@@ -53,7 +88,7 @@
         <activity android:name="com.skybot.activities.JobHistoryReportActivity" />
 
         <!-- Settings Activity -->
-        <activity android:name="com.skybot.activities.SettingsActivity" />
+        <activity android:name="com.skybot.activities.HelpActivity" />
 
         <!-- Jobs Details Activity -->
         <activity android:name="com.skybot.activities.JobsDetailsActivity" />
@@ -65,6 +100,27 @@
         </activity>
         <!-- Chart Engine Activity -->
         <activity android:name="org.achartengine.GraphicalActivity" />
+
+        <!--
+          BroadcastReceiver that will receive intents from GCM
+          services and handle them to the custom IntentService.
+
+          The com.google.android.c2dm.permission.SEND permission is necessary
+          so only GCM services can send data messages for the app.
+        -->
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+
+                <!-- Receives the actual messages. -->
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!-- Receives the registration id. -->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.skybot.activities" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
