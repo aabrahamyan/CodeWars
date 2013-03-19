@@ -383,6 +383,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 		switch (item.getItemId()) {
 		case R.id.menu_refresh:
+			DataHolder.getInstance().emptyJobsList();
 			getJobsResponse();
 			return true;
 		case R.id.menu_more:
@@ -425,8 +426,9 @@ public class JobsActivity extends SwipeListViewActivity implements
 	private final class OkOnClickListener implements
 			DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
-			signOutRequest();
+			signOutRequest();			
 			JobsActivity.this.finish();
+			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",
 					Toast.LENGTH_LONG).show();
 		}

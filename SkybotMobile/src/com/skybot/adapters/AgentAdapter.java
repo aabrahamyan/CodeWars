@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.skybot.activities.AgentActivity;
-import com.skybot.activities.JobsActivity;
 import com.skybot.activities.R;
+import com.skybot.serivce.parser.dataholder.DataHolder;
 
 public class AgentAdapter extends BaseAdapter {
 
@@ -92,6 +92,7 @@ public class AgentAdapter extends BaseAdapter {
 				public void onClick(View v) {
 					String id = v.getTag().toString();
 					AgentActivity agentActivity = new AgentActivity();
+					DataHolder.getInstance().emptyAgentsList();
 					agentActivity.restartAgent(v, id);
 				}
 			});
