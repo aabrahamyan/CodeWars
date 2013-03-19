@@ -27,13 +27,13 @@ import com.skybot.activities.R;
 @SuppressLint("NewApi")
 public class JobsAdapter extends BaseAdapter {
 
-	private Activity activity;
+	private JobsActivity activity;
 	public ArrayList<HashMap<String, String>> data;
 	private static LayoutInflater inflater = null;
 	private Drawable hold;
 	private Drawable run;
 
-	public JobsAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
+	public JobsAdapter(JobsActivity a, ArrayList<HashMap<String, String>> d) {
 		activity = a;
 		data = d;
 		inflater = (LayoutInflater) activity
@@ -118,10 +118,10 @@ public class JobsAdapter extends BaseAdapter {
 					@SuppressWarnings("deprecation")
 					@Override
 					public void onClick(View v) {
-						JobsActivity jobsActivity = new JobsActivity();
+						
 						String[] rid = (String[]) v.getTag();
 						if (rid[1].equals("Held") || rid[1].equals("Released")) {
-							jobsActivity.runJob(v, rid[0]);
+							activity.runJob(v, rid[0]);
 							int sdk = android.os.Build.VERSION.SDK_INT;
 							if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
 								runBtn.setBackgroundDrawable(hold);
@@ -129,7 +129,7 @@ public class JobsAdapter extends BaseAdapter {
 								runBtn.setBackground(hold);
 							}
 						} else if (rid[1].equals("Running")) {
-							jobsActivity.holdJob(v, rid[0]);
+							activity.holdJob(v, rid[0]);
 							int sdk = android.os.Build.VERSION.SDK_INT;
 							if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
 								runBtn.setBackgroundDrawable(run);
@@ -143,11 +143,10 @@ public class JobsAdapter extends BaseAdapter {
 				releaseBtn.setOnClickListener(new OnClickListener() {
 
 					@Override
-					public void onClick(View v) {
-						JobsActivity jobsActivity = new JobsActivity();
+					public void onClick(View v) {						
 						String[] rid = (String[]) v.getTag();
 						if (rid[1].equals("Running") || rid[1].equals("Held")) {
-							jobsActivity.releaseJob(v, rid[0]);
+							activity.releaseJob(v, rid[0]);
 						} else if (rid[1].equals("Released")) {
 							Toast.makeText(v.getContext(),
 									"Job is already released.",
