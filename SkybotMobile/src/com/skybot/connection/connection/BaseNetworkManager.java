@@ -9,6 +9,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.skybot.activities.JobHistoryReportActivity;
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.serivce.BackgroundResponseAnalizer;
 import com.skybot.util.Constants;
@@ -58,11 +59,28 @@ public class BaseNetworkManager {
 								classString, managerObject, serviceName,
 								paramsList, null);
 						break;
+
+					case HttpConnection.PUBLISH_SUCCESS:
+						final Integer progress = (Integer) msg.obj;
+
+						final JobHistoryReportActivity jha = (JobHistoryReportActivity) ViewTracker
+								.getInstance().getCurrentContext();
+						jha.runOnUiThread(new Runnable() {
+
+							@Override
+							public void run() {
+								jha.updateProgressDialog(progress);
+							}
+						});
+
+						break;
+
 					case HttpConnection.DID_ERROR:
 						Exception ex = (Exception) msg.obj;
 						Log.d("Exception occured while hitting response",
 								ex.getMessage());
 						break;
+
 					}
 				}
 			};
@@ -130,9 +148,9 @@ public class BaseNetworkManager {
 								"Exception occured while hitting response, please try again later",
 								Toast.LENGTH_LONG).show();
 						break;
-					
+
 					case HttpConnection.PUBLISH_SUCCESS:
-						
+
 						break;
 
 					}
@@ -147,6 +165,59 @@ public class BaseNetworkManager {
 					.getInstance().getCurrentContext();
 			delegate.didFailRequestProcessing();
 		}
+	}
+
+	public void constructConnectionAndHitFile(final String successMessage,
+			final String startingMessage, final String urlAndParamsList,
+			final Object managerObject, final String classString,
+			final String serviceName) {
+
+		if (NetworkReachability.isReachable()) {
+
+			final Handler handler = new Handler() {
+
+				@Override
+				public void handleMessage(Message msg) {
+					super.handleMessage(msg);
+					switch (msg.what) {
+					case HttpConnection.DID_START:
+						Log.d("Request", startingMessage);
+						break;
+					case HttpConnection.PUBLISH_SUCCESS:
+						final Integer progress = (Integer) msg.obj;
+
+						final JobHistoryReportActivity jha = (JobHistoryReportActivity) ViewTracker
+								.getInstance().getCurrentContext();
+						jha.runOnUiThread(new Runnable() {
+
+							@Override
+							public void run() {
+								jha.updateProgressDialog(progress);
+							}
+						});
+
+						break;
+
+					case HttpConnection.DID_ERROR:
+						Exception ex = (Exception) msg.obj;
+						Log.d("Exception occured while hitting response",
+								ex.getMessage());
+						break;
+
+					}
+				}
+			};
+
+			final HttpConnection connection = new HttpConnection(handler);			
+
+			// Hit Report file download.
+			connection.publish(urlAndParamsList, "");
+		} else {
+			ActionDelegate delegate = (ActionDelegate) ViewTracker
+					.getInstance().getCurrentContext();
+			delegate.didFailRequestProcessing();
+		}
+
 	}
 
 	/**

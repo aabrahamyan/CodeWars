@@ -1,10 +1,14 @@
 package com.skybot.activities;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -23,6 +27,7 @@ public class JobHistoryReportActivity extends ListActivity implements
 
 	private ListView listView;
 	private JobHistoryReportAdapter adapter;
+	private ProgressDialog mProgressDialog;
 
 	ArrayList<HashMap<String, String>> jobHistoryReportList = new ArrayList<HashMap<String, String>>();
 
@@ -122,6 +127,42 @@ public class JobHistoryReportActivity extends ListActivity implements
 				JobHistoryReportActivity.this.getParent(), 1,
 				"Getting Job History Reports...");
 
+	}
+
+	// --------------------------- Progress Dialog Part ---------------------//
+
+	public void showProgressDialog() {
+
+		// instantiate it within the onCreate method
+		mProgressDialog = new ProgressDialog(this.getParent());
+		mProgressDialog.setMessage("Downloading...");
+		mProgressDialog.setIndeterminate(false);
+		mProgressDialog.setMax(100);
+		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
+		mProgressDialog.show();
+	}
+
+	public void updateProgressDialog(final Integer progress) {
+		mProgressDialog.setProgress(progress);
+
+		
+		if (progress == 100) {
+			mProgressDialog.dismiss();
+			readAndViewReport();
+		}
+	}
+
+	private void readAndViewReport() {
+		String path = "/sdcard/CURRENT_REPORT.pdf";
+		File targetFile = new File(path);
+		Uri targetUri = Uri.fromFile(targetFile);
+		
+		Intent intent;
+		intent = new Intent(Intent.ACTION_VIEW);
+		intent.setDataAndType(targetUri, "application/pdf");
+
+		startActivity(intent);
 	}
 
 }
