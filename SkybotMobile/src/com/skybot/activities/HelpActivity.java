@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Toast;
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.TestFragmentAdapter;
+import com.skybot.serivce.parser.dataholder.DataHolder;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 /**
@@ -109,6 +110,7 @@ public class HelpActivity extends FragmentActivity implements ActionDelegate {
 			JobsActivity jobsActivity = new JobsActivity();
 			jobsActivity.signOutRequest();
 			HelpActivity.this.finish();
+			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",
 					Toast.LENGTH_LONG).show();
 		}

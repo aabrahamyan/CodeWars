@@ -75,6 +75,27 @@ public class BaseResponseAnalyzer {
 			}
 
 		}
+		/**************************************** RUN JOB *******************************************/
+		else if (serviceName.equals(Constants.COMMAND_URL)) {
+			try {
+				final ActionDelegate del = (ActionDelegate) ViewTracker
+						.getInstance().getCurrentContext();
+				Activity jobsActivity = (Activity) ViewTracker.getInstance()
+						.getCurrentContext();
+
+				jobsActivity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						del.didFinishRequestProcessing();
+					}
+				});
+
+			} catch (Exception e) {
+				Log.e("JSON Parser", "Error parsing data " + e.toString());
+			}
+
+		}
 		/******************************************* JOB HISTORY **********************************************/
 		else if (serviceName.equals(Constants.JOBHISTORY_SERVICE_URL)) {
 
