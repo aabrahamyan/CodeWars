@@ -48,11 +48,12 @@ public class BaseResponseAnalyzer {
 			del.didFinishRequestProcessing();
 		}
 		/******************************************* JOB **********************************************/
-		else if (serviceName.equals(Constants.JOB_SERVICE_URL)) {
+		else if (serviceName.equals(Constants.JOB_SERVICE_URL)
+				|| serviceName.equals(Constants.MORE_JOBS)) {
 			try {
 				/************** Parser: Start ******************/
 				JobsParser jobsParser = new JobsParser();
-				jobsParser.parseData(responseData);
+				jobsParser.parseData(responseData, serviceName);
 				/************** Parser: End ********************/
 
 				final ActionDelegate del = (ActionDelegate) ViewTracker
@@ -80,7 +81,7 @@ public class BaseResponseAnalyzer {
 			try {
 				/************** Parser: Start ******************/
 				JobHistoriesParser jhParser = new JobHistoriesParser();
-				jhParser.parseData(responseData);
+				jhParser.parseData(responseData, serviceName);
 				/************** Parser: End ******************/
 
 				final ActionDelegate del = (ActionDelegate) ViewTracker

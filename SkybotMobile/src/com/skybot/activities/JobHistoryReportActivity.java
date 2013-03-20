@@ -130,6 +130,10 @@ public class JobHistoryReportActivity extends ListActivity implements
 				JobHistoryReportActivity.this.getParent(), 1,
 				"Getting Job History Reports...");
 
+		if (mProgressDialog != null && mProgressDialog.isShowing()) {
+			mProgressDialog.dismiss();
+		}
+
 	}
 
 	@Override
@@ -168,7 +172,7 @@ public class JobHistoryReportActivity extends ListActivity implements
 	// --------------------------- Progress Dialog Part ---------------------//
 
 	/**
-	 * 
+	 * SHows progress Dialog
 	 */
 	public void showProgressDialog() {
 

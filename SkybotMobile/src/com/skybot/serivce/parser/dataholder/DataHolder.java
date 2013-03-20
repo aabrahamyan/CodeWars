@@ -22,7 +22,18 @@ public class DataHolder {
 	public ArrayList<HashMap<String, String>> submittedJobsList;
 	public ArrayList<HashMap<String, String>> terminatedJobsList;
 	public ArrayList<HashMap<String, String>> agentEventsProcessList;
-	
+
+	/************************ More Counters *******************/
+
+	// Jobs
+	public int JOBS_MORE_START_INDEX = 0;
+	public int JOBS_MORE_END_INDEX = 5;
+	public int JOBS_NEXT_STEP = 5;
+	// Job History
+	public int JOBS_HISTORIES_MORE_START_INDEX = 0;
+	public int JOBS_HISTORIES_MORE_END_INDEX = 5;
+	public int JOBS_HISTORIES_NEXT_STEP = 5;
+
 	public DataHolder() {
 		jobsList = new ArrayList<HashMap<String, String>>();
 		jobHistoriesList = new ArrayList<HashMap<String, String>>();

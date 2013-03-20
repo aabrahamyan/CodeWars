@@ -47,6 +47,9 @@ public class Constants {
 	public static final String DATAFILTERDATATYPE = "dateFilter[0][data][type]";
 	public static final String DATAFILTERVALUE = "dateFilter[0][data][value]";
 	public static final String EXCLUDETIMEDINTERVAL = "exclude_timed_interval";
+	
+	public static final String MORE_JOBS = "MORE_JOBS";
+	public static final String MORE_JOB_HISTORIES = "MORE_JOB_HISTORIES";
 
 
 
