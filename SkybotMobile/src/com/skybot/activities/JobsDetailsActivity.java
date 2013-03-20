@@ -4,17 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.AlertDialog.Builder;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.Toast;
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.JobDetailsAdapter;
-import com.skybot.util.Util;
 
 public class JobsDetailsActivity extends Activity implements ActionDelegate {
 

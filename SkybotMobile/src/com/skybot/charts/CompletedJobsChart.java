@@ -11,8 +11,6 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-import com.skybot.activities.DashboardActivity;
-
 import android.content.Context;
 import android.graphics.Color;
 

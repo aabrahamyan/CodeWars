@@ -15,7 +15,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.WindowManager;
 import android.widget.Toast;
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.ScrollItemsFragmentAdapter;

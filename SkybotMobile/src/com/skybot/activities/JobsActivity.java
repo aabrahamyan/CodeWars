@@ -269,21 +269,21 @@ public class JobsActivity extends SwipeListViewActivity implements
 		View rowView = listView.getChildAt(position);
 		if (isRight) {
 			if (rowView.getTag().toString() == "left") {
-				rowView.startAnimation(getDeleteAnimation(0,
+				rowView.startAnimation(getSwipeAnimation(0,
 						rowView.getWidth(), position));
 				rowView.setTag("right");
 			} else {
-				rowView.startAnimation(getDeleteAnimation(0,
+				rowView.startAnimation(getSwipeAnimation(0,
 						rowView.getWidth(), position));
 				rowView.setTag("left");
 			}
 		} else {
 			if (rowView.getTag().toString() == "left") {
-				rowView.startAnimation(getDeleteAnimation(rowView.getWidth(),
+				rowView.startAnimation(getSwipeAnimation(rowView.getWidth(),
 						0, position));
 				rowView.setTag("right");
 			} else {
-				rowView.startAnimation(getDeleteAnimation(rowView.getWidth(),
+				rowView.startAnimation(getSwipeAnimation(rowView.getWidth(),
 						0, position));
 				rowView.setTag("left");
 			}
@@ -298,21 +298,21 @@ public class JobsActivity extends SwipeListViewActivity implements
 			getSwipeItem(false, position);
 	}
 
-	private Animation getDeleteAnimation(float fromX, float toX, int position) {
+	private Animation getSwipeAnimation(float fromX, float toX, int position) {
 		Animation animation = new TranslateAnimation(fromX, toX, 0, 0);
 		animation.setStartOffset(100);
 		animation.setDuration(250);
-		animation.setAnimationListener(new DeleteAnimationListenter(position));
+		animation.setAnimationListener(new SwipeAnimationListenter(position));
 		animation.setInterpolator(AnimationUtils.loadInterpolator(this,
 				android.R.anim.linear_interpolator));
 		return animation;
 	}
 
-	public class DeleteAnimationListenter implements
+	public class SwipeAnimationListenter implements
 			Animation.AnimationListener {
 		private int position;
 
-		public DeleteAnimationListenter(int position) {
+		public SwipeAnimationListenter(int position) {
 			this.position = position;
 		}
 
