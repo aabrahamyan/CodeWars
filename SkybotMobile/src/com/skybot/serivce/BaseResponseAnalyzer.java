@@ -97,7 +97,8 @@ public class BaseResponseAnalyzer {
 
 		}
 		/******************************************* JOB HISTORY **********************************************/
-		else if (serviceName.equals(Constants.JOBHISTORY_SERVICE_URL)) {
+		else if (serviceName.equals(Constants.JOBHISTORY_SERVICE_URL)
+				|| serviceName.equals(Constants.MORE_JOB_HISTORIES)) {
 
 			try {
 				/************** Parser: Start ******************/
@@ -157,12 +158,13 @@ public class BaseResponseAnalyzer {
 		}
 
 		/******************************************* JOB HISTORY DATA REPORT **********************************************/
-		else if (serviceName.equals(Constants.JOBHISTORYREPORT_SERVICE_URL)) {
+		else if (serviceName.equals(Constants.JOBHISTORYREPORT_SERVICE_URL)
+				|| serviceName.equals(Constants.MORE_JOB_HISTORIES_REPORTS)) {
 
 			try {
 				/************** Parser: Start ******************/
 				ReportsParser rParser = new ReportsParser();
-				rParser.parseData(responseData);
+				rParser.parseData(responseData, serviceName);
 				/************** Parser: End ********************/
 
 				final ActionDelegate del = (ActionDelegate) ViewTracker

@@ -50,7 +50,7 @@ public class Constants {
 	
 	public static final String MORE_JOBS = "MORE_JOBS";
 	public static final String MORE_JOB_HISTORIES = "MORE_JOB_HISTORIES";
-
+	public static final String MORE_JOB_HISTORIES_REPORTS = "MORE_JOB_HISTORIES_REPORTS";
 
 
 	

@@ -124,7 +124,7 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 		baseNetworkManager.constructConnectionAndHitGET(
 				"Jobs History Recieved", "Jobs History Request Started",
 				urlStringWithParams, this, Constants.JOBSHISTORY_VIEW,
-				Constants.JOBHISTORY_SERVICE_URL);
+				Constants.MORE_JOB_HISTORIES);
 	}
 
 	@Override

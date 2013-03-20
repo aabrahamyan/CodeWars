@@ -9,6 +9,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.skybot.serivce.parser.dataholder.DataHolder;
+import com.skybot.util.Constants;
 
 public class ReportsParser {
 
@@ -17,7 +18,8 @@ public class ReportsParser {
 	 * @param responseJsonString
 	 * @throws ParseException
 	 */
-	public void parseData(final String responseData) throws ParseException {
+	public void parseData(final String responseData, final String serviceName)
+			throws ParseException {
 
 		String responseString = "";
 		responseString = responseData.replace("items:", "\"items\":");
@@ -43,7 +45,15 @@ public class ReportsParser {
 			map.put("copied_server_time_utc",
 					json_data.get("copied_server_time_utc").toString());
 
-			DataHolder.getInstance().reportsList.add(map);
+			list.add(map);
+			// DataHolder.getInstance().reportsList.add(map);
+		}
+
+		if (serviceName.equals(Constants.MORE_JOB_HISTORIES_REPORTS)) {
+			DataHolder.getInstance().reportsList.addAll(list);
+		} else {
+			DataHolder.getInstance().emptyJobsList();
+			DataHolder.getInstance().reportsList.addAll(list);
 		}
 
 	}

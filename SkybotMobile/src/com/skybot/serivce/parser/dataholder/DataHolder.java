@@ -33,6 +33,10 @@ public class DataHolder {
 	public int JOBS_HISTORIES_MORE_START_INDEX = 0;
 	public int JOBS_HISTORIES_MORE_END_INDEX = 5;
 	public int JOBS_HISTORIES_NEXT_STEP = 5;
+	// Job History Reports
+	public int JOBS_HISTORIES_REPORTS_MORE_START_INDEX = 0;
+	public int JOBS_HISTORIES_REPORTS_MORE_END_INDEX = 5;
+	public int JOBS_HISTORIES_REPORTS_MORE_NEXT_STEP = 5;
 
 	public DataHolder() {
 		jobsList = new ArrayList<HashMap<String, String>>();
@@ -75,7 +79,7 @@ public class DataHolder {
 	}
 
 	public void emptyJobHistoriesList() {
-		jobHistoriesList.clear();
+		jobHistoriesList.clear(); 
 	}
 
 	public void emptyAgentsList() {

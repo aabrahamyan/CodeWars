@@ -71,11 +71,13 @@ public class JobHistoriesParser {
 					.toString());
 			map.put("job_priority", json_data.get("job_priority").toString());
 
-			list.add(map);
+			list.add(map); 
 
 		}
 
 		if (serviceName.equals(Constants.MORE_JOB_HISTORIES)) {
+			//TODO: Investigate RESULT PARAMETER PROBLEM LATER: A.A. 
+			DataHolder.getInstance().emptyJobHistoriesList();
 			DataHolder.getInstance().jobHistoriesList.addAll(list);
 		} else {
 			DataHolder.getInstance().emptyJobHistoriesList();
