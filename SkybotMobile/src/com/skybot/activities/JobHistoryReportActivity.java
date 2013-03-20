@@ -1,5 +1,6 @@
 package com.skybot.activities;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +8,9 @@ import java.util.Map;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -22,11 +26,18 @@ import com.skybot.util.Constants;
 import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
 
+/**
+ * Job History Report Activity
+ * 
+ * @author armenabrahamyan
+ * 
+ */
 public class JobHistoryReportActivity extends ListActivity implements
 		ActionDelegate {
 
 	private ListView listView;
 	private JobHistoryReportAdapter adapter;
+	private ProgressDialog mProgressDialog;
 
 	ArrayList<HashMap<String, String>> jobHistoryReportList = new ArrayList<HashMap<String, String>>();
 
@@ -40,6 +51,9 @@ public class JobHistoryReportActivity extends ListActivity implements
 
 	}
 
+	/**
+	 * Getting Job History Reports...
+	 */
 	private void getJobHistoryReportResponse() {
 
 		Util.showOrHideActivityIndicator(
@@ -127,6 +141,7 @@ public class JobHistoryReportActivity extends ListActivity implements
 				"Getting Job History Reports...");
 
 	}
+
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onBackPressed() {
@@ -150,6 +165,57 @@ public class JobHistoryReportActivity extends ListActivity implements
 		return super.onCreateDialog(id);
 	}
 
+	// --------------------------- Progress Dialog Part ---------------------//
+
+	/**
+	 * 
+	 */
+	public void showProgressDialog() {
+
+		// instantiate it within the onCreate method
+		mProgressDialog = new ProgressDialog(this.getParent());
+		mProgressDialog.setMessage("Downloading...");
+		mProgressDialog.setIndeterminate(false);
+		mProgressDialog.setMax(100);
+		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
+		mProgressDialog.show();
+	}
+
+	/**
+	 * Integer progress
+	 * 
+	 * @param progress
+	 */
+	public void updateProgressDialog(final Integer progress) {
+		mProgressDialog.setProgress(progress);
+
+		if (progress == 100) {
+			mProgressDialog.dismiss();
+			readAndViewReport();
+		}
+	}
+
+	/**
+	 * Read report
+	 */
+	private void readAndViewReport() {
+		String path = "/sdcard/CURRENT_REPORT.pdf";
+		File targetFile = new File(path);
+		Uri targetUri = Uri.fromFile(targetFile);
+
+		Intent intent;
+		intent = new Intent(Intent.ACTION_VIEW);
+		intent.setDataAndType(targetUri, "application/pdf");
+
+		startActivity(intent);
+	}
+
+	/**
+	 * 
+	 * @author armenabrahamyan
+	 * 
+	 */
 	private final class CancelOnClickListener implements
 			DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
@@ -157,8 +223,14 @@ public class JobHistoryReportActivity extends ListActivity implements
 		}
 	}
 
+	/**
+	 * 
+	 * @author armenabrahamyan
+	 * 
+	 */
 	private final class OkOnClickListener implements
 			DialogInterface.OnClickListener {
+
 		public void onClick(DialogInterface dialog, int which) {
 			JobsActivity jobsActivity = new JobsActivity();
 			jobsActivity.signOutRequest();			
@@ -167,5 +239,6 @@ public class JobHistoryReportActivity extends ListActivity implements
 			Toast.makeText(getApplicationContext(), "Log out",
 					Toast.LENGTH_LONG).show();
 		}
+
 	}
 }

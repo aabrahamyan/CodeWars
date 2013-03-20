@@ -82,6 +82,10 @@ public class HttpConnection implements Runnable {
 		this.nameValuePairs = nameValuePairs;
 		ConnectionManager.getInstance().push(this);
 	}
+	
+	public void publish(String url, String data) {
+		create(FILE, url, data, null);
+	}
 
 	public void get(String url, String data) {
 		create(GET, url, data, null);
@@ -176,7 +180,7 @@ public class HttpConnection implements Runnable {
 					httpFile.setHeader("Cookie", cookieString);
 				}
 				response = httpClient.execute(httpFile);
-
+				processFileEntity(response.getEntity());
 				break;
 			}
 			if (method < BITMAP)
@@ -248,7 +252,9 @@ public class HttpConnection implements Runnable {
 			while ((count = input.read(data)) != -1) {
 				total += count;
 				// publishing the progress....
-				// TODO:publishProgress((int) (total * 100 / fileLength));
+				Integer currentProgress = (int) (total * 100 / fileLength);
+				handler.sendMessage(Message.obtain(handler, PUBLISH_SUCCESS,
+						currentProgress));
 				output.write(data, 0, count);
 			}
 

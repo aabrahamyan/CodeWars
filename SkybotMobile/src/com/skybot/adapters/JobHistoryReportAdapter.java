@@ -16,17 +16,21 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.skybot.activities.JobHistoryReportActivity;
 import com.skybot.activities.R;
+import com.skybot.connection.connection.BaseNetworkManager;
+import com.skybot.connection.connection.helper.RequestCreator;
+import com.skybot.util.Constants;
 import com.skybot.util.ViewTracker;
 
 public class JobHistoryReportAdapter extends BaseAdapter {
 
-	private Activity activity;
+	private JobHistoryReportActivity activity;
 	public ArrayList<HashMap<String, String>> data;
 	private static LayoutInflater inflater = null;
 	HashMap m = new HashMap();
 
-	public JobHistoryReportAdapter(Activity a,
+	public JobHistoryReportAdapter(JobHistoryReportActivity a,
 			ArrayList<HashMap<String, String>> d) {
 		activity = a;
 		data = d;
@@ -95,12 +99,18 @@ public class JobHistoryReportAdapter extends BaseAdapter {
 					String pdfurl = "http://192.168.0.5:8008/skybot-scheduler/user_files/"
 							+ m.get("id") + "?download=true";
 
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					intent.setDataAndType(Uri.parse(pdfurl), "text/html");
-					ViewTracker.getInstance().getCurrentContext()
-							.startActivity(intent);
+					//Intent intent = new Intent(Intent.ACTION_VIEW);
+					//intent.setDataAndType(Uri.parse(pdfurl), "text/html");
+					//ViewTracker.getInstance().getCurrentContext()
+					//		.startActivity(intent);
 					// JobsHistoryReportAdapter.this.onClickAction("sadasdas");
-
+					
+					RequestCreator reqCreator = new RequestCreator();
+					
+					BaseNetworkManager man = new BaseNetworkManager();
+					man.constructConnectionAndHitFile("Report is downloaded", "Starting report download", pdfurl, activity, Constants.JOBHISTORYREPORT_VIEW, "");
+					
+					activity.showProgressDialog();
 				}
 
 			});
