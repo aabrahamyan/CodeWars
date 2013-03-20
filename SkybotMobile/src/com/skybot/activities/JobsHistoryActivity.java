@@ -223,8 +223,7 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 	}
 
 	/****************************** Menu Callbacks ************************************/
-	// ---------------------------------- Menu Callbacks
-	// -------------------------------//
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater menuInflater = getMenuInflater();
