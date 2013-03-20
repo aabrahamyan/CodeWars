@@ -286,8 +286,7 @@ public class JobHistoryReportActivity extends ListActivity implements
 			DialogInterface.OnClickListener {
 
 		public void onClick(DialogInterface dialog, int which) {
-			JobsActivity jobsActivity = new JobsActivity();
-			jobsActivity.signOutRequest();
+			JobsActivity.getActivity().signOutRequest();			
 			JobHistoryReportActivity.this.finish();
 			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",

@@ -43,7 +43,7 @@ import com.skybot.util.ViewTracker;
  */
 public class JobsActivity extends SwipeListViewActivity implements
 		ActionDelegate {
-
+	private static JobsActivity activity;
 	private ListView listView;
 	private JobsAdapter adapter;
 	public static ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
@@ -56,7 +56,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.jobs_list);
-
+		activity = this;
 		listView = (ListView) findViewById(R.id.listView1);
 		adapter = new JobsAdapter(this, jobsList);
 		listView.setAdapter(adapter);
@@ -118,6 +118,10 @@ public class JobsActivity extends SwipeListViewActivity implements
 		baseNetworkManager.constructConnectionAndHitGET("Log out Successful",
 				"Log out Request Started", urlStringWithParams, this,
 				Constants.LOGOUT_VIEW, Constants.SIGN_OUT);
+	}
+	
+	public static JobsActivity getActivity() {
+		return activity;
 	}
 
 	@Override
@@ -289,21 +293,21 @@ public class JobsActivity extends SwipeListViewActivity implements
 		View rowView = listView.getChildAt(position);
 		if (isRight) {
 			if (rowView.getTag().toString() == "left") {
-				rowView.startAnimation(getDeleteAnimation(0,
+				rowView.startAnimation(getSwipeAnimation(0,
 						rowView.getWidth(), position));
 				rowView.setTag("right");
 			} else {
-				rowView.startAnimation(getDeleteAnimation(0,
+				rowView.startAnimation(getSwipeAnimation(0,
 						rowView.getWidth(), position));
 				rowView.setTag("left");
 			}
 		} else {
 			if (rowView.getTag().toString() == "left") {
-				rowView.startAnimation(getDeleteAnimation(rowView.getWidth(),
+				rowView.startAnimation(getSwipeAnimation(rowView.getWidth(),
 						0, position));
 				rowView.setTag("right");
 			} else {
-				rowView.startAnimation(getDeleteAnimation(rowView.getWidth(),
+				rowView.startAnimation(getSwipeAnimation(rowView.getWidth(),
 						0, position));
 				rowView.setTag("left");
 			}
@@ -318,21 +322,21 @@ public class JobsActivity extends SwipeListViewActivity implements
 			getSwipeItem(false, position);
 	}
 
-	private Animation getDeleteAnimation(float fromX, float toX, int position) {
+	private Animation getSwipeAnimation(float fromX, float toX, int position) {
 		Animation animation = new TranslateAnimation(fromX, toX, 0, 0);
 		animation.setStartOffset(100);
 		animation.setDuration(250);
-		animation.setAnimationListener(new DeleteAnimationListenter(position));
+		animation.setAnimationListener(new SwipeAnimationListenter(position));
 		animation.setInterpolator(AnimationUtils.loadInterpolator(this,
 				android.R.anim.linear_interpolator));
 		return animation;
 	}
 
-	public class DeleteAnimationListenter implements
+	public class SwipeAnimationListenter implements
 			Animation.AnimationListener {
 		private int position;
 
-		public DeleteAnimationListenter(int position) {
+		public SwipeAnimationListenter(int position) {
 			this.position = position;
 		}
 

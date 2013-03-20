@@ -26,7 +26,7 @@ import com.viewpagerindicator.PageIndicator;
  * @author gor, armenabrahamyan
  * 
  */
-public class HelpActivity extends FragmentActivity implements ActionDelegate {
+public class HelpActivity extends FragmentActivity implements ActionDelegate {	
 	
 	private TestFragmentAdapter mAdapter;
 	private ViewPager mPager;
@@ -106,9 +106,8 @@ public class HelpActivity extends FragmentActivity implements ActionDelegate {
 
 	private final class OkOnClickListener implements
 			DialogInterface.OnClickListener {
-		public void onClick(DialogInterface dialog, int which) {
-			JobsActivity jobsActivity = new JobsActivity();
-			jobsActivity.signOutRequest();
+		public void onClick(DialogInterface dialog, int which) {			
+			JobsActivity.getActivity().signOutRequest();
 			HelpActivity.this.finish();
 			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",

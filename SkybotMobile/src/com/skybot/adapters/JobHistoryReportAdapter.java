@@ -3,10 +3,7 @@ package com.skybot.adapters;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +18,6 @@ import com.skybot.activities.R;
 import com.skybot.connection.connection.BaseNetworkManager;
 import com.skybot.connection.connection.helper.RequestCreator;
 import com.skybot.util.Constants;
-import com.skybot.util.ViewTracker;
 
 public class JobHistoryReportAdapter extends BaseAdapter {
 

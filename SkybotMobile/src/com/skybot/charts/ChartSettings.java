@@ -7,7 +7,6 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-import com.skybot.activities.DashboardActivity;
 import com.skybot.charts.singleton.ChartSingleton;
 import com.skybot.util.Constants;
 

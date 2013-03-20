@@ -214,8 +214,8 @@ public class AgentActivity extends ListActivity implements ActionDelegate {
 	private final class OkOnClickListener implements
 			DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
-			JobsActivity jobsActivity = new JobsActivity();
-			jobsActivity.signOutRequest();
+
+			JobsActivity.getActivity().signOutRequest();
 			AgentActivity.this.finish();
 			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",
