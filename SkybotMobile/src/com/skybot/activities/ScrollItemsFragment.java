@@ -33,7 +33,7 @@ public class ScrollItemsFragment extends Fragment {
 	
 	
 	
-public ScrollItemsFragment() {
+	public ScrollItemsFragment() {
 		
 	}
 
@@ -58,6 +58,8 @@ public ScrollItemsFragment() {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		Log.i("notification", "onCreate()");
 		View v = inflater.inflate(R.layout.scrolling_fragment_layout,
 				container, false);
 		

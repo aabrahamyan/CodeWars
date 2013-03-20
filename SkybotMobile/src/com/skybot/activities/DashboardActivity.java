@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,8 +17,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.WindowManager;
 import android.widget.Toast;
+
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.ScrollItemsFragmentAdapter;
 import com.skybot.charts.singleton.ChartSingleton;
@@ -236,6 +236,7 @@ public class DashboardActivity extends FragmentActivity implements
 				Util.showOrHideActivityIndicator(
 						DashboardActivity.this.getParent(), 1,
 						"Getting Dashboard info...");
+				
 				pager.getAdapter().notifyDataSetChanged();
 
 			}
@@ -320,6 +321,13 @@ public class DashboardActivity extends FragmentActivity implements
 
 		case R.id.menu_refresh:
 			sendAndGetCharts();
+//			
+//			for(int i=0;i<4;i++) {
+//				ScrollItemsFragment fragment = (ScrollItemsFragment)pagerAdapter.getItem(i);
+//				fragment.getView();
+//			}
+			
+			
 			return true;
 
 		default:

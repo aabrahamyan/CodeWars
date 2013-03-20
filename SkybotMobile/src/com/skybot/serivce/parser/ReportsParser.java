@@ -52,7 +52,7 @@ public class ReportsParser {
 		if (serviceName.equals(Constants.MORE_JOB_HISTORIES_REPORTS)) {
 			DataHolder.getInstance().reportsList.addAll(list);
 		} else {
-			DataHolder.getInstance().emptyJobsList();
+			DataHolder.getInstance().emptyReportsList();
 			DataHolder.getInstance().reportsList.addAll(list);
 		}
 
