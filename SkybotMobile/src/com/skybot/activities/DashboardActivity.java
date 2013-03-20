@@ -1,6 +1,5 @@
 package com.skybot.activities;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,6 +14,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 import com.skybot.activities.delegate.ActionDelegate;
@@ -27,251 +29,241 @@ import com.skybot.util.ViewTracker;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
-
-
-
 /**
  * Activity for representing Dashboard charts and statistics
  * 
  * @author gor, armenabrahamyan
  * 
  */
-public class DashboardActivity extends FragmentActivity implements ActionDelegate{
-	
+public class DashboardActivity extends FragmentActivity implements
+		ActionDelegate {
+
 	private ScrollItemsFragmentAdapter pagerAdapter;
 	private ViewPager pager;
 	private ChartSingleton chartSingleton = ChartSingleton.getInstance();
 	private PageIndicator mIndicator;
-	
-	
-	public  DisplayMetrics metrics = new DisplayMetrics();
-	
-//	public DisplayMetrics metrics = getResources().getDisplayMetrics();
-	
+
+	public DisplayMetrics metrics = new DisplayMetrics();
+
+	// public DisplayMetrics metrics = getResources().getDisplayMetrics();
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard_layout);
-		
+
 		/** Getting a reference to the ViewPager defined the layout file */
-		pager = (ViewPager) findViewById(R.id.pager);				
-		
+		pager = (ViewPager) findViewById(R.id.pager);
+
 		/** Getting fragment manager */
 		FragmentManager fm = getSupportFragmentManager();
-		
+
 		/** Instantiating FragmentPagerAdapter */
 		pagerAdapter = new ScrollItemsFragmentAdapter(fm);
-				
+
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		chartSingleton.metrics = metrics;
-		
+
 		sendAndGetCharts();
-		
-		
+
 	}
-	
+
 	private void getCompletedJobsResponse() {
-		
+
 		String system_time = Long.toString(System.currentTimeMillis());
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
-		
+
 		StringBuilder stringBuilder = new StringBuilder(Constants.SERVER_URL);
 		stringBuilder.append(Constants.RIGHT_SLASH)
-					 .append(Constants.DASHBOARD_SERVICE)
-					 .append(Constants.RIGHT_SLASH)
-					 .append(Constants.COMPLETED_JOBS_ID)
-					 .append(Constants.RIGHT_SLASH)
-					 .append(Constants.DASHBOARD_SERVICE_URL)
-					 .append(Constants.FIRST_PARAM_SEPARATOR)
-					 .append(Constants.DATE)
-					 .append(Constants.EQUAL)
-					 .append(system_time);
-		
+				.append(Constants.DASHBOARD_SERVICE)
+				.append(Constants.RIGHT_SLASH)
+				.append(Constants.COMPLETED_JOBS_ID)
+				.append(Constants.RIGHT_SLASH)
+				.append(Constants.DASHBOARD_SERVICE_URL)
+				.append(Constants.FIRST_PARAM_SEPARATOR).append(Constants.DATE)
+				.append(Constants.EQUAL).append(system_time);
+
 		String stringWithUrlAndParams = stringBuilder.toString();
-		
-		baseNetworkManager.constructConnectionAndHitGET("Chart Request is successful", "Chart Request Started", stringWithUrlAndParams, 
-				this, Constants.DASHBOARD_VIEW, Constants.COMPLETED_JOBS_ID);
+
+		baseNetworkManager.constructConnectionAndHitGET(
+				"Chart Request is successful", "Chart Request Started",
+				stringWithUrlAndParams, this, Constants.DASHBOARD_VIEW,
+				Constants.COMPLETED_JOBS_ID);
 		Log.i("Request Status", "Request completed");
-		
-		
+
 	}
-	
+
 	public void getTerminatedJobsResponse() {
 		String system_time = Long.toString(System.currentTimeMillis());
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
-		
+
 		StringBuilder stringBuilder = new StringBuilder(Constants.SERVER_URL);
 		stringBuilder.append(Constants.RIGHT_SLASH)
-					 .append(Constants.DASHBOARD_SERVICE)
-					 .append(Constants.RIGHT_SLASH)
-					 .append(Constants.TERMINATED_JOBS_ID)
-					 .append(Constants.RIGHT_SLASH)
-					 .append(Constants.DASHBOARD_SERVICE_URL)
-					 .append(Constants.FIRST_PARAM_SEPARATOR)
-					 .append(Constants.DATE)
-					 .append(Constants.EQUAL)
-					 .append(system_time);
-		
+				.append(Constants.DASHBOARD_SERVICE)
+				.append(Constants.RIGHT_SLASH)
+				.append(Constants.TERMINATED_JOBS_ID)
+				.append(Constants.RIGHT_SLASH)
+				.append(Constants.DASHBOARD_SERVICE_URL)
+				.append(Constants.FIRST_PARAM_SEPARATOR).append(Constants.DATE)
+				.append(Constants.EQUAL).append(system_time);
+
 		String stringWithUrlAndParams = stringBuilder.toString();
-		
-		baseNetworkManager.constructConnectionAndHitGET("Chart Request is successful", "Chart Request Started", stringWithUrlAndParams, 
-				this, Constants.DASHBOARD_VIEW, Constants.TERMINATED_JOBS_ID);
+
+		baseNetworkManager.constructConnectionAndHitGET(
+				"Chart Request is successful", "Chart Request Started",
+				stringWithUrlAndParams, this, Constants.DASHBOARD_VIEW,
+				Constants.TERMINATED_JOBS_ID);
 		Log.i("Request Status", "Request completed");
 	}
-	
+
 	public void getSubmittedJobResponse() {
 		String system_time = Long.toString(System.currentTimeMillis());
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
-		
+
 		StringBuilder stringBuilder = new StringBuilder(Constants.SERVER_URL);
 		stringBuilder.append(Constants.RIGHT_SLASH)
-					 .append(Constants.DASHBOARD_SERVICE)
-					 .append(Constants.RIGHT_SLASH)
-					 .append(Constants.SUBMITTED_JOBS_ID)
-					 .append(Constants.RIGHT_SLASH)
-					 .append(Constants.DASHBOARD_SERVICE_URL)
-					 .append(Constants.FIRST_PARAM_SEPARATOR)
-					 .append(Constants.DATE)
-					 .append(Constants.EQUAL)
-					 .append(system_time);
-		
+				.append(Constants.DASHBOARD_SERVICE)
+				.append(Constants.RIGHT_SLASH)
+				.append(Constants.SUBMITTED_JOBS_ID)
+				.append(Constants.RIGHT_SLASH)
+				.append(Constants.DASHBOARD_SERVICE_URL)
+				.append(Constants.FIRST_PARAM_SEPARATOR).append(Constants.DATE)
+				.append(Constants.EQUAL).append(system_time);
+
 		String stringWithUrlAndParams = stringBuilder.toString();
-		
-		baseNetworkManager.constructConnectionAndHitGET("Chart Request is successful", "Chart Request Started", stringWithUrlAndParams, 
-				this, Constants.DASHBOARD_VIEW, Constants.SUBMITTED_JOBS_ID);
+
+		baseNetworkManager.constructConnectionAndHitGET(
+				"Chart Request is successful", "Chart Request Started",
+				stringWithUrlAndParams, this, Constants.DASHBOARD_VIEW,
+				Constants.SUBMITTED_JOBS_ID);
 		Log.i("Request Status", "Request completed");
 	}
-	
+
 	public void getAgentEventsProcessedResponse() {
 		String system_time = Long.toString(System.currentTimeMillis());
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
-		
+
 		StringBuilder stringBuilder = new StringBuilder(Constants.SERVER_URL);
 		stringBuilder.append(Constants.RIGHT_SLASH)
-					 .append(Constants.DASHBOARD_SERVICE)
-					 .append(Constants.RIGHT_SLASH)
-					 .append(Constants.AGENT_EVENT_PROCESSED_ID)
-					 .append(Constants.RIGHT_SLASH)
-					 .append(Constants.DASHBOARD_SERVICE_URL)
-					 .append(Constants.FIRST_PARAM_SEPARATOR)
-					 .append(Constants.DATE)
-					 .append(Constants.EQUAL)
-					 .append(system_time);
-		
+				.append(Constants.DASHBOARD_SERVICE)
+				.append(Constants.RIGHT_SLASH)
+				.append(Constants.AGENT_EVENT_PROCESSED_ID)
+				.append(Constants.RIGHT_SLASH)
+				.append(Constants.DASHBOARD_SERVICE_URL)
+				.append(Constants.FIRST_PARAM_SEPARATOR).append(Constants.DATE)
+				.append(Constants.EQUAL).append(system_time);
+
 		String stringWithUrlAndParams = stringBuilder.toString();
-		
-		baseNetworkManager.constructConnectionAndHitGET("Chart Request is successful", "Chart Request Started", stringWithUrlAndParams, 
-				this, Constants.DASHBOARD_VIEW, Constants.AGENT_EVENT_PROCESSED_ID);
+
+		baseNetworkManager.constructConnectionAndHitGET(
+				"Chart Request is successful", "Chart Request Started",
+				stringWithUrlAndParams, this, Constants.DASHBOARD_VIEW,
+				Constants.AGENT_EVENT_PROCESSED_ID);
 		Log.i("Request Status", "Request completed");
 	}
-	
+
 	public void sendAndGetCharts() {
 		Util.showOrHideActivityIndicator(DashboardActivity.this.getParent(), 0,
-		"Getting Dashboard info...");
-		
+				"Getting Dashboard info...");
+
 		chartSingleton.charts_reg_counter = 4;
-		
+
 		getCompletedJobsResponse();
 		getTerminatedJobsResponse();
 		getSubmittedJobResponse();
 		getAgentEventsProcessedResponse();
-		
+
 	}
-	
-	
+
 	@Override
-	protected void onResume() {	
+	protected void onResume() {
 		super.onResume();
-		
+
 		ViewTracker.getInstance().setCurrentContext(this);
 		ViewTracker.getInstance().setCurrentViewName("Dashboard");
 	}
-	
+
 	@Override
 	public void didFinishRequestProcessing() {
-		
+
 	}
 
 	@Override
 	public void didFailRequestProcessing() {
-		
+
 	}
-	
+
 	@Override
-	public void didFinishRequestProcessing(ArrayList<HashMap<String, String>> list, String service) {						
-		
-		if(chartSingleton.charts_reg_counter>0) {
-			
+	public void didFinishRequestProcessing(
+			ArrayList<HashMap<String, String>> list, String service) {
+
+		if (chartSingleton.charts_reg_counter > 0) {
+
 			chartSingleton.charts_reg_counter--;
-			
-			if(service.equals("terminated_jobs")) {
+
+			if (service.equals("terminated_jobs")) {
 				chartSingleton.terminatedArrayLIst = list;
-			}
-			else if (service.equals("completed_jobs")) {
+			} else if (service.equals("completed_jobs")) {
 				chartSingleton.completedArayList = list;
-			}
-			else if (service.equals("submitted_jobs")) {
+			} else if (service.equals("submitted_jobs")) {
 				chartSingleton.submittedArrayList = list;
-			}
-			else if(service.equals("agent_event_processed_jobs")) {
+			} else if (service.equals("agent_event_processed_jobs")) {
 				chartSingleton.agentEventProcessedArrayList = list;
 			}
-			
-			if(chartSingleton.charts_reg_counter == 0) {			
 
-				if(pager.getAdapter() == null) {
-					
+			if (chartSingleton.charts_reg_counter == 0) {
+
+				if (pager.getAdapter() == null) {
+
 					pager.setAdapter(pagerAdapter);
-					
-					CirclePageIndicator indicator = (CirclePageIndicator)findViewById(R.id.indicator);
-			        mIndicator = indicator;
-					
-					mIndicator = (CirclePageIndicator)findViewById(R.id.indicator);
-			        mIndicator.setViewPager(pager);
-			        
-			        final float density = getResources().getDisplayMetrics().density;
-			        
-			        indicator.setBackgroundColor(Color.parseColor("#FFFFFF"));
-			        indicator.setRadius(5 * density);
-			        indicator.setPageColor(Color.WHITE);
-			        indicator.setFillColor(Color.parseColor("#65BDE3"));
-			        indicator.setStrokeColor(Color.GRAY);
-			        indicator.setStrokeWidth(1);
+
+					CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.indicator);
+					mIndicator = indicator;
+
+					mIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
+					mIndicator.setViewPager(pager);
+
+					final float density = getResources().getDisplayMetrics().density;
+
+					indicator.setBackgroundColor(Color.parseColor("#FFFFFF"));
+					indicator.setRadius(5 * density);
+					indicator.setPageColor(Color.WHITE);
+					indicator.setFillColor(Color.parseColor("#65BDE3"));
+					indicator.setStrokeColor(Color.GRAY);
+					indicator.setStrokeWidth(1);
 				}
-				
-				Util.showOrHideActivityIndicator(DashboardActivity.this.getParent(), 1,
-				"Getting Dashboard info...");
+
+				Util.showOrHideActivityIndicator(
+						DashboardActivity.this.getParent(), 1,
+						"Getting Dashboard info...");
 				pager.getAdapter().notifyDataSetChanged();
-				
+
 			}
-				
+
 		}
-		
-//		else if(chartSingleton.charts_reg_counter == 0) {			
-//
-//			
-//				if(pager.getAdapter() == null) {
-//					pager.setAdapter(pagerAdapter);
-//				}
-//				
-//				pager.getAdapter().notifyDataSetChanged();
-//				
-//		}
-		
-		
-				
-		//pagerAdapter.data = list; //dataList;				
-		
-		
-		
-		Log.i("Kuku","KuKu");		
+
+		// else if(chartSingleton.charts_reg_counter == 0) {
+		//
+		//
+		// if(pager.getAdapter() == null) {
+		// pager.setAdapter(pagerAdapter);
+		// }
+		//
+		// pager.getAdapter().notifyDataSetChanged();
+		//
+		// }
+
+		// pagerAdapter.data = list; //dataList;
+
+		Log.i("Kuku", "KuKu");
 	}
 
 	@Override
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onBackPressed() {
@@ -313,8 +305,29 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 		}
 	}
 
+	/****************************** Menu Callbacks ************************************/
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.layout.refresh_menu, menu);
+		return true;
 	}
-	/*
-	 * @Override public boolean onCreateOptionsMenu(Menu menu) {
-	 * getMenuInflater().inflate(R.menu.activity_main, menu); return true; }
-	 */
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+
+		case R.id.menu_refresh:
+			sendAndGetCharts();
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+}
+/*
+ * @Override public boolean onCreateOptionsMenu(Menu menu) {
+ * getMenuInflater().inflate(R.menu.activity_main, menu); return true; }
+ */

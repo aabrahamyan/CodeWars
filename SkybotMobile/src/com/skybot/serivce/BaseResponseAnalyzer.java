@@ -285,34 +285,12 @@ public class BaseResponseAnalyzer {
 		}
 
 		else if (serviceName.equals(Constants.AGENT_EVENT_PROCESSED_ID)) {
-			Log.i("Parser Info", "Entered Agent Event Processed sequence ");
-			String responseString = "";
-			responseString = responseData;
-			final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+
 			try {
-				JSONParser jParser = new JSONParser();
-				JSONObject jObject = (JSONObject) jParser.parse(responseString);
-				JSONArray jArray = (JSONArray) jObject.get("data");
-
-				for (int i = 0; i < jArray.size(); i++) {
-					JSONObject json_data = (JSONObject) jArray.get(i);
-					HashMap<String, String> map = new HashMap<String, String>();
-					map.put("label", json_data.get("label").toString());
-					map.put("manual_events", json_data.get("manual_events")
-							.toString());
-					map.put("file_events", json_data.get("file_events")
-							.toString());
-					map.put("directory_events",
-							json_data.get("directory_events").toString());
-					map.put("process_events", json_data.get("process_events")
-							.toString());
-
-					list.add(map);
-				}
-
-				for (int i = 0; i < list.size(); i++) {
-					Log.w("Agent Event Processed list", list.get(i).toString());
-				}
+				/************** Parser: Start ******************/
+				BaseDashboardParser bdParser = new BaseDashboardParser();
+				bdParser.parseAgentEventProcessData(responseData);
+				/************** Parser: End ********************/
 
 				final ActionDelegate del = (ActionDelegate) ViewTracker
 						.getInstance().getCurrentContext();
@@ -324,7 +302,8 @@ public class BaseResponseAnalyzer {
 
 					@Override
 					public void run() {
-						del.didFinishRequestProcessing(list,
+						del.didFinishRequestProcessing(
+								DataHolder.getInstance().agentEventsProcessList,
 								"agent_event_processed_jobs");
 					}
 				});
