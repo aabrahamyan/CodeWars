@@ -43,7 +43,7 @@ import com.skybot.util.ViewTracker;
  */
 public class JobsActivity extends SwipeListViewActivity implements
 		ActionDelegate {
-
+	private static JobsActivity activity;
 	private ListView listView;
 	private JobsAdapter adapter;
 	public static ArrayList<HashMap<String, String>> jobsList = new ArrayList<HashMap<String, String>>();
@@ -56,7 +56,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.jobs_list);
-
+		activity = this;
 		listView = (ListView) findViewById(R.id.listView1);
 		adapter = new JobsAdapter(this, jobsList);
 		listView.setAdapter(adapter);
@@ -93,6 +93,10 @@ public class JobsActivity extends SwipeListViewActivity implements
 		baseNetworkManager.constructConnectionAndHitGET("Log out Successful",
 				"Log out Request Started", urlStringWithParams, this,
 				Constants.LOGOUT_VIEW, Constants.SIGN_OUT);
+	}
+	
+	public static JobsActivity getActivity() {
+		return activity;
 	}
 
 	@Override

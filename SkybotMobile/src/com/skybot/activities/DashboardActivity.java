@@ -306,8 +306,7 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 	private final class OkOnClickListener implements
 			DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
-			JobsActivity jobsActivity = new JobsActivity();
-			jobsActivity.signOutRequest();
+			JobsActivity.getActivity().signOutRequest();
 			DashboardActivity.this.finish();
 			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",
