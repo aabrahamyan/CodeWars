@@ -91,7 +91,7 @@ public class BaseResponseAnalyzer {
 				});
 
 			} catch (Exception e) {
-				Log.e("JSON Parser", "Error parsing data " + e.toString());
+				Log.e("RUN JOB", "Error running job" + e.toString());
 			}
 
 		}

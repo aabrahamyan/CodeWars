@@ -21,6 +21,7 @@ import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.ScrollItemsFragmentAdapter;
 import com.skybot.charts.singleton.ChartSingleton;
 import com.skybot.connection.connection.BaseNetworkManager;
+import com.skybot.serivce.parser.dataholder.DataHolder;
 import com.skybot.util.Constants;
 import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
@@ -308,6 +309,7 @@ public class DashboardActivity extends FragmentActivity implements ActionDelegat
 			JobsActivity jobsActivity = new JobsActivity();
 			jobsActivity.signOutRequest();
 			DashboardActivity.this.finish();
+			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",
 					Toast.LENGTH_LONG).show();
 		}
