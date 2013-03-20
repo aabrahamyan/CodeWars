@@ -235,6 +235,7 @@ public class DashboardActivity extends FragmentActivity implements
 				Util.showOrHideActivityIndicator(
 						DashboardActivity.this.getParent(), 1,
 						"Getting Dashboard info...");
+				
 				pager.getAdapter().notifyDataSetChanged();
 
 			}
