@@ -111,7 +111,11 @@ public class JobsActivity extends SwipeListViewActivity implements
 	}
 
 	public void runJob(View v, String id) {
-
+		Toast.makeText(JobsActivity.this,
+				"Job is running. Please wait.", Toast.LENGTH_LONG)
+				.show();
+		Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 0,
+				"Running Job...");
 		String system_Time = Long.toString(System.currentTimeMillis());
 		RequestCreator creator = new RequestCreator();
 		final RequestHelper reqHelper = new RequestHelper();
@@ -218,7 +222,8 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 	@Override
 	public void didFinishRequestProcessing() {
-
+		Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 1,
+				"Running Job...");
 	}
 
 	@Override
@@ -383,6 +388,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 		switch (item.getItemId()) {
 		case R.id.menu_refresh:
+			DataHolder.getInstance().emptyJobsList();
 			getJobsResponse();
 			return true;
 		case R.id.menu_more:
@@ -425,8 +431,9 @@ public class JobsActivity extends SwipeListViewActivity implements
 	private final class OkOnClickListener implements
 			DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
-			signOutRequest();
+			signOutRequest();			
 			JobsActivity.this.finish();
+			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",
 					Toast.LENGTH_LONG).show();
 		}

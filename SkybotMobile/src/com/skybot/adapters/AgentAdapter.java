@@ -15,16 +15,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.skybot.activities.AgentActivity;
-import com.skybot.activities.JobsActivity;
 import com.skybot.activities.R;
+import com.skybot.serivce.parser.dataholder.DataHolder;
 
 public class AgentAdapter extends BaseAdapter {
 
-	private Activity activity;
+	private AgentActivity activity;
 	public ArrayList<HashMap<String, String>> data;
 	private static LayoutInflater inflater = null;
 
-	public AgentAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
+	public AgentAdapter(AgentActivity a, ArrayList<HashMap<String, String>> d) {
 		activity = a;
 		data = d;
 		inflater = (LayoutInflater) activity
@@ -90,9 +90,9 @@ public class AgentAdapter extends BaseAdapter {
 
 				@Override
 				public void onClick(View v) {
-					String id = v.getTag().toString();
-					AgentActivity agentActivity = new AgentActivity();
-					agentActivity.restartAgent(v, id);
+					String id = v.getTag().toString();					
+					DataHolder.getInstance().emptyAgentsList();
+					activity.restartAgent(v, id);
 				}
 			});
 
