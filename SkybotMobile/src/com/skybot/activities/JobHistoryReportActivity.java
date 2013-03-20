@@ -14,6 +14,9 @@ import android.net.Uri;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.skybot.activities.delegate.ActionDelegate;
@@ -68,7 +71,7 @@ public class JobHistoryReportActivity extends ListActivity implements
 		Constants.USERID, "1", Constants.DATE, "1362129459671",
 				Constants.RESULTS, "5", Constants.SORT,
 				"copied_server_time_utc", Constants.DIRECTION, "DESC",
-				Constants.TAG, "", Constants.LIMIT, "3"
+				Constants.TAG, "", Constants.LIMIT, "300", Constants.START, ""
 
 		);
 
@@ -82,6 +85,53 @@ public class JobHistoryReportActivity extends ListActivity implements
 				"Job History Report Data Request Started", urlStringWithParams,
 				this, Constants.JOBHISTORYREPORT_VIEW,
 				Constants.JOBHISTORYREPORT_SERVICE_URL);
+
+	}
+
+	/**
+	 * Getting Job History Reports...More functionality
+	 */
+	private void getMoreJobHistoryReportResponse() {
+
+		Util.showOrHideActivityIndicator(
+				JobHistoryReportActivity.this.getParent(), 0,
+				"Getting Job History Reports...");
+
+		RequestCreator creator = new RequestCreator();
+		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
+
+		Map<String, String> job_params = creator
+				.createAppropriateMapRequest(
+
+						Constants.USERID,
+						"1",
+						Constants.DATE,
+						"1362129459671",
+						Constants.RESULTS,
+						String.valueOf(DataHolder.getInstance().JOBS_HISTORIES_REPORTS_MORE_END_INDEX),
+						Constants.SORT,
+						"copied_server_time_utc",
+						Constants.DIRECTION,
+						"DESC",
+						Constants.TAG,
+						"",
+						Constants.LIMIT,
+						"300",
+						Constants.START,
+						String.valueOf(DataHolder.getInstance().JOBS_HISTORIES_REPORTS_MORE_START_INDEX)
+
+				);
+
+		final RequestHelper reqHelper = new RequestHelper();
+		String urlStringWithParams = reqHelper.constructGetRequestString(
+				job_params, Constants.SERVER_URL,
+				Constants.JOBHISTORYREPORT_SERVICE_URL);
+
+		baseNetworkManager.constructConnectionAndHitGET(
+				"Job History Report Data Recieved",
+				"Job History Report Data Request Started", urlStringWithParams,
+				this, Constants.JOBHISTORYREPORT_VIEW,
+				Constants.MORE_JOB_HISTORIES_REPORTS);
 
 	}
 
@@ -130,6 +180,10 @@ public class JobHistoryReportActivity extends ListActivity implements
 				JobHistoryReportActivity.this.getParent(), 1,
 				"Getting Job History Reports...");
 
+		if (mProgressDialog != null && mProgressDialog.isShowing()) {
+			mProgressDialog.dismiss();
+		}
+
 	}
 
 	@Override
@@ -168,7 +222,7 @@ public class JobHistoryReportActivity extends ListActivity implements
 	// --------------------------- Progress Dialog Part ---------------------//
 
 	/**
-	 * 
+	 * SHows progress Dialog
 	 */
 	public void showProgressDialog() {
 
@@ -232,12 +286,44 @@ public class JobHistoryReportActivity extends ListActivity implements
 			DialogInterface.OnClickListener {
 
 		public void onClick(DialogInterface dialog, int which) {
-			JobsActivity.getActivity().signOutRequest();		
+			JobsActivity.getActivity().signOutRequest();			
 			JobHistoryReportActivity.this.finish();
 			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",
 					Toast.LENGTH_LONG).show();
 		}
 
+	}
+
+	/****************************** Menu Callbacks ************************************/
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.layout.more_refresh_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.menu_refresh:
+			DataHolder.getInstance().JOBS_HISTORIES_REPORTS_MORE_END_INDEX = 5;
+			DataHolder.getInstance().JOBS_HISTORIES_REPORTS_MORE_START_INDEX = 0;
+			// getJobsHistoryResponse();
+			getJobHistoryReportResponse();
+			return true;
+		case R.id.menu_more:
+			DataHolder.getInstance().JOBS_HISTORIES_REPORTS_MORE_END_INDEX += DataHolder
+					.getInstance().JOBS_HISTORIES_REPORTS_MORE_NEXT_STEP;
+			DataHolder.getInstance().JOBS_HISTORIES_REPORTS_MORE_START_INDEX += DataHolder
+					.getInstance().JOBS_HISTORIES_REPORTS_MORE_NEXT_STEP;
+			// getJobsMoreHistoryResponse();
+			getMoreJobHistoryReportResponse();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }

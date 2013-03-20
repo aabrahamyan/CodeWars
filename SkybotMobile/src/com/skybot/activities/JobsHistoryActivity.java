@@ -10,6 +10,9 @@ import android.app.ListActivity;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.skybot.activities.delegate.ActionDelegate;
@@ -47,7 +50,7 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 		listView = getListView(); //
 		adapter = new JobsHistoryAdapter(this, jobsList);
 		listView.setAdapter(adapter);
-	}
+	} 
 
 	private void getJobsHistoryResponse() {
 		Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(),
@@ -59,7 +62,8 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 		Map<String, String> job_params = creator.createAppropriateMapRequest(
 				Constants.DATE, system_Time, Constants.RESULTS, "5",
 				Constants.SORT, "id", Constants.DIRECTION, "DESC",
-				Constants.TAG, "", Constants.TAG_MATCH_ANY, "false"
+				Constants.TAG, "", Constants.TAG_MATCH_ANY, "false",
+				Constants.START, "0"
 
 		// Additional constants for job history
 				/*
@@ -82,6 +86,45 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 				"Jobs History Recieved", "Jobs History Request Started",
 				urlStringWithParams, this, Constants.JOBSHISTORY_VIEW,
 				Constants.JOBHISTORY_SERVICE_URL);
+	}
+
+	private void getJobsMoreHistoryResponse() {
+		Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(),
+				0, "Requesting Job Histories...");
+		RequestCreator creator = new RequestCreator();
+		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
+		String system_Time = Long.toString(System.currentTimeMillis());
+
+		Map<String, String> job_params = creator
+				.createAppropriateMapRequest(Constants.DATE, system_Time,
+						Constants.RESULTS, String.valueOf(DataHolder
+								.getInstance().JOBS_HISTORIES_MORE_END_INDEX),
+						Constants.SORT, "id", Constants.DIRECTION, "DESC",
+						Constants.TAG, "", Constants.TAG_MATCH_ANY, "false",
+						Constants.START, String.valueOf(DataHolder
+								.getInstance().JOBS_HISTORIES_MORE_START_INDEX)
+
+				// Additional constants for job history
+				/*
+				 * Constants.DATAFILTERFIELD, "server_initiated_time_utc",
+				 * Constants.DATAFILTERDATACOMPARASION, "eq",
+				 * Constants.DATAFILTERDATATYPE, "dateTime",
+				 * Constants.DATAFILTERVALUE, "2013-02-26T00:00:00",
+				 * Constants.EXCLUDETIMEDINTERVAL, "false", Constants.START,
+				 * "0", Constants.LIMIT, "3"
+				 */
+
+				);
+
+		final RequestHelper reqHelper = new RequestHelper();
+		String urlStringWithParams = reqHelper.constructGetRequestString(
+				job_params, Constants.SERVER_URL,
+				Constants.JOBHISTORY_SERVICE_URL);
+
+		baseNetworkManager.constructConnectionAndHitGET(
+				"Jobs History Recieved", "Jobs History Request Started",
+				urlStringWithParams, this, Constants.JOBSHISTORY_VIEW,
+				Constants.MORE_JOB_HISTORIES);
 	}
 
 	@Override
@@ -125,8 +168,8 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 
 	@Override
 	public void didFailRequestProcessing() {
-		Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(), 1,
-				"Requesting Job Histories...");
+		Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(),
+				1, "Requesting Job Histories...");
 
 	}
 
@@ -136,6 +179,7 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 		// TODO Auto-generated method stub
 
 	}
+
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onBackPressed() {
@@ -174,6 +218,36 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",
 					Toast.LENGTH_LONG).show();
+		}
+	}
+
+	/****************************** Menu Callbacks ************************************/
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.layout.more_refresh_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.menu_refresh:
+			DataHolder.getInstance().JOBS_HISTORIES_MORE_END_INDEX = 5;
+			DataHolder.getInstance().JOBS_HISTORIES_MORE_START_INDEX = 0;
+			getJobsHistoryResponse();
+			return true;
+		case R.id.menu_more:
+			DataHolder.getInstance().JOBS_HISTORIES_MORE_END_INDEX += DataHolder
+					.getInstance().JOBS_HISTORIES_NEXT_STEP;
+			DataHolder.getInstance().JOBS_HISTORIES_MORE_START_INDEX += DataHolder
+					.getInstance().JOBS_HISTORIES_NEXT_STEP;
+			getJobsMoreHistoryResponse();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 }

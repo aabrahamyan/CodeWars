@@ -1,5 +1,6 @@
 package com.skybot.serivce.parser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.simple.JSONArray;
@@ -37,6 +38,8 @@ public class AgentsParser {
 		JSONParser jParser = new JSONParser();
 		JSONObject jObject = (JSONObject) jParser.parse(responseString);
 
+		final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+
 		JSONArray jArray = (JSONArray) jObject.get("items");
 		for (int i = 0; i < jArray.size(); i++) {
 			JSONObject json_data = (JSONObject) jArray.get(i);
@@ -47,8 +50,11 @@ public class AgentsParser {
 			map.put("name", json_data.get("name").toString());
 			map.put("description", json_data.get("description").toString());
 
-			DataHolder.getInstance().agentsList.add(map);
+			list.add(map);
 		}
+
+		DataHolder.getInstance().emptyAgentsList();
+		DataHolder.getInstance().agentsList.addAll(list);
 
 	}
 
