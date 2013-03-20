@@ -71,10 +71,10 @@ public class JobsActivity extends SwipeListViewActivity implements
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
 		Map<String, String> job_params = creator.createAppropriateMapRequest(
-				Constants.DATE, system_Time, Constants.RESULTS, "300",
+				Constants.DATE, system_Time, Constants.RESULTS, "5",
 				Constants.SORT, "name", Constants.DIRECTION, "ASC",
 				Constants.TAG, "", Constants.TAG_MATCH_ANY, "false",
-				Constants.START, "0", Constants.LIMIT, "300");
+				Constants.START, "0", Constants.LIMIT, "500");
 
 		final RequestHelper reqHelper = new RequestHelper();
 		String urlStringWithParams = reqHelper.constructGetRequestString(
@@ -83,6 +83,31 @@ public class JobsActivity extends SwipeListViewActivity implements
 		baseNetworkManager.constructConnectionAndHitGET("Login Successful",
 				"Jobs Request Started", urlStringWithParams, this,
 				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
+	}
+
+	private void getJobsMoreResponse() {
+		Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 0,
+				"Requesting Jobs List...");
+		String system_Time = Long.toString(System.currentTimeMillis());
+		RequestCreator creator = new RequestCreator();
+		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
+
+		Map<String, String> job_params = creator.createAppropriateMapRequest(
+				Constants.DATE, system_Time, Constants.RESULTS,
+				String.valueOf(DataHolder.getInstance().JOBS_MORE_END_INDEX),
+				Constants.SORT, "name", Constants.DIRECTION, "ASC",
+				Constants.TAG, "", Constants.TAG_MATCH_ANY, "false",
+				Constants.START,
+				String.valueOf(DataHolder.getInstance().JOBS_MORE_START_INDEX),
+				Constants.LIMIT, "500");
+
+		final RequestHelper reqHelper = new RequestHelper();
+		String urlStringWithParams = reqHelper.constructGetRequestString(
+				job_params, Constants.SERVER_URL, Constants.JOB_SERVICE_URL);
+
+		baseNetworkManager.constructConnectionAndHitGET("Login Successful",
+				"Jobs Request Started", urlStringWithParams, this,
+				Constants.JOBS_VIEW, Constants.MORE_JOBS);
 	}
 
 	public void signOutRequest() {
@@ -111,9 +136,8 @@ public class JobsActivity extends SwipeListViewActivity implements
 	}
 
 	public void runJob(View v, String id) {
-		Toast.makeText(JobsActivity.this,
-				"Job is running. Please wait.", Toast.LENGTH_LONG)
-				.show();
+		Toast.makeText(JobsActivity.this, "Job is running. Please wait.",
+				Toast.LENGTH_LONG).show();
 		Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 0,
 				"Running Job...");
 		String system_Time = Long.toString(System.currentTimeMillis());
@@ -388,10 +412,16 @@ public class JobsActivity extends SwipeListViewActivity implements
 
 		switch (item.getItemId()) {
 		case R.id.menu_refresh:
-			DataHolder.getInstance().emptyJobsList();
+			DataHolder.getInstance().JOBS_MORE_END_INDEX = 5;
+			DataHolder.getInstance().JOBS_MORE_START_INDEX = 0;
 			getJobsResponse();
 			return true;
 		case R.id.menu_more:
+			DataHolder.getInstance().JOBS_MORE_END_INDEX += DataHolder
+					.getInstance().JOBS_NEXT_STEP;
+			DataHolder.getInstance().JOBS_MORE_START_INDEX += DataHolder
+					.getInstance().JOBS_NEXT_STEP;
+			getJobsMoreResponse();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -431,7 +461,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	private final class OkOnClickListener implements
 			DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
-			signOutRequest();			
+			signOutRequest();
 			JobsActivity.this.finish();
 			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",

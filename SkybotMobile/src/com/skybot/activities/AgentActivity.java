@@ -14,6 +14,9 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -212,11 +215,32 @@ public class AgentActivity extends ListActivity implements ActionDelegate {
 			DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
 			JobsActivity jobsActivity = new JobsActivity();
-			jobsActivity.signOutRequest();			
+			jobsActivity.signOutRequest();
 			AgentActivity.this.finish();
 			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",
 					Toast.LENGTH_LONG).show();
+		}
+	}
+
+	/****************************** Menu Callbacks ************************************/
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.layout.refresh_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+
+		case R.id.menu_refresh:
+			getAgentResponse();
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 }

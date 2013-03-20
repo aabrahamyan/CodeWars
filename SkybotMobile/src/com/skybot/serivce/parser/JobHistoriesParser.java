@@ -1,5 +1,6 @@
 package com.skybot.serivce.parser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.simple.JSONArray;
@@ -8,6 +9,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.skybot.serivce.parser.dataholder.DataHolder;
+import com.skybot.util.Constants;
 
 public class JobHistoriesParser {
 
@@ -16,12 +18,15 @@ public class JobHistoriesParser {
 	 * @param responseJsonString
 	 * @throws ParseException
 	 */
-	public void parseData(final String responseData) throws ParseException {
+	public void parseData(final String responseData, final String serviceName)
+			throws ParseException {
 		// --------------- Remove HTML from Response --------------//
 		final String responseString = analyzeAndInjectHTML(responseData);
 
 		JSONParser jParser = new JSONParser();
 		JSONObject jObject = (JSONObject) jParser.parse(responseString);
+
+		final ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 
 		JSONArray jArray = (JSONArray) jObject.get("items");
 
@@ -66,7 +71,17 @@ public class JobHistoriesParser {
 					.toString());
 			map.put("job_priority", json_data.get("job_priority").toString());
 
-			DataHolder.getInstance().jobHistoriesList.add(map);
+			list.add(map); 
+
+		}
+
+		if (serviceName.equals(Constants.MORE_JOB_HISTORIES)) {
+			//TODO: Investigate RESULT PARAMETER PROBLEM LATER: A.A. 
+			DataHolder.getInstance().emptyJobHistoriesList();
+			DataHolder.getInstance().jobHistoriesList.addAll(list);
+		} else {
+			DataHolder.getInstance().emptyJobHistoriesList();
+			DataHolder.getInstance().jobHistoriesList.addAll(list);
 		}
 	}
 

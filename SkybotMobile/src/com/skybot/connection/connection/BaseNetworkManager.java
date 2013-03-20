@@ -202,13 +202,24 @@ public class BaseNetworkManager {
 						Exception ex = (Exception) msg.obj;
 						Log.d("Exception occured while hitting response",
 								ex.getMessage());
+
+						final JobHistoryReportActivity jhaError = (JobHistoryReportActivity) ViewTracker
+								.getInstance().getCurrentContext();
+						jhaError.runOnUiThread(new Runnable() {
+
+							@Override
+							public void run() {
+								jhaError.didFailRequestProcessing();
+							}
+						});
+
 						break;
 
 					}
 				}
 			};
 
-			final HttpConnection connection = new HttpConnection(handler);			
+			final HttpConnection connection = new HttpConnection(handler);
 
 			// Hit Report file download.
 			connection.publish(urlAndParamsList, "");
