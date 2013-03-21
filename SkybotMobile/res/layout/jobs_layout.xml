@@ -22,7 +22,7 @@
             android:layout_width="50dip"
             android:layout_height="50dip"
             android:src="@drawable/blank_badge_green" />
-    </LinearLayout>
+    </LinearLayout>r 
 
     <!-- Title -->
 

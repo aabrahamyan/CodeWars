@@ -55,6 +55,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		checkNotNull(SENDER_ID, "SENDER_ID");
 		// Make sure the device has the proper dependencies.
 		GCMRegistrar.checkDevice(this);
+	
 		// Make sure the manifest was properly set - comment out this line
 		// while developing the app, then uncomment it when it's ready.
 		GCMRegistrar.checkManifest(this);
