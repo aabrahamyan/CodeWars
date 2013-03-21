@@ -133,12 +133,22 @@ public class JobHistoriesParser {
 				.replace(
 						"<div class='job-history-status job-history-complete'><span class='icon-job-history icon-job-history-complete'></span>",
 						"");
+		responseString = responseString
+				.replace(
+						"<div class='job-history-status job-history-submitted'><span class='icon-job-history icon-job-history-submitted'></span>",
+						"");
+	responseString = responseString
+				.replace(
+						"<div class='job-history-status job-history-failed'><span class='icon-job-history icon-job-history-failed'></span>",
+						"");
 		responseString = responseString.replace("</div>", "");
 		responseString = responseString.replace("<div>", "");
 		responseString = responseString.replace("</span>", "");
 		responseString = responseString.replace("<span>", "");
 		responseString = responseString.replace(
 				"<span class='icon-job-individual-job'>", "");
+		responseString = responseString.replace(
+				"<span class='icon-job-history-user'>", "");
 
 		return responseString;
 	}

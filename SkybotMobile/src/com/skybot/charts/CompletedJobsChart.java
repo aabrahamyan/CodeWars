@@ -53,7 +53,7 @@ public class CompletedJobsChart {
 		dataset.addSeries(series.toXYSeries());
 		mRenderer.addSeriesRenderer(renderer);
 		
-		chartSettings.addYlabelsColor(mRenderer, maxAxis);
+//		chartSettings.addYlabelsColor(mRenderer, maxAxis);
 		
 		GraphicalView chartView = ChartFactory.getBarChartView(
 				(Context) context, dataset, mRenderer, Type.DEFAULT);
