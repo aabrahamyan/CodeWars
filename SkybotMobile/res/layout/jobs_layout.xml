@@ -22,7 +22,7 @@
             android:layout_width="50dip"
             android:layout_height="50dip"
             android:src="@drawable/blank_badge_green" />
-    </LinearLayout>r 
+    </LinearLayout>
 
     <!-- Title -->
 
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="14dip"        
+        android:layout_marginTop="14dip"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Agent"
         android:textColor="#343434"
@@ -59,7 +59,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:layout_marginTop="1dip"        
+        android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Description"
         android:textColor="#343434"
@@ -92,6 +92,14 @@
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/hide"
         android:src="@drawable/release_job" />
+
+    <ImageView
+        android:id="@+id/btn2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/hide"
+        android:src="@drawable/hold_job" />
 
     <ImageView
         android:id="@+id/btn1"

@@ -183,6 +183,8 @@ public class JobsActivity extends SwipeListViewActivity implements
 	}
 
 	public void holdJob(View v, String id) {
+		Toast.makeText(JobsActivity.this, "Holding job. Please wait...",
+				Toast.LENGTH_LONG).show();		
 		String system_Time = Long.toString(System.currentTimeMillis());
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
@@ -208,16 +210,20 @@ public class JobsActivity extends SwipeListViewActivity implements
 						Constants.TAG, "", Constants.TAG_MATCH_ANY, "false",
 						Constants.START, "0", Constants.LIMIT, "300");
 
-		String urlStringWithParams = reqHelper
-				.constructGetRequestString(command_params,
-						Constants.SERVER_URL, Constants.JOB_SERVICE_URL);
-
-		baseNetworkManager.constructConnectionAndHitGET("Hold Successful",
-				"Hold Job Request Started", urlStringWithParams, this,
-				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
+		/*
+		 * String urlStringWithParams = reqHelper
+		 * .constructGetRequestString(command_params, Constants.SERVER_URL,
+		 * Constants.JOB_SERVICE_URL);
+		 * 
+		 * baseNetworkManager.constructConnectionAndHitGET("Hold Successful",
+		 * "Hold Job Request Started", urlStringWithParams, this,
+		 * Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
+		 */
 	}
 
 	public void releaseJob(View v, String id) {
+		Toast.makeText(JobsActivity.this, "Releasing job. Please wait...",
+				Toast.LENGTH_LONG).show();	
 		String system_Time = Long.toString(System.currentTimeMillis());
 		RequestCreator creator = new RequestCreator();
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
@@ -242,13 +248,15 @@ public class JobsActivity extends SwipeListViewActivity implements
 						Constants.TAG, "", Constants.TAG_MATCH_ANY, "false",
 						Constants.START, "0", Constants.LIMIT, "300");
 
-		String urlStringWithParams = reqHelper
-				.constructGetRequestString(command_params,
-						Constants.SERVER_URL, Constants.JOB_SERVICE_URL);
-
-		baseNetworkManager.constructConnectionAndHitGET("Release Successful",
-				"Release Job Request Started", urlStringWithParams, this,
-				Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
+		/*
+		 * String urlStringWithParams = reqHelper
+		 * .constructGetRequestString(command_params, Constants.SERVER_URL,
+		 * Constants.JOB_SERVICE_URL);
+		 * 
+		 * baseNetworkManager.constructConnectionAndHitGET("Release Successful",
+		 * "Release Job Request Started", urlStringWithParams, this,
+		 * Constants.JOBS_VIEW, Constants.JOB_SERVICE_URL);
+		 */
 	}
 
 	@Override
@@ -260,6 +268,12 @@ public class JobsActivity extends SwipeListViewActivity implements
 	@Override
 	public void didFinishRequestProcessing(
 			ArrayList<HashMap<String, String>> list, String service) {
+
+		if (service.equals(Constants.COMMAND_URL)
+				|| service.equals(Constants.JOB_SERVICE)) {
+			return;
+		}
+
 		if (list != null) {
 			Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 1,
 					"Requesting Jobs List...");
@@ -346,13 +360,25 @@ public class JobsActivity extends SwipeListViewActivity implements
 		public void onAnimationEnd(Animation arg0) {
 			View rowView = listView.getChildAt(position);
 			if (rowView.getTag().toString() == "right") {
+				if (jobsList.get(position).get("hold_status").toString()
+						.equals("Held")) {
+					rowView.findViewById(R.id.btn1).setVisibility(View.VISIBLE);
+					rowView.findViewById(R.id.btn2).setVisibility(
+							View.INVISIBLE);
+					rowView.findViewById(R.id.btn3).setVisibility(View.VISIBLE);
+				} else if (jobsList.get(position).get("hold_status").toString()
+						.equals("Released")) {
+					rowView.findViewById(R.id.btn1).setVisibility(View.VISIBLE);
+					rowView.findViewById(R.id.btn2).setVisibility(View.VISIBLE);
+					rowView.findViewById(R.id.btn3).setVisibility(
+							View.INVISIBLE);
+				}
 				rowView.setBackgroundColor(Color.GRAY);
 				rowView.findViewById(R.id.title).setVisibility(View.INVISIBLE);
 				rowView.findViewById(R.id.description).setVisibility(
 						View.INVISIBLE);
 				rowView.findViewById(R.id.agent).setVisibility(View.INVISIBLE);
-				rowView.findViewById(R.id.btn1).setVisibility(View.VISIBLE);
-				rowView.findViewById(R.id.btn3).setVisibility(View.VISIBLE);
+
 				rowView.findViewById(R.id.hide).setVisibility(View.VISIBLE);
 				rowView.findViewById(R.id.list_image).setVisibility(
 						View.INVISIBLE);
@@ -370,6 +396,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 						View.VISIBLE);
 				rowView.findViewById(R.id.agent).setVisibility(View.VISIBLE);
 				rowView.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);
+				rowView.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
 				rowView.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);
 				rowView.findViewById(R.id.hide).setVisibility(View.INVISIBLE);
 				rowView.findViewById(R.id.list_image).setVisibility(
@@ -468,7 +495,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 			DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
 			signOutRequest();
-			JobsActivity.this.finish();			
+			JobsActivity.this.finish();
 			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",
 					Toast.LENGTH_LONG).show();
