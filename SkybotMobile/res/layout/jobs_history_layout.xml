@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:paddingBottom="5dip"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="14dip"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Suit Run Number"
         android:textColor="#343434"
