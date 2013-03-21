@@ -71,12 +71,12 @@ public class JobHistoriesParser {
 					.toString());
 			map.put("job_priority", json_data.get("job_priority").toString());
 
-			list.add(map); 
+			list.add(map);
 
 		}
 
 		if (serviceName.equals(Constants.MORE_JOB_HISTORIES)) {
-			//TODO: Investigate RESULT PARAMETER PROBLEM LATER: A.A. 
+			// TODO: Investigate RESULT PARAMETER PROBLEM LATER: A.A.
 			DataHolder.getInstance().emptyJobHistoriesList();
 			DataHolder.getInstance().jobHistoriesList.addAll(list);
 		} else {
@@ -112,24 +112,9 @@ public class JobHistoriesParser {
 
 		responseString = responseString
 				.replace(
-						"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_1</span>\"",
-						"\"Mobile_Job_Test_1\"");
-		responseString = responseString
-				.replace(
-						"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_2</span>\"",
-						"\"Mobile_Job_Test_2\"");
-		responseString = responseString
-				.replace(
-						"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_3</span>\"",
-						"\"Mobile_Job_Test_3\"");
-		responseString = responseString
-				.replace(
-						"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_4</span>\"",
-						"\"Mobile_Job_Test_4\"");
-		responseString = responseString
-				.replace(
-						"\"<span><span class='icon-job-individual-job'></span>Mobile_Job_Test_5</span>\"",
-						"\"Mobile_Job_Test_5\"");
+						"\"<span><span class='icon-job-individual-job'></span></span>\"",
+						"\"");
+
 		responseString = responseString
 				.replace(
 						"\"<span><span class='job-history-schedule-time job-history-server-time-zone'><span class='icon-job-history icon-job-history-server-time-zone'></span>",
@@ -149,7 +134,11 @@ public class JobHistoriesParser {
 						"<div class='job-history-status job-history-complete'><span class='icon-job-history icon-job-history-complete'></span>",
 						"");
 		responseString = responseString.replace("</div>", "");
+		responseString = responseString.replace("<div>", "");
 		responseString = responseString.replace("</span>", "");
+		responseString = responseString.replace("<span>", "");
+		responseString = responseString.replace(
+				"<span class='icon-job-individual-job'>", "");
 
 		return responseString;
 	}
