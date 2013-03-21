@@ -1,11 +1,5 @@
 package com.skybot.serivce;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import android.app.Activity;
@@ -19,6 +13,7 @@ import com.skybot.serivce.parser.JobsParser;
 import com.skybot.serivce.parser.ReportsParser;
 import com.skybot.serivce.parser.dataholder.DataHolder;
 import com.skybot.util.Constants;
+import com.skybot.util.Util;
 import com.skybot.util.ViewTracker;
 
 /**
@@ -310,6 +305,12 @@ public class BaseResponseAnalyzer {
 			} catch (ParseException e) {
 
 			}
+		} else if (serviceName.equals(Constants.PUSH_NOTIFICATION_SERVICE_URL)) {
+			System.err.println("RESPONSE DATA ================== "
+					+ responseData);
+		} else if (serviceName.equals(Constants.SIGN_OUT)) {
+			Util.writeString(ViewTracker.getInstance().getCurrentContext(),
+					Util.IS_LOGGED_IN, "NO");
 		}
 
 	}
