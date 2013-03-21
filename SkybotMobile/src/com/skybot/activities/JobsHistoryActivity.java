@@ -60,13 +60,23 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 		String system_Time = Long.toString(System.currentTimeMillis());
 
 		Map<String, String> job_params = creator
-				.createAppropriateMapRequest(Constants.DATE, system_Time,
-						Constants.RESULTS, String.valueOf(DataHolder
-								.getInstance().JOBS_HISTORIES_MORE_END_INDEX),
-						Constants.SORT, "id", Constants.DIRECTION, "DESC",
-						Constants.TAG, "", Constants.TAG_MATCH_ANY, "false",
-						Constants.START, String.valueOf(DataHolder
-								.getInstance().JOBS_HISTORIES_MORE_START_INDEX)
+				.createAppropriateMapRequest(
+						Constants.DATE,
+						system_Time,
+						Constants.RESULTS,
+						"500",
+						Constants.SORT,
+						"id",
+						Constants.DIRECTION,
+						"DESC",
+						Constants.TAG,
+						"",
+						Constants.TAG_MATCH_ANY,
+						"false",
+						Constants.START,
+						String.valueOf(DataHolder.getInstance().JOBS_HISTORIES_MORE_START_INDEX),
+						Constants.LIMIT, String.valueOf(DataHolder
+								.getInstance().JOBS_HISTORIES_MORE_END_INDEX)
 
 				// Additional constants for job history
 				/*
