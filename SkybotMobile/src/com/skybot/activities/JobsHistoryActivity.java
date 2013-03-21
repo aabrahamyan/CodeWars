@@ -173,6 +173,8 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 	public void didFailRequestProcessing() {
 		Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(),
 				1, "Requesting Job Histories...");
+		Toast.makeText(getApplicationContext(), "Request Failed",
+				Toast.LENGTH_SHORT).show();
 
 	}
 

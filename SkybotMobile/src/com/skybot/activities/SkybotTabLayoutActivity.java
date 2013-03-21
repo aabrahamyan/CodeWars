@@ -2,7 +2,9 @@ package com.skybot.activities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
+import com.skybot.util.Constants;
 import com.skybot.util.ServerUtilities;
 import static com.skybot.util.CommonUtilities.DISPLAY_MESSAGE_ACTION;
 import static com.skybot.util.CommonUtilities.EXTRA_MESSAGE;
@@ -26,6 +28,9 @@ import android.widget.Toast;
 import com.google.android.gcm.GCMRegistrar;
 
 import com.skybot.activities.delegate.ActionDelegate;
+import com.skybot.connection.connection.BaseNetworkManager;
+import com.skybot.connection.connection.helper.RequestCreator;
+import com.skybot.connection.connection.helper.RequestHelper;
 
 /**
  * Main Activity where all other pages and activities are initiated in Tab Bar
@@ -41,7 +46,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 	 * FRAGMENTS - A.A.
 	 */
 
-	TextView mDisplay;
+	// TextView mDisplay;
 	AsyncTask<Void, Void, Void> mRegisterTask;
 
 	@SuppressWarnings("deprecation")
@@ -53,16 +58,18 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		// ----------------------PushNotifications------------------------//
 		checkNotNull(SERVER_URL, "SERVER_URL");
 		checkNotNull(SENDER_ID, "SENDER_ID");
-		// Make sure the device has the proper dependencies.
+
 		GCMRegistrar.checkDevice(this);
-	
+
 		// Make sure the manifest was properly set - comment out this line
 		// while developing the app, then uncomment it when it's ready.
+
 		GCMRegistrar.checkManifest(this);
+
 		setContentView(R.layout.main);
-		// mDisplay = (TextView) findViewById(R.id.display);
-		registerReceiver(mHandleMessageReceiver, new IntentFilter(
-				DISPLAY_MESSAGE_ACTION));
+
+		// registerReceiver(mHandleMessageReceiver, new IntentFilter(
+		// DISPLAY_MESSAGE_ACTION));
 		final String regId = GCMRegistrar.getRegistrationId(this);
 		if (regId.equals("")) {
 			// Automatically registers application on startup.
@@ -71,7 +78,8 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 			// Device is already registered on GCM, check server.
 			if (GCMRegistrar.isRegisteredOnServer(this)) {
 				// Skips registration.
-				mDisplay.append(getString(R.string.already_registered) + "\n");
+				// mDisplay.append(getString(R.string.already_registered) +
+				// "\n");
 			} else {
 				// Try to register again, but not in the UI thread.
 				// It's also necessary to cancel the thread onDestroy(),
@@ -81,17 +89,12 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 
 					@Override
 					protected Void doInBackground(Void... params) {
-						boolean registered = ServerUtilities.register(context,
-								regId);
-						// At this point all attempts to register with the app
-						// server failed, so we need to unregister the device
-						// from GCM - the app will try to register again when
-						// it is restarted. Note that GCM will send an
-						// unregistered callback upon completion, but
-						// GCMIntentService.onUnregistered() will ignore it.
-						if (!registered) {
-							GCMRegistrar.unregister(context);
-						}
+
+						// ServerUtilities.requestRegId(regId);
+
+						// if (!registered) {
+						// GCMRegistrar.unregister(context);
+						// }
 						return null;
 					}
 
@@ -107,7 +110,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 
 		// ----------------------PushEnd-------------------//
 
-		//----------------------TabLayout-----------------//
+		// ----------------------TabLayout-----------------//
 		TabHost tabHost = getTabHost();
 
 		// Tab for Job
@@ -165,7 +168,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 	}
 
 	// -------------------------------------------Push------------------------------------------//
-	
+
 	/*
 	 * @Override protected void onDestroy() { if (mRegisterTask != null) {
 	 * mRegisterTask.cancel(true); } unregisterReceiver(mHandleMessageReceiver);
@@ -183,7 +186,7 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String newMessage = intent.getExtras().getString(EXTRA_MESSAGE);
-			mDisplay.append(newMessage + "\n");
+			// mDisplay.append(newMessage + "\n");
 		}
 	};
 
@@ -258,6 +261,21 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 			ArrayList<HashMap<String, String>> list) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+
+		GCMRegistrar.unregister(this);
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		GCMRegistrar.unregister(this);
 	}
 
 }

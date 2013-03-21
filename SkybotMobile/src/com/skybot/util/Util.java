@@ -12,6 +12,8 @@ public class Util {
 
 	public static final String LOGIN = "LOGIN";
 	public static final String PASSWORD = "PASSWORD";
+	
+	public static final String IS_LOGGED_IN = "IS_LOGGED_IN";
 
 	private static ProgressDialog mDialog;
 

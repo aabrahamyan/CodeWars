@@ -115,10 +115,19 @@ public class LoginActivity extends Activity implements ActionDelegate {
 		Intent skybottablayoutIntent = new Intent(getApplicationContext(),
 				SkybotTabLayoutActivity.class);
 
+		final String needToWriteLogin = Util.readString(this,
+				Util.IS_LOGGED_IN, null);
+		if (needToWriteLogin == null) {
+			Util.writeString(this, Util.IS_LOGGED_IN, "YES");
+		} else if (needToWriteLogin.equals("NO")) {
+			Util.writeString(this, Util.IS_LOGGED_IN, "YES");
+		}
+
 		Util.showOrHideActivityIndicator(LoginActivity.this, 1,
 				"Logging into Skybot...");
 
 		startActivity(skybottablayoutIntent);
+
 	}
 
 	@Override
@@ -133,6 +142,8 @@ public class LoginActivity extends Activity implements ActionDelegate {
 	public void didFailRequestProcessing() {
 		Util.showOrHideActivityIndicator(LoginActivity.this, 1,
 				"Logging into Skybot...");
+		Toast.makeText(getApplicationContext(), "Request Failed",
+				Toast.LENGTH_SHORT).show();
 
 	}
 

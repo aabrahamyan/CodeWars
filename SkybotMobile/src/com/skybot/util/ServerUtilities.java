@@ -22,7 +22,12 @@ import static com.skybot.util.CommonUtilities.displayMessage;
 
 import com.google.android.gcm.GCMRegistrar;
 import com.skybot.activities.R;
+import com.skybot.activities.SkybotTabLayoutActivity;
+import com.skybot.connection.connection.BaseNetworkManager;
+import com.skybot.connection.connection.helper.RequestCreator;
+import com.skybot.connection.connection.helper.RequestHelper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -53,9 +58,10 @@ public final class ServerUtilities {
 	 */
 	public static boolean register(final Context context, final String regId) {
 		Log.i(TAG, "registering device (regId = " + regId + ")");
-		String serverUrl = SERVER_URL + "/register";
+		String serverUrl = Constants.SERVER_URL + "/device_token";
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("regId", regId);
+		// params.put("regId", regId);
+		params.put("device_token", regId);
 		long backoff = BACKOFF_MILLI_SECONDS + random.nextInt(1000);
 		// Once GCM returns a registration id, we need to register it in the
 		// demo server. As the server might be down, we will retry it a couple
@@ -65,7 +71,9 @@ public final class ServerUtilities {
 			try {
 				displayMessage(context, context.getString(
 						R.string.server_registering, i, MAX_ATTEMPTS));
+
 				post(serverUrl, params);
+
 				GCMRegistrar.setRegisteredOnServer(context, true);
 				String message = context.getString(R.string.server_registered);
 				CommonUtilities.displayMessage(context, message);
@@ -178,5 +186,40 @@ public final class ServerUtilities {
 				conn.disconnect();
 			}
 		}
+	}
+
+	public static void requestRegId(final String regId) {
+
+		Activity activity = (Activity) ViewTracker.getInstance()
+				.getCurrentContext();
+
+		activity.runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+
+				RequestCreator creator = new RequestCreator();
+				BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
+
+				Map<String, String> job_params = creator
+						.createAppropriateMapRequest(
+								Constants.PUSH_NOTIFICATION_SERVICE_URL, regId);
+
+				final RequestHelper reqHelper = new RequestHelper();
+				String urlStringWithParams = reqHelper
+						.constructGetRequestString(job_params,
+								Constants.SERVER_URL,
+								Constants.PUSH_NOTIFICATION_SERVICE_URL);
+
+				baseNetworkManager.constructConnectionAndHitGET(
+						"Device ID Stored !", "Sending Push Requests",
+						urlStringWithParams, ViewTracker.getInstance()
+								.getCurrentContext(),
+						Constants.PUSH_NOTIFICATION_SERVICE,
+						Constants.PUSH_NOTIFICATION_SERVICE_URL);
+			}
+		});
+
 	}
 }

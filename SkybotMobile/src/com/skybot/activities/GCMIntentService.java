@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.skybot.serivce;
+package com.skybot.activities;
 
-import static com.skybot.util.CommonUtilities.SENDER_ID; 
+import static com.skybot.util.CommonUtilities.SENDER_ID;
 
-import  com.skybot.util.CommonUtilities;
-
-
+import com.skybot.util.CommonUtilities;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -31,9 +29,10 @@ import android.util.Log;
 import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.GCMRegistrar;
 import com.skybot.activities.R;
-import com.skybot.activities.SkybotTabLayoutActivity;
 import com.skybot.util.CommonUtilities;
 import com.skybot.util.ServerUtilities;
+import com.skybot.util.Util;
+import com.skybot.util.ViewTracker;
 
 /**
  * IntentService responsible for handling GCM messages.
@@ -50,16 +49,17 @@ public class GCMIntentService extends GCMBaseIntentService {
 	@Override
 	protected void onRegistered(Context context, String registrationId) {
 		Log.i(TAG, "Device registered: regId = " + registrationId);
-	//	displayMessage(context, getString(R.string.gcm_registered));
-		ServerUtilities.register(context, registrationId);
+		// displayMessage(context, getString(R.string.gcm_registered));
+		// ServerUtilities.register(context, registrationId);
+		ServerUtilities.requestRegId(registrationId);
 	}
 
 	@Override
 	protected void onUnregistered(Context context, String registrationId) {
 		Log.i(TAG, "Device unregistered");
-		//displayMessage(context, getString(R.string.gcm_unregistered));
+		// displayMessage(context, getString(R.string.gcm_unregistered));
 		if (GCMRegistrar.isRegisteredOnServer(context)) {
-			ServerUtilities.unregister(context, registrationId);
+			// ServerUtilities.unregister(context, registrationId);
 		} else {
 			// This callback results from the call to unregister made on
 			// ServerUtilities when the registration to the server failed.
@@ -70,8 +70,8 @@ public class GCMIntentService extends GCMBaseIntentService {
 	@Override
 	protected void onMessage(Context context, Intent intent) {
 		Log.i(TAG, "Received message");
-		String message = getString(R.string.gcm_message);
-	//	displayMessage(context, message);
+		String message = intent.getExtras().getString("message"); // getString(R.string.gcm_message);
+		// displayMessage(context, message);
 		// notifies user
 		generateNotification(context, message);
 	}
@@ -80,7 +80,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	protected void onDeletedMessages(Context context, int total) {
 		Log.i(TAG, "Received deleted messages notification");
 		String message = getString(R.string.gcm_deleted, total);
-		//displayMessage(context, message);
+		// displayMessage(context, message);
 		// notifies user
 		generateNotification(context, message);
 	}
@@ -88,7 +88,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	@Override
 	public void onError(Context context, String errorId) {
 		Log.i(TAG, "Received error: " + errorId);
-	//	displayMessage(context, getString(R.string.gcm_error, errorId));
+		// displayMessage(context, getString(R.string.gcm_error, errorId));
 	}
 
 	@Override
@@ -104,14 +104,33 @@ public class GCMIntentService extends GCMBaseIntentService {
 	 * Issues a notification to inform the user that server has sent a message.
 	 */
 	private static void generateNotification(Context context, String message) {
-		// int icon = R.drawable.ic_stat_gcm;
+		int icon = R.drawable.ic_launcher;
 		long when = System.currentTimeMillis();
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
-		int icon = 0;
 		Notification notification = new Notification(icon, message, when);
+
 		String title = context.getString(R.string.app_name);
-		Intent notificationIntent = new Intent(context, SkybotTabLayoutActivity.class);
+
+		Intent notificationIntent = null;
+
+		if (ViewTracker.getInstance() != null && ViewTracker.getInstance()
+				.getCurrentContext() != null) {
+			final String isLoggedIn = Util.readString(ViewTracker.getInstance()
+					.getCurrentContext(), Util.IS_LOGGED_IN, null);
+
+			if (isLoggedIn == null) {
+				notificationIntent = new Intent(context, LoginActivity.class);
+			} else if (isLoggedIn.equals("NO")) {
+				notificationIntent = new Intent(context, LoginActivity.class);
+			} else {
+				notificationIntent = new Intent(context,
+						SkybotTabLayoutActivity.class);
+			}
+		} else {
+			notificationIntent = new Intent(context, LoginActivity.class);
+		}
+
 		// set intent so it does not start a new activity
 		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 				| Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -119,7 +138,14 @@ public class GCMIntentService extends GCMBaseIntentService {
 				notificationIntent, 0);
 		notification.setLatestEventInfo(context, title, message, intent);
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+		// Play default notification sound
+		notification.defaults |= Notification.DEFAULT_SOUND;
+
+		// Vibrate if vibrate is enabled
+		notification.defaults |= Notification.DEFAULT_VIBRATE;
 		notificationManager.notify(0, notification);
 	}
 
+	
 }

@@ -143,7 +143,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	}
 
 	public void runJob(View v, String id) {
-		Toast.makeText(JobsActivity.this, "Job is running. Please wait.",
+		Toast.makeText(JobsActivity.this, "Job is running. Please wait...",
 				Toast.LENGTH_LONG).show();
 		Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 0,
 				"Running Job...");
@@ -468,7 +468,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 			DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
 			signOutRequest();
-			JobsActivity.this.finish();
+			JobsActivity.this.finish();			
 			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",
 					Toast.LENGTH_LONG).show();
