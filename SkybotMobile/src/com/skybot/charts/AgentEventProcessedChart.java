@@ -75,7 +75,7 @@ public class AgentEventProcessedChart {
 //	    renderer4.setChartValuesTextSize(20);
 	    renderer4.setColor(Color.parseColor("#C0C0C0"));
 	    
-	    chartSettings.addYlabelsColor(mRenderer, maxAxis);
+//	    chartSettings.addYlabelsColor(mRenderer, maxAxis);
 	    
 	    dataset.addSeries(series.toXYSeries());
 		dataset.addSeries(series2.toXYSeries());
