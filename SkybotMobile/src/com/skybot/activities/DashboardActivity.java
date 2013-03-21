@@ -321,13 +321,6 @@ public class DashboardActivity extends FragmentActivity implements
 
 		case R.id.menu_refresh:
 			sendAndGetCharts();
-//			
-//			for(int i=0;i<4;i++) {
-//				ScrollItemsFragment fragment = (ScrollItemsFragment)pagerAdapter.getItem(i);
-//				fragment.getView();
-//			}
-			
-			
 			return true;
 
 		default:
