@@ -30,6 +30,7 @@ public class JobsAdapter extends BaseAdapter {
 	private static LayoutInflater inflater = null;
 	private Drawable hold;
 	private Drawable run;
+	private Drawable release;
 
 	public JobsAdapter(JobsActivity a, ArrayList<HashMap<String, String>> d) {
 		activity = a;
@@ -38,6 +39,7 @@ public class JobsAdapter extends BaseAdapter {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		hold = a.getResources().getDrawable(R.drawable.hold_job);
 		run = a.getResources().getDrawable(R.drawable.run_job);
+		release = a.getResources().getDrawable(R.drawable.release_job);
 	}
 
 	public int getCount() {
@@ -64,7 +66,8 @@ public class JobsAdapter extends BaseAdapter {
 		TextView agent = (TextView) vi.findViewById(R.id.agent); // agent
 		ImageView image = (ImageView) vi.findViewById(R.id.list_image); // status
 		final ImageView runBtn = (ImageView) vi.findViewById(R.id.btn1);
-		ImageView releaseBtn = (ImageView) vi.findViewById(R.id.btn3);
+		final ImageView holdBtn = (ImageView) vi.findViewById(R.id.btn2);
+		final ImageView releaseBtn = (ImageView) vi.findViewById(R.id.btn3);
 		ImageView showDetails = (ImageView) vi.findViewById(R.id.details);
 
 		try {
@@ -78,9 +81,17 @@ public class JobsAdapter extends BaseAdapter {
 				if (m.get("hold_status").toString().equals("Released")) {
 					image.setImageResource(R.drawable.blank_badge_green);
 					status = "Released";
+					/*
+					 * holdBtn.setVisibility(View.VISIBLE);
+					 * releaseBtn.setVisibility(View.INVISIBLE);
+					 */
 				} else if (m.get("hold_status").toString().equals("Held")) {
 					image.setImageResource(R.drawable.blank_badge_orange);
 					status = "Held";
+					/*
+					 * holdBtn.setVisibility(View.INVISIBLE);
+					 * releaseBtn.setVisibility(View.VISIBLE);
+					 */
 				} else if (m.get("hold_status").toString().equals("Running")) {
 					image.setImageResource(R.drawable.blank_badge_red);
 					status = "Running";
@@ -92,6 +103,7 @@ public class JobsAdapter extends BaseAdapter {
 				runid[0] = m.get("runid");
 				runid[1] = status;
 				runBtn.setTag(runid);
+				holdBtn.setTag(runid);
 				releaseBtn.setTag(runid);
 				final HashMap<String, String> detailMap;
 				detailMap = m;
@@ -116,24 +128,28 @@ public class JobsAdapter extends BaseAdapter {
 					@SuppressWarnings("deprecation")
 					@Override
 					public void onClick(View v) {
-						
+
 						String[] rid = (String[]) v.getTag();
 						if (rid[1].equals("Held") || rid[1].equals("Released")) {
 							activity.runJob(v, rid[0]);
-							int sdk = android.os.Build.VERSION.SDK_INT;
-							if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-								runBtn.setBackgroundDrawable(hold);
-							} else {
-								runBtn.setBackground(hold);
-							}
-						} else if (rid[1].equals("Running")) {
+						}
+					}
+				});
+
+				holdBtn.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						String[] rid = (String[]) v.getTag();
+						if (rid[1].equals("Released")) {
 							activity.holdJob(v, rid[0]);
-							int sdk = android.os.Build.VERSION.SDK_INT;
-							if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-								runBtn.setBackgroundDrawable(run);
-							} else {
-								runBtn.setBackground(run);
-							}
+							holdBtn.setVisibility(View.INVISIBLE);
+							releaseBtn.setVisibility(View.VISIBLE);
+						}
+						else if (rid[1].equals("Held")) {
+							Toast.makeText(v.getContext(),
+									"Job is already released.",
+									Toast.LENGTH_SHORT).show();
 						}
 					}
 				});
@@ -141,10 +157,12 @@ public class JobsAdapter extends BaseAdapter {
 				releaseBtn.setOnClickListener(new OnClickListener() {
 
 					@Override
-					public void onClick(View v) {						
+					public void onClick(View v) {
 						String[] rid = (String[]) v.getTag();
-						if (rid[1].equals("Running") || rid[1].equals("Held")) {
+						if (rid[1].equals("Held")) {
 							activity.releaseJob(v, rid[0]);
+							releaseBtn.setVisibility(View.INVISIBLE);
+							holdBtn.setVisibility(View.VISIBLE);
 						} else if (rid[1].equals("Released")) {
 							Toast.makeText(v.getContext(),
 									"Job is already released.",
@@ -161,6 +179,7 @@ public class JobsAdapter extends BaseAdapter {
 		vi.findViewById(R.id.description).setVisibility(View.VISIBLE);
 		vi.findViewById(R.id.agent).setVisibility(View.VISIBLE);
 		vi.findViewById(R.id.btn1).setVisibility(View.INVISIBLE);
+		vi.findViewById(R.id.btn2).setVisibility(View.INVISIBLE);
 		vi.findViewById(R.id.btn3).setVisibility(View.INVISIBLE);
 		vi.findViewById(R.id.hide).setVisibility(View.INVISIBLE);
 		vi.findViewById(R.id.list_image).setVisibility(View.VISIBLE);
