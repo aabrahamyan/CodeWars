@@ -190,7 +190,11 @@ public class DashboardActivity extends FragmentActivity implements
 
 	@Override
 	public void didFailRequestProcessing() {
+		Util.showOrHideActivityIndicator(DashboardActivity.this.getParent(), 1,
+				"Getting Dashboard info...");
 
+		Toast.makeText(getApplicationContext(), "Request Failed",
+				Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

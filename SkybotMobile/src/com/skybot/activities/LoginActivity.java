@@ -133,6 +133,8 @@ public class LoginActivity extends Activity implements ActionDelegate {
 	public void didFailRequestProcessing() {
 		Util.showOrHideActivityIndicator(LoginActivity.this, 1,
 				"Logging into Skybot...");
+		Toast.makeText(getApplicationContext(), "Request Failed",
+				Toast.LENGTH_SHORT).show();
 
 	}
 

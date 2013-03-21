@@ -13,6 +13,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Toast;
 import com.skybot.activities.delegate.ActionDelegate;
@@ -51,6 +53,11 @@ public class HelpActivity extends FragmentActivity implements ActionDelegate {
         ((CirclePageIndicator) mIndicator).setFillColor(Color.parseColor("#65BDE3"));
         ((CirclePageIndicator) mIndicator).setStrokeColor(Color.GRAY);
         ((CirclePageIndicator) mIndicator).setStrokeWidth(1);
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		return false;
 	}
 
 	@Override

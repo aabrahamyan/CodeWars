@@ -182,6 +182,8 @@ public class JobHistoryReportActivity extends ListActivity implements
 
 		if (mProgressDialog != null && mProgressDialog.isShowing()) {
 			mProgressDialog.dismiss();
+			Toast.makeText(getApplicationContext(), "Request Failed",
+					Toast.LENGTH_SHORT).show();
 		}
 
 	}
@@ -286,7 +288,7 @@ public class JobHistoryReportActivity extends ListActivity implements
 			DialogInterface.OnClickListener {
 
 		public void onClick(DialogInterface dialog, int which) {
-			JobsActivity.getActivity().signOutRequest();			
+			JobsActivity.getActivity().signOutRequest();
 			JobHistoryReportActivity.this.finish();
 			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",

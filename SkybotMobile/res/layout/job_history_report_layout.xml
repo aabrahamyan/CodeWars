@@ -59,6 +59,7 @@
         android:layout_below="@id/title"
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"
+        android:paddingBottom="10dip"
         android:text=""
         android:textColor="#343434"
         android:textSize="10dip" />
@@ -70,7 +71,7 @@
         android:layout_width="20dip"
         android:layout_height="20dip"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"      
+        android:layout_centerVertical="true"
         android:src="@drawable/download_icon" />
 
 </RelativeLayout>

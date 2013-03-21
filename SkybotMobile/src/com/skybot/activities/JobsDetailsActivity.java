@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.JobDetailsAdapter;
 
@@ -39,7 +41,8 @@ public class JobsDetailsActivity extends Activity implements ActionDelegate {
 	@Override
 	public void didFailRequestProcessing() {
 		// TODO Auto-generated method stub
-
+		Toast.makeText(getApplicationContext(), "Request Failed",
+				Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

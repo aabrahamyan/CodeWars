@@ -60,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_marginTop="1dip"
+        android:paddingBottom="5dip"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="ID"
         android:textColor="#343434"
