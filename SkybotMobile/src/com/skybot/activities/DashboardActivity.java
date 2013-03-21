@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,8 +17,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.WindowManager;
 import android.widget.Toast;
+
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.adapters.ScrollItemsFragmentAdapter;
 import com.skybot.charts.singleton.ChartSingleton;
@@ -190,7 +190,11 @@ public class DashboardActivity extends FragmentActivity implements
 
 	@Override
 	public void didFailRequestProcessing() {
+		Util.showOrHideActivityIndicator(DashboardActivity.this.getParent(), 1,
+				"Getting Dashboard info...");
 
+		Toast.makeText(getApplicationContext(), "Request Failed",
+				Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

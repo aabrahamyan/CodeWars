@@ -41,4 +41,8 @@ public class ScrollItemsFragmentAdapter extends FragmentPagerAdapter {
 	public int getCount() {
 		return PAGE_COUNT;
 	}
+	
+	public int getItemPosition(Object object) {
+	    return POSITION_NONE;
+	}
 }

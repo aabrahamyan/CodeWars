@@ -71,10 +71,13 @@ public class JobsActivity extends SwipeListViewActivity implements
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 
 		Map<String, String> job_params = creator.createAppropriateMapRequest(
-				Constants.DATE, system_Time, Constants.RESULTS, "5",
+				Constants.DATE, system_Time, Constants.RESULTS,
+				String.valueOf(DataHolder.getInstance().JOBS_MORE_END_INDEX),
 				Constants.SORT, "name", Constants.DIRECTION, "ASC",
 				Constants.TAG, "", Constants.TAG_MATCH_ANY, "false",
-				Constants.START, "0", Constants.LIMIT, "500");
+				Constants.START,
+				String.valueOf(DataHolder.getInstance().JOBS_MORE_START_INDEX),
+				Constants.LIMIT, "500");
 
 		final RequestHelper reqHelper = new RequestHelper();
 		String urlStringWithParams = reqHelper.constructGetRequestString(
@@ -119,7 +122,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 				"Log out Request Started", urlStringWithParams, this,
 				Constants.LOGOUT_VIEW, Constants.SIGN_OUT);
 	}
-	
+
 	public static JobsActivity getActivity() {
 		return activity;
 	}
@@ -140,7 +143,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 	}
 
 	public void runJob(View v, String id) {
-		Toast.makeText(JobsActivity.this, "Job is running. Please wait.",
+		Toast.makeText(JobsActivity.this, "Job is running. Please wait...",
 				Toast.LENGTH_LONG).show();
 		Util.showOrHideActivityIndicator(JobsActivity.this.getParent(), 0,
 				"Running Job...");
@@ -293,22 +296,22 @@ public class JobsActivity extends SwipeListViewActivity implements
 		View rowView = listView.getChildAt(position);
 		if (isRight) {
 			if (rowView.getTag().toString() == "left") {
-				rowView.startAnimation(getSwipeAnimation(0,
-						rowView.getWidth(), position));
+				rowView.startAnimation(getSwipeAnimation(0, rowView.getWidth(),
+						position));
 				rowView.setTag("right");
 			} else {
-				rowView.startAnimation(getSwipeAnimation(0,
-						rowView.getWidth(), position));
+				rowView.startAnimation(getSwipeAnimation(0, rowView.getWidth(),
+						position));
 				rowView.setTag("left");
 			}
 		} else {
 			if (rowView.getTag().toString() == "left") {
-				rowView.startAnimation(getSwipeAnimation(rowView.getWidth(),
-						0, position));
+				rowView.startAnimation(getSwipeAnimation(rowView.getWidth(), 0,
+						position));
 				rowView.setTag("right");
 			} else {
-				rowView.startAnimation(getSwipeAnimation(rowView.getWidth(),
-						0, position));
+				rowView.startAnimation(getSwipeAnimation(rowView.getWidth(), 0,
+						position));
 				rowView.setTag("left");
 			}
 		}
@@ -332,8 +335,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 		return animation;
 	}
 
-	public class SwipeAnimationListenter implements
-			Animation.AnimationListener {
+	public class SwipeAnimationListenter implements Animation.AnimationListener {
 		private int position;
 
 		public SwipeAnimationListenter(int position) {
@@ -466,7 +468,7 @@ public class JobsActivity extends SwipeListViewActivity implements
 			DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
 			signOutRequest();
-			JobsActivity.this.finish();
+			JobsActivity.this.finish();			
 			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",
 					Toast.LENGTH_LONG).show();

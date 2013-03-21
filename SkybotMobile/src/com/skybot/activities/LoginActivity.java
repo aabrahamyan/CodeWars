@@ -67,14 +67,9 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 		// ------------------- Setting up login request here -------------- //
 		authToken = Base64Coder.encodeRandomBase64();
-
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
-
 		RequestCreator creator = new RequestCreator();
-		// TODO: Gor es icnh es gre, ova ase vor partadira username-@ passi het
-		// nuyne lni ???
-		// if ((username.getText().toString()).equals(password.getText()
-		// .toString())) {
+
 		final String uname = username.getText().toString().trim();
 		final String pass = password.getText().toString().trim();
 
@@ -84,9 +79,8 @@ public class LoginActivity extends Activity implements ActionDelegate {
 
 			Map<String, String> params = creator.createAppropriateMapRequest(
 
-			Constants.AUTH_TOKEN, authToken, Constants.USERNAME,
-					Constants.ADMIN, Constants.PASSWORD, Constants.ADMIN,
-					Constants.COMMIT, "Log In");
+			Constants.AUTH_TOKEN, authToken, Constants.USERNAME, uname,
+					Constants.PASSWORD, pass, Constants.COMMIT, "Log In");
 
 			// ----------------------- Construct POST DATA
 			// ---------------------------//
@@ -148,6 +142,8 @@ public class LoginActivity extends Activity implements ActionDelegate {
 	public void didFailRequestProcessing() {
 		Util.showOrHideActivityIndicator(LoginActivity.this, 1,
 				"Logging into Skybot...");
+		Toast.makeText(getApplicationContext(), "Request Failed",
+				Toast.LENGTH_SHORT).show();
 
 	}
 

@@ -60,12 +60,16 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		checkNotNull(SENDER_ID, "SENDER_ID");
 
 		GCMRegistrar.checkDevice(this);
+
+		// Make sure the manifest was properly set - comment out this line
+		// while developing the app, then uncomment it when it's ready.
+
 		GCMRegistrar.checkManifest(this);
 
 		setContentView(R.layout.main);
 
-		//registerReceiver(mHandleMessageReceiver, new IntentFilter(
-		//		DISPLAY_MESSAGE_ACTION));
+		// registerReceiver(mHandleMessageReceiver, new IntentFilter(
+		// DISPLAY_MESSAGE_ACTION));
 		final String regId = GCMRegistrar.getRegistrationId(this);
 		if (regId.equals("")) {
 			// Automatically registers application on startup.
@@ -85,12 +89,9 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 
 					@Override
 					protected Void doInBackground(Void... params) {
-						
-						
-						//ServerUtilities.requestRegId(regId);
-						
 
-						
+						// ServerUtilities.requestRegId(regId);
+
 						// if (!registered) {
 						// GCMRegistrar.unregister(context);
 						// }
@@ -261,15 +262,15 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		
-		GCMRegistrar.unregister(this); 
+
+		GCMRegistrar.unregister(this);
 	}
-	
+
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub

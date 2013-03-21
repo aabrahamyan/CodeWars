@@ -171,7 +171,8 @@ public class AgentActivity extends ListActivity implements ActionDelegate {
 	public void didFailRequestProcessing() {
 		Util.showOrHideActivityIndicator(AgentActivity.this.getParent(), 1,
 				"Getting Agents list...");
-
+		Toast.makeText(getApplicationContext(), "Request Failed",
+				Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

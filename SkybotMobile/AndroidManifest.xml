@@ -59,7 +59,11 @@
         <!-- Login Activity -->
         <activity
             android:name="com.skybot.activities.LoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" 
+            android:configChanges="orientation"
+    		android:screenOrientation="portrait"
+    		
+            >
 
             <!-- SkybotTabLayoutActivity -->
 
@@ -72,37 +76,68 @@
 
         <!-- SkybotTabLayoutActivity -->
 
-        <activity android:name="com.skybot.activities.SkybotTabLayoutActivity" />
+        <activity android:name="com.skybot.activities.SkybotTabLayoutActivity" 
+	              android:configChanges="orientation"
+	    		  android:screenOrientation="portrait"
+            />
 
         <!-- Songs Activity -->
 
-        <activity android:name="com.skybot.activities.DashboardActivity" />
+        <activity android:name="com.skybot.activities.DashboardActivity"
+            	  android:configChanges="orientation"
+	    		  android:screenOrientation="portrait"
+             />
 
         <!-- Jobs History Activity -->
-        <activity android:name="com.skybot.activities.JobsHistoryActivity" />
+        <activity android:name="com.skybot.activities.JobsHistoryActivity" 
+            	  android:configChanges="orientation"
+	    		  android:screenOrientation="portrait"
+            />
 
         <!-- Jobs Activity -->
-        <activity android:name="com.skybot.activities.JobsActivity" />
+        <activity android:name="com.skybot.activities.JobsActivity" 
+            	  android:configChanges="orientation"
+	    		  android:screenOrientation="portrait"
+            />
 
         <!-- Agent Activity -->
-        <activity android:name="com.skybot.activities.AgentActivity" />
+        <activity android:name="com.skybot.activities.AgentActivity" 
+           		  android:configChanges="orientation"
+	    		  android:screenOrientation="portrait"
+            />
 
         <!-- Report Activity -->
-        <activity android:name="com.skybot.activities.JobHistoryReportActivity" />
+        <activity android:name="com.skybot.activities.JobHistoryReportActivity" 
+           		  android:configChanges="orientation"
+	    		  android:screenOrientation="portrait"
+            />
 
         <!-- Settings Activity -->
-        <activity android:name="com.skybot.activities.HelpActivity" />
+        <activity android:name="com.skybot.activities.HelpActivity" 
+            	  android:configChanges="orientation"
+	    		  android:screenOrientation="portrait"
+            />
 
         <!-- Jobs Details Activity -->
-        <activity android:name="com.skybot.activities.JobsDetailsActivity" />
+        <activity android:name="com.skybot.activities.JobsDetailsActivity"
+           		  android:configChanges="orientation"
+	    		  android:screenOrientation="portrait"
+             />
 
         <!-- Entry for RegisterActivity.class -->
         <activity
             android:name=".RegisterActivity"
-            android:label="Register New Account" >
+            android:label="Register New Account"
+            android:configChanges="orientation"
+	    	android:screenOrientation="portrait"
+	    	
+             >
         </activity>
         <!-- Chart Engine Activity -->
-        <activity android:name="org.achartengine.GraphicalActivity" />
+        <activity android:name="org.achartengine.GraphicalActivity"
+            android:configChanges="orientation"
+	    	android:screenOrientation="portrait"
+             />
 
         <!--
           BroadcastReceiver that will receive intents from GCM

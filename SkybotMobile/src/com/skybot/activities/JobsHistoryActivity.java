@@ -50,7 +50,7 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 		listView = getListView(); //
 		adapter = new JobsHistoryAdapter(this, jobsList);
 		listView.setAdapter(adapter);
-	} 
+	}
 
 	private void getJobsHistoryResponse() {
 		Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(),
@@ -59,13 +59,16 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 		BaseNetworkManager baseNetworkManager = new BaseNetworkManager();
 		String system_Time = Long.toString(System.currentTimeMillis());
 
-		Map<String, String> job_params = creator.createAppropriateMapRequest(
-				Constants.DATE, system_Time, Constants.RESULTS, "5",
-				Constants.SORT, "id", Constants.DIRECTION, "DESC",
-				Constants.TAG, "", Constants.TAG_MATCH_ANY, "false",
-				Constants.START, "0"
+		Map<String, String> job_params = creator
+				.createAppropriateMapRequest(Constants.DATE, system_Time,
+						Constants.RESULTS, String.valueOf(DataHolder
+								.getInstance().JOBS_HISTORIES_MORE_END_INDEX),
+						Constants.SORT, "id", Constants.DIRECTION, "DESC",
+						Constants.TAG, "", Constants.TAG_MATCH_ANY, "false",
+						Constants.START, String.valueOf(DataHolder
+								.getInstance().JOBS_HISTORIES_MORE_START_INDEX)
 
-		// Additional constants for job history
+				// Additional constants for job history
 				/*
 				 * Constants.DATAFILTERFIELD, "server_initiated_time_utc",
 				 * Constants.DATAFILTERDATACOMPARASION, "eq",
@@ -170,6 +173,8 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 	public void didFailRequestProcessing() {
 		Util.showOrHideActivityIndicator(JobsHistoryActivity.this.getParent(),
 				1, "Requesting Job Histories...");
+		Toast.makeText(getApplicationContext(), "Request Failed",
+				Toast.LENGTH_SHORT).show();
 
 	}
 
@@ -213,8 +218,8 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 	private final class OkOnClickListener implements
 			DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
-			JobsActivity.getActivity().signOutRequest();	
-			JobsHistoryActivity.this.finish();	
+			JobsActivity.getActivity().signOutRequest();
+			JobsHistoryActivity.this.finish();
 			DataHolder.getInstance().emptyDataSet();
 			Toast.makeText(getApplicationContext(), "Log out",
 					Toast.LENGTH_LONG).show();
@@ -222,7 +227,7 @@ public class JobsHistoryActivity extends ListActivity implements ActionDelegate 
 	}
 
 	/****************************** Menu Callbacks ************************************/
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater menuInflater = getMenuInflater();
