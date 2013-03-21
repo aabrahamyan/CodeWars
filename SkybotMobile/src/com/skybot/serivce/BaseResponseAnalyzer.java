@@ -4,6 +4,7 @@ import org.json.simple.parser.ParseException;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.skybot.activities.delegate.ActionDelegate;
 import com.skybot.serivce.parser.AgentsParser;
@@ -37,10 +38,40 @@ public class BaseResponseAnalyzer {
 			final String urlWithParams, final String responseData) {
 
 		if (serviceName.equals(Constants.LOGIN_SERVICE)) {
+			final ActionDelegate del = (ActionDelegate) ViewTracker
+					.getInstance().getCurrentContext();
+			if (responseData.indexOf("Password is not valid") != -1
+					|| responseData.indexOf("Username is not valid") != -1
+					|| responseData.indexOf("Errors with login form") != -1) {
 
-			ActionDelegate del = (ActionDelegate) ViewTracker.getInstance()
-					.getCurrentContext();
-			del.didFinishRequestProcessing();
+				final Activity jobsActivity = (Activity) ViewTracker
+						.getInstance().getCurrentContext();
+
+				jobsActivity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						del.didFailRequestProcessing();
+						Toast.makeText(
+								ViewTracker.getInstance().getCurrentContext(),
+								"Invalid credentials !", Toast.LENGTH_LONG)
+								.show();
+					}
+				});
+
+			} else {
+				final Activity jobsActivity = (Activity) ViewTracker
+						.getInstance().getCurrentContext();
+
+				jobsActivity.runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						del.didFinishRequestProcessing();
+					}
+				});
+			}
+
 		}
 		/******************************************* JOB **********************************************/
 		else if (serviceName.equals(Constants.JOB_SERVICE_URL)
