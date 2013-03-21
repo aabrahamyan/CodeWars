@@ -144,8 +144,8 @@ public class SkybotTabLayoutActivity extends TabActivity implements
 		agentspec.setContent(agentIntent);
 
 		// Tab for Report
-		TabSpec reportspec = tabHost.newTabSpec("Report");
-		reportspec.setIndicator("Report",
+		TabSpec reportspec = tabHost.newTabSpec("Reports");
+		reportspec.setIndicator("Reports",
 				getResources().getDrawable(R.drawable.icon_report_tab));
 		Intent reportIntent = new Intent(this, JobHistoryReportActivity.class);
 		reportspec.setContent(reportIntent);
