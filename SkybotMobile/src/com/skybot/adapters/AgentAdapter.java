@@ -12,10 +12,13 @@ import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.skybot.activities.AgentActivity;
+import com.skybot.activities.JobsActivity;
 import com.skybot.activities.R;
 import com.skybot.serivce.parser.dataholder.DataHolder;
+import com.skybot.util.Util;
 
 public class AgentAdapter extends BaseAdapter {
 
@@ -89,6 +92,10 @@ public class AgentAdapter extends BaseAdapter {
 
 				@Override
 				public void onClick(View v) {
+					Util.showOrHideActivityIndicator(activity.getParent(), 0,
+							"Please wait...");
+					Toast.makeText(activity, "Restarting agent...",
+							Toast.LENGTH_LONG).show();
 					String id = v.getTag().toString();					
 					DataHolder.getInstance().emptyAgentsList();
 					activity.restartAgent(v, id);
