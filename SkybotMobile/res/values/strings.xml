@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, AndroidTabLayoutActivity!</string>
-    <string name="app_name">Skybot</string>
+    <string name="app_name">Skybot Mobile</string>
     <string name="error_config">Please set the %1$s constant and recompile the app.</string>
     <string name="already_registered">Device is already registered on server.</string>
     <string name="gcm_registered">From GCM: device successfully registered!</string>

@@ -5,7 +5,7 @@ public class Constants {
 	// ---------------------------- General HTTP Request Information
 	// ----------------//
 
-	public static String SERVER_URL = "http://212.34.250.251:8008/skybot-scheduler";// "http://192.168.0.5:8008/skybot-scheduler";//
+	public static String SERVER_URL = "http://212.34.250.251:8008/skybot-scheduler";//"http://192.168.0.5:8008/skybot-scheduler";// "http://192.168.0.5:8008/skybot-scheduler";//
 																					// "http://192.168.0.146:3000";//"http://192.168.0.152:3000";
 																					// //"http://192.168.0.5:8008/skybot-scheduler";//"http://192.168.0.5:8008/skybot-scheduler";
 																					// //

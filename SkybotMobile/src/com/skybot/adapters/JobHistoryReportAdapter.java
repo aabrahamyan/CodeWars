@@ -92,7 +92,7 @@ public class JobHistoryReportAdapter extends BaseAdapter {
 
 				@Override
 				public void onClick(View v) {
-					String pdfurl = "http://212.34.250.251:8008/skybot-scheduler/user_files/"
+					String pdfurl = "http://212.34.250.251:8008/skybot-scheduler/user_files/"//"http://192.168.0.5:8008/skybot-scheduler/user_files/" 
 							+ m.get("id") + "?download=true";
 
 					//Intent intent = new Intent(Intent.ACTION_VIEW);
